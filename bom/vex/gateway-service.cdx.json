@@ -1,0 +1,264 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "metadata": {
+    "component": {
+      "bom-ref": "smartparking.bom.gateway-service:vex",
+      "description": "Secure protocol translation with Modbus security wrapper and pluggable adapters",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/your-repo/gateway-service"
+        }
+      ],
+      "group": "smartparking",
+      "name": "Gateway Service",
+      "properties": [
+        {
+          "name": "smartparking.ai_decision_role",
+          "value": "supporting"
+        },
+        {
+          "name": "smartparking.arch_ref",
+          "value": "smartparking.arch.container.gateway-service"
+        },
+        {
+          "name": "smartparking.artifact_kind",
+          "value": "vex"
+        },
+        {
+          "name": "smartparking.artifact_origin",
+          "value": "architecture-derived-scaffold"
+        },
+        {
+          "name": "smartparking.artifact_status",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.asset_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.bom_ref",
+          "value": "smartparking.bom.gateway-service"
+        },
+        {
+          "name": "smartparking.cyber_physical_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.deployment_zone",
+          "value": "edge"
+        },
+        {
+          "name": "smartparking.derived_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.escalation_owner",
+          "value": "platform-security-review-board"
+        },
+        {
+          "name": "smartparking.escalation_owner_subject",
+          "value": "platform-security-review-board"
+        },
+        {
+          "name": "smartparking.escalation_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.escalation_status",
+          "value": "not-required"
+        },
+        {
+          "name": "smartparking.evidence_kinds",
+          "value": "advisory_record"
+        },
+        {
+          "name": "smartparking.evidence_reference_count",
+          "value": "1"
+        },
+        {
+          "name": "smartparking.evidence_source_types",
+          "value": "product-advisory-triage"
+        },
+        {
+          "name": "smartparking.freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.governed_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.handles_secrets",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.handoff_to",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.internet_exposure",
+          "value": "indirect"
+        },
+        {
+          "name": "smartparking.last_reviewed",
+          "value": "not-reviewed"
+        },
+        {
+          "name": "smartparking.mapping_mode",
+          "value": "one-to-many-evidence-subjects"
+        },
+        {
+          "name": "smartparking.next_review_due",
+          "value": "unscheduled"
+        },
+        {
+          "name": "smartparking.owner",
+          "value": "platform-team"
+        },
+        {
+          "name": "smartparking.ownership",
+          "value": "platform-team"
+        },
+        {
+          "name": "smartparking.physical_control",
+          "value": "direct"
+        },
+        {
+          "name": "smartparking.privilege_level",
+          "value": "device-control"
+        },
+        {
+          "name": "smartparking.provenance_freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.provenance_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.provenance_selected_source",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.review_blocking",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.review_cadence",
+          "value": "monthly"
+        },
+        {
+          "name": "smartparking.review_status",
+          "value": "planned"
+        },
+        {
+          "name": "smartparking.reviewed_by",
+          "value": "unassigned"
+        },
+        {
+          "name": "smartparking.runtime_unit",
+          "value": "edge-gateway-service"
+        },
+        {
+          "name": "smartparking.safety_impact",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.selected_evidence_adapter",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_input_state",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_kind",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_subject",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_reference",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_type",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.subject_kind",
+          "value": "deployable-service"
+        },
+        {
+          "name": "smartparking.subject_type",
+          "value": "cyber-physical-runtime"
+        },
+        {
+          "name": "smartparking.supplier_name",
+          "value": "Smart Parking Platform Team"
+        },
+        {
+          "name": "smartparking.supplier_type",
+          "value": "first-party"
+        },
+        {
+          "name": "smartparking.synthetic_content",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.technology",
+          "value": "Python + TLS/VPN + Security Framework"
+        },
+        {
+          "name": "smartparking.exploitability_context",
+          "value": "edge gateway in the gate-control path; compromise could affect physical actions."
+        },
+        {
+          "name": "smartparking.relationship_count",
+          "value": "7"
+        },
+        {
+          "name": "smartparking.vex_scope",
+          "value": "deployable-unit"
+        }
+      ],
+      "type": "application",
+      "version": "0.5.0-architecture-scaffold"
+    },
+    "properties": [
+      {
+        "name": "smartparking.default_analysis_state",
+        "value": "not-reviewed"
+      },
+      {
+        "name": "smartparking.evidence_limitations",
+        "value": "No advisory review output is committed yet."
+      },
+      {
+        "name": "smartparking.evidence_mode",
+        "value": "synthetic-with-rule-evaluated-bindings"
+      },
+      {
+        "name": "smartparking.evidence_references",
+        "value": "placeholder://gateway-runtime/vex-review"
+      },
+      {
+        "name": "smartparking.note",
+        "value": "Architecture-derived VEX scaffold. Add real vulnerability assertions only after scanner or advisory review."
+      },
+      {
+        "name": "smartparking.scope_kind",
+        "value": "vex"
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:dd5b1a46-ecce-5f54-9024-60ce44822b1f",
+  "specVersion": "1.6",
+  "version": 1,
+  "vulnerabilities": []
+}

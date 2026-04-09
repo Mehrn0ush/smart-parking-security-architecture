@@ -1,0 +1,420 @@
+{
+  "schema_version": "4.0",
+  "format_note": "This file uses a YAML-compatible JSON subset so the repository can stay standard-library-only.",
+  "policy_defaults": {
+    "artifact_origin": "architecture-derived-scaffold",
+    "artifact_evidence": "demo",
+    "artifact_status": "scaffolded",
+    "vex_exploitability": "not-reviewed",
+    "supplier_type": "first-party",
+    "subject_type": "runtime-unit",
+    "mapping_mode": "one-to-one-runtime",
+    "subject_kind": "deployable-service",
+    "ownership": "team-managed",
+    "owner": "unassigned",
+    "review_cadence": "quarterly",
+    "escalation_owner": "architecture-governance"
+  },
+  "review_cadence_days": {
+    "monthly": 30,
+    "quarterly": 90
+  },
+  "artifact_rules": {
+    "sbom": {
+      "partial": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["linked", "verified"],
+        "allowed_evidence_kinds": ["scanner_output", "package_manifest", "image_descriptor", "imported_artifact"]
+      },
+      "evidence_backed": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["verified"],
+        "require_last_verified": true,
+        "allowed_collection_methods": ["scanner_derived", "imported", "manually_curated"],
+        "allowed_evidence_kinds": ["scanner_output", "imported_artifact"],
+        "allow_placeholder_references": false
+      },
+      "precedence": ["scanner_output", "imported_artifact", "package_manifest", "image_descriptor", "repo_control_document"],
+      "freshness_days": {
+        "fresh": 30,
+        "stale": 90
+      },
+      "review_governance": {
+        "stale_requires_escalation": true,
+        "expired_requires_escalation": true,
+        "expired_blocks_evidence_backed": true
+      }
+    },
+    "cbom": {
+      "partial": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["linked", "verified"],
+        "allowed_evidence_kinds": ["crypto_policy", "repo_control_document", "imported_artifact"]
+      },
+      "evidence_backed": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["verified"],
+        "require_last_verified": true,
+        "allowed_collection_methods": ["manually_curated", "imported"],
+        "allowed_evidence_kinds": ["imported_artifact", "crypto_inventory"],
+        "allow_placeholder_references": false
+      },
+      "precedence": ["crypto_inventory", "imported_artifact", "crypto_policy", "repo_control_document"],
+      "freshness_days": {
+        "fresh": 30,
+        "stale": 90
+      },
+      "review_governance": {
+        "stale_requires_escalation": true,
+        "expired_requires_escalation": true,
+        "expired_blocks_evidence_backed": true
+      }
+    },
+    "vex": {
+      "partial": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["linked", "verified"],
+        "required_collection_methods": ["advisory_reviewed"],
+        "allowed_evidence_kinds": ["advisory_record"]
+      },
+      "evidence_backed": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["verified"],
+        "require_last_verified": true,
+        "required_collection_methods": ["advisory_reviewed"],
+        "allowed_evidence_kinds": ["advisory_record"],
+        "allow_placeholder_references": false
+      },
+      "precedence": ["advisory_record"],
+      "freshness_days": {
+        "fresh": 14,
+        "stale": 45
+      },
+      "review_governance": {
+        "stale_requires_escalation": true,
+        "expired_requires_escalation": true,
+        "expired_blocks_evidence_backed": true
+      }
+    },
+    "provenance": {
+      "partial": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["linked", "verified"],
+        "allowed_evidence_kinds": ["attestation", "deployment_manifest"]
+      },
+      "evidence_backed": {
+        "minimum_sources": 1,
+        "allowed_binding_states": ["verified"],
+        "require_last_verified": true,
+        "allowed_collection_methods": ["imported", "scanner_derived"],
+        "allowed_evidence_kinds": ["attestation"],
+        "allow_placeholder_references": false
+      },
+      "precedence": ["attestation", "deployment_manifest"],
+      "freshness_days": {
+        "fresh": 14,
+        "stale": 45
+      },
+      "review_governance": {
+        "stale_requires_escalation": true,
+        "expired_requires_escalation": true,
+        "expired_blocks_evidence_backed": true
+      }
+    }
+  },
+  "subjects": [
+    {
+      "arch_ref": "smartparking.arch.container.gateway-service",
+      "element_name": "Gateway Service",
+      "bom_ref": "smartparking.bom.gateway-service",
+      "runtime_unit": "edge-gateway-service",
+      "mapping_mode": "one-to-many-evidence-subjects",
+      "subject_type": "cyber-physical-runtime",
+      "subject_kind": "deployable-service",
+      "ownership": "platform-team",
+      "owner": "platform-team",
+      "review_cadence": "monthly",
+      "escalation_owner": "platform-security-review-board",
+      "supplier": {
+        "name": "Smart Parking Platform Team",
+        "type": "first-party"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "edge gateway in the gate-control path; compromise could affect physical actions."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "high",
+        "physical_control": "direct",
+        "safety_impact": "high",
+        "ai_decision_role": "supporting",
+        "internet_exposure": "indirect",
+        "privilege_level": "device-control",
+        "handles_secrets": true
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom", "python-package-scan"],
+        "cbom": ["tls-and-certificate-discovery"],
+        "vex": ["vulnerability-advisory-review"]
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.edge-ai-runtime",
+      "element_name": "Edge AI Runtime",
+      "bom_ref": "smartparking.bom.edge-ai-runtime",
+      "runtime_unit": "edge-ai-runtime",
+      "mapping_mode": "one-to-one-runtime",
+      "subject_type": "ai-edge-runtime",
+      "subject_kind": "ai-runtime",
+      "ownership": "ai-team",
+      "owner": "ai-team",
+      "review_cadence": "monthly",
+      "escalation_owner": "ai-assurance-board",
+      "supplier": {
+        "name": "Smart Parking AI Team",
+        "type": "first-party"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "edge inference runtime where model integrity and exploitability affect local decisions."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "high",
+        "physical_control": "indirect",
+        "safety_impact": "medium",
+        "ai_decision_role": "decision-support",
+        "internet_exposure": "indirect",
+        "privilege_level": "model-execution",
+        "handles_secrets": false
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom", "python-package-scan"],
+        "cbom": ["model-signing-and-secure-channel-review"],
+        "vex": ["model-runtime-vulnerability-review"]
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.api-gateway",
+      "element_name": "API Gateway",
+      "bom_ref": "smartparking.bom.api-gateway",
+      "runtime_unit": "cloud-api-gateway",
+      "mapping_mode": "one-to-one-runtime",
+      "subject_type": "internet-facing-runtime",
+      "subject_kind": "platform-runtime",
+      "ownership": "platform-team",
+      "owner": "platform-edge-team",
+      "review_cadence": "monthly",
+      "escalation_owner": "platform-security-review-board",
+      "supplier": {
+        "name": "Platform Edge Team",
+        "type": "third-party-platform"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "internet-facing ingress and token validation boundary."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "medium",
+        "physical_control": "none",
+        "safety_impact": "medium",
+        "ai_decision_role": "none",
+        "internet_exposure": "direct",
+        "privilege_level": "request-routing",
+        "handles_secrets": true
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom"],
+        "cbom": ["tls-termination-review"],
+        "vex": ["gateway-advisory-review"]
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.event-bus",
+      "element_name": "Event Bus",
+      "bom_ref": "smartparking.bom.event-bus",
+      "runtime_unit": "cloud-event-bus",
+      "mapping_mode": "one-to-one-runtime",
+      "subject_type": "platform-service",
+      "subject_kind": "platform-runtime",
+      "ownership": "data-platform-team",
+      "owner": "data-platform-team",
+      "review_cadence": "quarterly",
+      "escalation_owner": "data-platform-governance",
+      "supplier": {
+        "name": "Data Platform Team",
+        "type": "third-party-platform"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": false,
+          "status": "not-applicable",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "shared event backbone where exploitability affects platform reliability and downstream trust."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "medium",
+        "physical_control": "none",
+        "safety_impact": "medium",
+        "ai_decision_role": "training-data-feed",
+        "internet_exposure": "internal-only",
+        "privilege_level": "event-broker",
+        "handles_secrets": false
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom"],
+        "vex": ["broker-vulnerability-review"]
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.identity-provider",
+      "element_name": "Identity Provider",
+      "bom_ref": "smartparking.bom.identity-provider",
+      "runtime_unit": "cloud-identity-provider",
+      "mapping_mode": "one-to-one-runtime",
+      "subject_type": "identity-runtime",
+      "subject_kind": "security-platform-runtime",
+      "ownership": "identity-team",
+      "owner": "identity-team",
+      "review_cadence": "monthly",
+      "escalation_owner": "identity-security-board",
+      "supplier": {
+        "name": "Identity And Access Team",
+        "type": "third-party-platform"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "token issuance and trust anchor service with broad blast radius."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "high",
+        "physical_control": "indirect",
+        "safety_impact": "medium",
+        "ai_decision_role": "none",
+        "internet_exposure": "indirect",
+        "privilege_level": "identity-control-plane",
+        "handles_secrets": true
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom"],
+        "cbom": ["certificate-and-token-signing-review"],
+        "vex": ["identity-advisory-review"]
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.secrets-manager",
+      "element_name": "Secrets Manager",
+      "bom_ref": "smartparking.bom.secrets-manager",
+      "runtime_unit": "cloud-secrets-manager",
+      "mapping_mode": "one-to-one-runtime",
+      "subject_type": "secret-management-runtime",
+      "subject_kind": "security-platform-runtime",
+      "ownership": "trust-team",
+      "owner": "trust-team",
+      "review_cadence": "monthly",
+      "escalation_owner": "trust-governance-board",
+      "supplier": {
+        "name": "Secrets And Trust Team",
+        "type": "third-party-platform"
+      },
+      "artifacts": {
+        "sbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "cbom": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold"
+        },
+        "vex": {
+          "applicable": true,
+          "status": "scaffolded",
+          "origin": "architecture-derived-scaffold",
+          "exploitability_context": "secret-management control plane with trust-material concentration."
+        }
+      },
+      "domain_flags": {
+        "cyber_physical_criticality": "high",
+        "physical_control": "indirect",
+        "safety_impact": "medium",
+        "ai_decision_role": "none",
+        "internet_exposure": "internal-only",
+        "privilege_level": "secret-control-plane",
+        "handles_secrets": true
+      },
+      "future_sources": {
+        "sbom": ["container-image-sbom"],
+        "cbom": ["key-and-secret-discovery"],
+        "vex": ["vault-advisory-review"]
+      }
+    }
+  ]
+}

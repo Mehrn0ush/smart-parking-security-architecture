@@ -1,0 +1,34 @@
+# OS and editor noise
+.DS_Store
+.vscode/
+.idea/
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local logs and coverage artifacts
+*.log
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Build or distribution output
+build/
+dist/
+*.egg-info/
+
+# Generated package outputs
+data/generated/
+model/manifest.json
+
+# Local temporary files
+*.tmp
+*.bak

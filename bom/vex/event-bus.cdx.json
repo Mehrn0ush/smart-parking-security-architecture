@@ -1,0 +1,264 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "metadata": {
+    "component": {
+      "bom-ref": "smartparking.bom.event-bus:vex",
+      "description": "Message broker for asynchronous event-driven communication with schema validation",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://kafka.apache.org/"
+        }
+      ],
+      "group": "smartparking",
+      "name": "Event Bus",
+      "properties": [
+        {
+          "name": "smartparking.ai_decision_role",
+          "value": "training-data-feed"
+        },
+        {
+          "name": "smartparking.arch_ref",
+          "value": "smartparking.arch.container.event-bus"
+        },
+        {
+          "name": "smartparking.artifact_kind",
+          "value": "vex"
+        },
+        {
+          "name": "smartparking.artifact_origin",
+          "value": "architecture-derived-scaffold"
+        },
+        {
+          "name": "smartparking.artifact_status",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.asset_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.bom_ref",
+          "value": "smartparking.bom.event-bus"
+        },
+        {
+          "name": "smartparking.cyber_physical_criticality",
+          "value": "medium"
+        },
+        {
+          "name": "smartparking.deployment_zone",
+          "value": "cloud"
+        },
+        {
+          "name": "smartparking.derived_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.escalation_owner",
+          "value": "data-platform-governance"
+        },
+        {
+          "name": "smartparking.escalation_owner_subject",
+          "value": "data-platform-governance"
+        },
+        {
+          "name": "smartparking.escalation_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.escalation_status",
+          "value": "not-required"
+        },
+        {
+          "name": "smartparking.evidence_kinds",
+          "value": "advisory_record"
+        },
+        {
+          "name": "smartparking.evidence_reference_count",
+          "value": "1"
+        },
+        {
+          "name": "smartparking.evidence_source_types",
+          "value": "broker-advisory-review"
+        },
+        {
+          "name": "smartparking.freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.governed_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.handles_secrets",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.handoff_to",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.internet_exposure",
+          "value": "internal-only"
+        },
+        {
+          "name": "smartparking.last_reviewed",
+          "value": "not-reviewed"
+        },
+        {
+          "name": "smartparking.mapping_mode",
+          "value": "one-to-one-runtime"
+        },
+        {
+          "name": "smartparking.next_review_due",
+          "value": "unscheduled"
+        },
+        {
+          "name": "smartparking.owner",
+          "value": "data-platform-team"
+        },
+        {
+          "name": "smartparking.ownership",
+          "value": "data-platform-team"
+        },
+        {
+          "name": "smartparking.physical_control",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.privilege_level",
+          "value": "event-broker"
+        },
+        {
+          "name": "smartparking.provenance_freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.provenance_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.provenance_selected_source",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.review_blocking",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.review_cadence",
+          "value": "quarterly"
+        },
+        {
+          "name": "smartparking.review_status",
+          "value": "planned"
+        },
+        {
+          "name": "smartparking.reviewed_by",
+          "value": "unassigned"
+        },
+        {
+          "name": "smartparking.runtime_unit",
+          "value": "cloud-event-bus"
+        },
+        {
+          "name": "smartparking.safety_impact",
+          "value": "medium"
+        },
+        {
+          "name": "smartparking.selected_evidence_adapter",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_input_state",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_kind",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_subject",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_reference",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_type",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.subject_kind",
+          "value": "platform-runtime"
+        },
+        {
+          "name": "smartparking.subject_type",
+          "value": "platform-service"
+        },
+        {
+          "name": "smartparking.supplier_name",
+          "value": "Data Platform Team"
+        },
+        {
+          "name": "smartparking.supplier_type",
+          "value": "third-party-platform"
+        },
+        {
+          "name": "smartparking.synthetic_content",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.technology",
+          "value": "Apache Kafka"
+        },
+        {
+          "name": "smartparking.exploitability_context",
+          "value": "shared event backbone where exploitability affects platform reliability and downstream trust."
+        },
+        {
+          "name": "smartparking.relationship_count",
+          "value": "5"
+        },
+        {
+          "name": "smartparking.vex_scope",
+          "value": "platform-service"
+        }
+      ],
+      "type": "application",
+      "version": "0.5.0-architecture-scaffold"
+    },
+    "properties": [
+      {
+        "name": "smartparking.default_analysis_state",
+        "value": "not-reviewed"
+      },
+      {
+        "name": "smartparking.evidence_limitations",
+        "value": "Evidence binding placeholder only; no evidence artifact is committed in this repository."
+      },
+      {
+        "name": "smartparking.evidence_mode",
+        "value": "synthetic-with-rule-evaluated-bindings"
+      },
+      {
+        "name": "smartparking.evidence_references",
+        "value": "placeholder://event-bus/vendor-vex"
+      },
+      {
+        "name": "smartparking.note",
+        "value": "Architecture-derived VEX scaffold. Add real vulnerability assertions only after scanner or advisory review."
+      },
+      {
+        "name": "smartparking.scope_kind",
+        "value": "vex"
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:90a27319-b2d1-5e67-84a0-3680602fbeb4",
+  "specVersion": "1.6",
+  "version": 1,
+  "vulnerabilities": []
+}

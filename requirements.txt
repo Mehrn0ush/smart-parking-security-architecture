@@ -1,0 +1,2 @@
+# Core examples in this package use the Python standard library only.
+

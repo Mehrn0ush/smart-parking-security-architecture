@@ -1,0 +1,264 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "metadata": {
+    "component": {
+      "bom-ref": "smartparking.bom.edge-ai-runtime:vex",
+      "description": "Real-time inference on edge devices with model versioning",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/your-repo/edge-ai"
+        }
+      ],
+      "group": "smartparking",
+      "name": "Edge AI Runtime",
+      "properties": [
+        {
+          "name": "smartparking.ai_decision_role",
+          "value": "decision-support"
+        },
+        {
+          "name": "smartparking.arch_ref",
+          "value": "smartparking.arch.container.edge-ai-runtime"
+        },
+        {
+          "name": "smartparking.artifact_kind",
+          "value": "vex"
+        },
+        {
+          "name": "smartparking.artifact_origin",
+          "value": "architecture-derived-scaffold"
+        },
+        {
+          "name": "smartparking.artifact_status",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.asset_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.bom_ref",
+          "value": "smartparking.bom.edge-ai-runtime"
+        },
+        {
+          "name": "smartparking.cyber_physical_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.deployment_zone",
+          "value": "edge"
+        },
+        {
+          "name": "smartparking.derived_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.escalation_owner",
+          "value": "ai-assurance-board"
+        },
+        {
+          "name": "smartparking.escalation_owner_subject",
+          "value": "ai-assurance-board"
+        },
+        {
+          "name": "smartparking.escalation_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.escalation_status",
+          "value": "not-required"
+        },
+        {
+          "name": "smartparking.evidence_kinds",
+          "value": "advisory_record"
+        },
+        {
+          "name": "smartparking.evidence_reference_count",
+          "value": "1"
+        },
+        {
+          "name": "smartparking.evidence_source_types",
+          "value": "model-runtime-advisory-review"
+        },
+        {
+          "name": "smartparking.freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.governed_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.handles_secrets",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.handoff_to",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.internet_exposure",
+          "value": "indirect"
+        },
+        {
+          "name": "smartparking.last_reviewed",
+          "value": "not-reviewed"
+        },
+        {
+          "name": "smartparking.mapping_mode",
+          "value": "one-to-one-runtime"
+        },
+        {
+          "name": "smartparking.next_review_due",
+          "value": "unscheduled"
+        },
+        {
+          "name": "smartparking.owner",
+          "value": "ai-team"
+        },
+        {
+          "name": "smartparking.ownership",
+          "value": "ai-team"
+        },
+        {
+          "name": "smartparking.physical_control",
+          "value": "indirect"
+        },
+        {
+          "name": "smartparking.privilege_level",
+          "value": "model-execution"
+        },
+        {
+          "name": "smartparking.provenance_freshness_state",
+          "value": "expired"
+        },
+        {
+          "name": "smartparking.provenance_maturity_state",
+          "value": "partially_evidenced"
+        },
+        {
+          "name": "smartparking.provenance_selected_source",
+          "value": "model-package-attestation"
+        },
+        {
+          "name": "smartparking.review_blocking",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.review_cadence",
+          "value": "monthly"
+        },
+        {
+          "name": "smartparking.review_status",
+          "value": "planned"
+        },
+        {
+          "name": "smartparking.reviewed_by",
+          "value": "unassigned"
+        },
+        {
+          "name": "smartparking.runtime_unit",
+          "value": "edge-ai-runtime"
+        },
+        {
+          "name": "smartparking.safety_impact",
+          "value": "medium"
+        },
+        {
+          "name": "smartparking.selected_evidence_adapter",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_input_state",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_kind",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_subject",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_reference",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_type",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.subject_kind",
+          "value": "ai-runtime"
+        },
+        {
+          "name": "smartparking.subject_type",
+          "value": "ai-edge-runtime"
+        },
+        {
+          "name": "smartparking.supplier_name",
+          "value": "Smart Parking AI Team"
+        },
+        {
+          "name": "smartparking.supplier_type",
+          "value": "first-party"
+        },
+        {
+          "name": "smartparking.synthetic_content",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.technology",
+          "value": "TensorFlow Lite/ONNX"
+        },
+        {
+          "name": "smartparking.exploitability_context",
+          "value": "edge inference runtime where model integrity and exploitability affect local decisions."
+        },
+        {
+          "name": "smartparking.relationship_count",
+          "value": "4"
+        },
+        {
+          "name": "smartparking.vex_scope",
+          "value": "edge-inference-runtime"
+        }
+      ],
+      "type": "application",
+      "version": "0.5.0-architecture-scaffold"
+    },
+    "properties": [
+      {
+        "name": "smartparking.default_analysis_state",
+        "value": "not-reviewed"
+      },
+      {
+        "name": "smartparking.evidence_limitations",
+        "value": "Evidence binding placeholder only; no evidence artifact is committed in this repository."
+      },
+      {
+        "name": "smartparking.evidence_mode",
+        "value": "synthetic-with-rule-evaluated-bindings"
+      },
+      {
+        "name": "smartparking.evidence_references",
+        "value": "placeholder://edge-ai-runtime/vex-review"
+      },
+      {
+        "name": "smartparking.note",
+        "value": "Architecture-derived VEX scaffold. Add real vulnerability assertions only after scanner or advisory review."
+      },
+      {
+        "name": "smartparking.scope_kind",
+        "value": "vex"
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:2ec1b63e-6981-50f7-999a-fa3b2f7a4fef",
+  "specVersion": "1.6",
+  "version": 1,
+  "vulnerabilities": []
+}

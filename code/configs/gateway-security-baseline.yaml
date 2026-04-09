@@ -1,0 +1,28 @@
+gateway_security_baseline:
+  identity:
+    device_certificate_required: true
+    mutual_tls_required: true
+    key_rotation_days: 90
+  command_security:
+    signed_commands_required: true
+    replay_window_seconds: 30
+    allowed_actions:
+      - gate.open
+      - gate.close
+      - gate.lockdown
+    per_device_rate_limit_per_minute: 120
+  protocol_security:
+    modbus_enabled: true
+    modbus_write_allowlist_required: true
+    serial_network_isolated: true
+  observability:
+    audit_logs_enabled: true
+    security_events_to_siem: true
+    time_sync_required: true
+  resilience:
+    fail_safe_mode: true
+    offline_mode_requires_local_policy: true
+  updates:
+    signed_ota_required: true
+    rollback_requires_approval: true
+

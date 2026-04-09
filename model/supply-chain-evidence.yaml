@@ -1,0 +1,560 @@
+{
+  "schema_version": "7.0",
+  "format_note": "This file uses a YAML-compatible JSON subset so the repository can stay standard-library-only.",
+  "defaults": {
+    "evaluation_date_utc": "2025-08-20T00:00:00Z",
+    "content_status": "scaffolded",
+    "binding_state": "planned",
+    "evidence_scope": "runtime-unit",
+    "collection_method": "scanner_derived",
+    "maturity": "planned",
+    "confidence": "low",
+    "last_verified": "not-verified",
+    "limitations": "Evidence binding placeholder only; no evidence artifact is committed in this repository.",
+    "adapter": "none",
+    "review_status": "not-reviewed",
+    "last_reviewed": "not-reviewed",
+    "reviewed_by": "unassigned",
+    "review_notes": "No artifact-specific review recorded.",
+    "next_review_due": "auto"
+  },
+  "subjects": [
+    {
+      "arch_ref": "smartparking.arch.container.gateway-service",
+      "bom_ref": "smartparking.bom.gateway-service",
+      "runtime_unit": "edge-gateway-service",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "gateway-runtime",
+          "subject_variant": "runtime_service",
+          "subject_kind": "runtime_service",
+          "runtime_unit": "edge-gateway-service",
+          "review": {
+            "review_status": "approved-for-teaching-use",
+            "last_reviewed": "2025-08-18",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "content_status": "imported",
+              "binding_state": "verified",
+              "evidence_scope": "runtime-unit",
+              "review": {
+                "review_status": "approved-for-teaching-use",
+                "last_reviewed": "2025-08-18",
+                "reviewed_by": "Platform Security Architecture",
+                "review_notes": "Imported teaching CycloneDX artifact accepted for repository normalization coverage."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "scanner_output",
+                  "source_type": "container-image-sbom",
+                  "collection_method": "scanner_derived",
+                  "reference": "placeholder://gateway-runtime/image-sbom.cdx.json",
+                  "maturity": "planned",
+                  "confidence": "low",
+                  "last_verified": "not-verified",
+                  "limitations": "Placeholder binding only; no scanner output committed."
+                },
+                {
+                  "evidence_kind": "imported_artifact",
+                  "source_type": "teaching-imported-cyclonedx",
+                  "collection_method": "imported",
+                  "adapter": "cyclonedx_json",
+                  "reference": "evidence/imports/gateway-runtime-imported-sbom.cdx.json",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-08-18",
+                  "limitations": "Imported teaching artifact only. It demonstrates a real CycloneDX input shape, not a discovered dependency inventory."
+                },
+                {
+                  "evidence_kind": "package_manifest",
+                  "source_type": "python-package-manifest",
+                  "collection_method": "scanner_derived",
+                  "reference": "placeholder://gateway-runtime/requirements-lock",
+                  "maturity": "planned",
+                  "confidence": "low",
+                  "last_verified": "not-verified",
+                  "limitations": "Package manifest evidence is not yet wired into the repository."
+                }
+              ]
+            },
+            "vex": {
+              "content_status": "scaffolded",
+              "binding_state": "planned",
+              "evidence_scope": "runtime-unit",
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "No gateway advisory review has been attached yet."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "product-advisory-triage",
+                  "collection_method": "advisory_reviewed",
+                  "reference": "placeholder://gateway-runtime/vex-review",
+                  "maturity": "planned",
+                  "confidence": "low",
+                  "last_verified": "not-verified",
+                  "limitations": "No advisory review output is committed yet."
+                }
+              ]
+            },
+            "provenance": {
+              "content_status": "not-collected",
+              "binding_state": "planned",
+              "evidence_scope": "build-and-release",
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting signed build provenance."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "attestation",
+                  "source_type": "build-attestation",
+                  "collection_method": "imported",
+                  "reference": "placeholder://gateway-runtime/provenance.intoto.jsonl",
+                  "maturity": "planned",
+                  "confidence": "low",
+                  "last_verified": "not-verified",
+                  "limitations": "No signed build provenance is committed."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "evidence_subject_id": "gateway-control-profile",
+          "subject_variant": "control_profile",
+          "subject_kind": "control_document_set",
+          "review": {
+            "review_status": "reviewed",
+            "last_reviewed": "2025-08-08",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "artifact_evidence": {
+            "cbom": {
+              "content_status": "scaffolded",
+              "binding_state": "linked",
+              "evidence_scope": "crypto-surface",
+              "review": {
+                "review_status": "reviewed",
+                "last_reviewed": "2025-08-08",
+                "reviewed_by": "Platform Security Architecture",
+                "review_notes": "Control evidence reviewed; still not a discovered crypto inventory."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "repo_control_document",
+                  "source_type": "gateway-security-baseline",
+                  "collection_method": "manually_curated",
+                  "reference": "code/configs/gateway-security-baseline.yaml",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-08-08",
+                  "limitations": "Local design baseline only; not a discovered crypto inventory."
+                },
+                {
+                  "evidence_kind": "crypto_policy",
+                  "source_type": "edge-access-policy",
+                  "collection_method": "manually_curated",
+                  "reference": "code/policy/edge-access-policy.rego",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-08-08",
+                  "limitations": "Policy evidence supports boundary controls but does not enumerate certificates or algorithms."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "arch_ref": "smartparking.arch.container.edge-ai-runtime",
+      "bom_ref": "smartparking.bom.edge-ai-runtime",
+      "runtime_unit": "edge-ai-runtime",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "edge-ai-runtime-service",
+          "subject_variant": "runtime_service",
+          "subject_kind": "ai_runtime",
+          "runtime_unit": "edge-ai-runtime",
+          "review": {
+            "review_status": "planned",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting runtime package or image evidence."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "scanner_output",
+                  "source_type": "container-image-sbom",
+                  "collection_method": "scanner_derived",
+                  "reference": "placeholder://edge-ai-runtime/image-sbom.cdx.json"
+                }
+              ]
+            },
+            "cbom": {
+              "evidence_scope": "model-integrity-and-crypto-surface",
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting AI runtime integrity review artifacts."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "crypto_policy",
+                  "source_type": "model-integrity-review",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://edge-ai-runtime/model-integrity-review.md"
+                }
+              ]
+            },
+            "vex": {
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting AI runtime advisory review."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "model-runtime-advisory-review",
+                  "collection_method": "advisory_reviewed",
+                  "reference": "placeholder://edge-ai-runtime/vex-review"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "evidence_subject_id": "edge-ai-model-package",
+          "subject_variant": "model_package",
+          "subject_kind": "model_package",
+          "review": {
+            "review_status": "planned",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned"
+          },
+          "artifact_evidence": {
+            "provenance": {
+              "content_status": "linked",
+              "binding_state": "linked",
+              "evidence_scope": "model-and-runtime-build",
+              "review": {
+                "review_status": "reviewed-with-open-followup",
+                "last_reviewed": "2025-06-15",
+                "reviewed_by": "AI Assurance Board",
+                "review_notes": "Reference record reviewed, but no signed attestation is committed."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "attestation",
+                  "source_type": "model-package-attestation",
+                  "collection_method": "imported",
+                  "adapter": "attestation_reference",
+                  "reference": "evidence/references/edge-ai-model-package-provenance-reference.json",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-06-15",
+                  "limitations": "Reference record only. It points to an intended provenance path but is not a signed attestation."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "arch_ref": "smartparking.arch.container.api-gateway",
+      "bom_ref": "smartparking.bom.api-gateway",
+      "runtime_unit": "cloud-api-gateway",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "api-gateway-runtime",
+          "subject_variant": "managed_runtime",
+          "subject_kind": "managed_service_runtime",
+          "runtime_unit": "cloud-api-gateway",
+          "review": {
+            "review_status": "reviewed-with-open-followup",
+            "last_reviewed": "2025-08-12",
+            "reviewed_by": "Platform Security Review Board"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting supplier SBOM import."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "imported_artifact",
+                  "source_type": "supplier-sbom",
+                  "collection_method": "imported",
+                  "reference": "placeholder://api-gateway/vendor-sbom.cdx.json"
+                }
+              ]
+            },
+            "cbom": {
+              "evidence_scope": "tls-and-token-boundary",
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting TLS boundary review artifacts."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "crypto_policy",
+                  "source_type": "tls-termination-review",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://api-gateway/crypto-review.md"
+                }
+              ]
+            },
+            "vex": {
+              "binding_state": "linked",
+              "review": {
+                "review_status": "reviewed-with-open-followup",
+                "last_reviewed": "2025-08-12",
+                "reviewed_by": "Platform Security Review Board",
+                "review_notes": "Advisory review captured locally; supplier-issued VEX still absent."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "vendor-advisory-review",
+                  "collection_method": "advisory_reviewed",
+                  "adapter": "advisory_record",
+                  "reference": "evidence/reviews/api-gateway-vendor-advisory-review.json",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-08-12",
+                  "limitations": "Internal advisory review record only. No supplier VEX file is committed in this repository."
+                }
+              ]
+            },
+            "provenance": {
+              "content_status": "not-collected",
+              "evidence_scope": "deployment-release",
+              "review": {
+                "review_status": "planned",
+                "last_reviewed": "not-reviewed",
+                "reviewed_by": "unassigned",
+                "review_notes": "Awaiting deployment provenance."
+              },
+              "sources": [
+                {
+                  "evidence_kind": "deployment_manifest",
+                  "source_type": "deployment-manifest",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://api-gateway/deployment-release-metadata"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "arch_ref": "smartparking.arch.container.event-bus",
+      "bom_ref": "smartparking.bom.event-bus",
+      "runtime_unit": "cloud-event-bus",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "event-bus-runtime",
+          "subject_variant": "managed_runtime",
+          "subject_kind": "managed_service_runtime",
+          "runtime_unit": "cloud-event-bus",
+          "review": {
+            "review_status": "planned",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "sources": [
+                {
+                  "evidence_kind": "imported_artifact",
+                  "source_type": "supplier-sbom",
+                  "collection_method": "imported",
+                  "reference": "placeholder://event-bus/vendor-sbom.cdx.json"
+                }
+              ]
+            },
+            "cbom": {
+              "content_status": "not-applicable",
+              "binding_state": "not-applicable",
+              "evidence_scope": "none",
+              "sources": []
+            },
+            "vex": {
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "broker-advisory-review",
+                  "collection_method": "advisory_reviewed",
+                  "reference": "placeholder://event-bus/vendor-vex"
+                }
+              ]
+            },
+            "provenance": {
+              "content_status": "not-collected",
+              "evidence_scope": "deployment-release",
+              "sources": [
+                {
+                  "evidence_kind": "deployment_manifest",
+                  "source_type": "deployment-manifest",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://event-bus/deployment-release-metadata"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "arch_ref": "smartparking.arch.container.identity-provider",
+      "bom_ref": "smartparking.bom.identity-provider",
+      "runtime_unit": "cloud-identity-provider",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "identity-provider-runtime",
+          "subject_variant": "managed_runtime",
+          "subject_kind": "managed_service_runtime",
+          "runtime_unit": "cloud-identity-provider",
+          "review": {
+            "review_status": "planned",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "sources": [
+                {
+                  "evidence_kind": "imported_artifact",
+                  "source_type": "supplier-sbom",
+                  "collection_method": "imported",
+                  "reference": "placeholder://identity-provider/vendor-sbom.cdx.json"
+                }
+              ]
+            },
+            "cbom": {
+              "evidence_scope": "token-signing-and-trust-material",
+              "sources": [
+                {
+                  "evidence_kind": "crypto_policy",
+                  "source_type": "identity-crypto-review",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://identity-provider/crypto-review.md"
+                }
+              ]
+            },
+            "vex": {
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "identity-advisory-review",
+                  "collection_method": "advisory_reviewed",
+                  "reference": "placeholder://identity-provider/vendor-vex"
+                }
+              ]
+            },
+            "provenance": {
+              "content_status": "not-collected",
+              "evidence_scope": "deployment-release",
+              "sources": [
+                {
+                  "evidence_kind": "deployment_manifest",
+                  "source_type": "deployment-manifest",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://identity-provider/deployment-release-metadata"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "arch_ref": "smartparking.arch.container.secrets-manager",
+      "bom_ref": "smartparking.bom.secrets-manager",
+      "runtime_unit": "cloud-secrets-manager",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "secrets-manager-runtime",
+          "subject_variant": "managed_runtime",
+          "subject_kind": "managed_service_runtime",
+          "runtime_unit": "cloud-secrets-manager",
+          "review": {
+            "review_status": "planned",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned"
+          },
+          "artifact_evidence": {
+            "sbom": {
+              "sources": [
+                {
+                  "evidence_kind": "imported_artifact",
+                  "source_type": "supplier-sbom",
+                  "collection_method": "imported",
+                  "reference": "placeholder://secrets-manager/vendor-sbom.cdx.json"
+                }
+              ]
+            },
+            "cbom": {
+              "evidence_scope": "secret-and-key-management",
+              "sources": [
+                {
+                  "evidence_kind": "crypto_policy",
+                  "source_type": "key-management-review",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://secrets-manager/crypto-review.md"
+                }
+              ]
+            },
+            "vex": {
+              "sources": [
+                {
+                  "evidence_kind": "advisory_record",
+                  "source_type": "vault-advisory-review",
+                  "collection_method": "advisory_reviewed",
+                  "reference": "placeholder://secrets-manager/vendor-vex"
+                }
+              ]
+            },
+            "provenance": {
+              "content_status": "not-collected",
+              "evidence_scope": "deployment-release",
+              "sources": [
+                {
+                  "evidence_kind": "deployment_manifest",
+                  "source_type": "deployment-manifest",
+                  "collection_method": "manually_curated",
+                  "reference": "placeholder://secrets-manager/deployment-release-metadata"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

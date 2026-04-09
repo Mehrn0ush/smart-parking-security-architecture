@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "record_type": "vendor_advisory_review",
+  "subject": "API Gateway",
+  "artifact_kind": "vex",
+  "supplier": "Platform Edge Team",
+  "review_outcome": "monitoring-only",
+  "summary": "The team reviewed the supplier advisory channel and documented the current state. No supplier-issued VEX file is committed in this repository, so the generated VEX remains a teaching scaffold with partial evidence only.",
+  "review_status": "advisory-reviewed",
+  "reviewed_at": "2025-08-12",
+  "reviewed_by": "Platform Security Review Board"
+}

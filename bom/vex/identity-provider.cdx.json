@@ -1,0 +1,264 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "metadata": {
+    "component": {
+      "bom-ref": "smartparking.bom.identity-provider:vex",
+      "description": "Zero-trust identity management for all entities",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.keycloak.org/"
+        }
+      ],
+      "group": "smartparking",
+      "name": "Identity Provider",
+      "properties": [
+        {
+          "name": "smartparking.ai_decision_role",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.arch_ref",
+          "value": "smartparking.arch.container.identity-provider"
+        },
+        {
+          "name": "smartparking.artifact_kind",
+          "value": "vex"
+        },
+        {
+          "name": "smartparking.artifact_origin",
+          "value": "architecture-derived-scaffold"
+        },
+        {
+          "name": "smartparking.artifact_status",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.asset_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.bom_ref",
+          "value": "smartparking.bom.identity-provider"
+        },
+        {
+          "name": "smartparking.cyber_physical_criticality",
+          "value": "high"
+        },
+        {
+          "name": "smartparking.deployment_zone",
+          "value": "cloud"
+        },
+        {
+          "name": "smartparking.derived_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.escalation_owner",
+          "value": "identity-security-board"
+        },
+        {
+          "name": "smartparking.escalation_owner_subject",
+          "value": "identity-security-board"
+        },
+        {
+          "name": "smartparking.escalation_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.escalation_status",
+          "value": "not-required"
+        },
+        {
+          "name": "smartparking.evidence_kinds",
+          "value": "advisory_record"
+        },
+        {
+          "name": "smartparking.evidence_reference_count",
+          "value": "1"
+        },
+        {
+          "name": "smartparking.evidence_source_types",
+          "value": "identity-advisory-review"
+        },
+        {
+          "name": "smartparking.freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.governed_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.handles_secrets",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.handoff_to",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.internet_exposure",
+          "value": "indirect"
+        },
+        {
+          "name": "smartparking.last_reviewed",
+          "value": "not-reviewed"
+        },
+        {
+          "name": "smartparking.mapping_mode",
+          "value": "one-to-one-runtime"
+        },
+        {
+          "name": "smartparking.next_review_due",
+          "value": "unscheduled"
+        },
+        {
+          "name": "smartparking.owner",
+          "value": "identity-team"
+        },
+        {
+          "name": "smartparking.ownership",
+          "value": "identity-team"
+        },
+        {
+          "name": "smartparking.physical_control",
+          "value": "indirect"
+        },
+        {
+          "name": "smartparking.privilege_level",
+          "value": "identity-control-plane"
+        },
+        {
+          "name": "smartparking.provenance_freshness_state",
+          "value": "unknown"
+        },
+        {
+          "name": "smartparking.provenance_maturity_state",
+          "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.provenance_selected_source",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.review_blocking",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.review_cadence",
+          "value": "monthly"
+        },
+        {
+          "name": "smartparking.review_status",
+          "value": "planned"
+        },
+        {
+          "name": "smartparking.reviewed_by",
+          "value": "unassigned"
+        },
+        {
+          "name": "smartparking.runtime_unit",
+          "value": "cloud-identity-provider"
+        },
+        {
+          "name": "smartparking.safety_impact",
+          "value": "medium"
+        },
+        {
+          "name": "smartparking.selected_evidence_adapter",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_input_state",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_kind",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_evidence_subject",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_reference",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.selected_source_type",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.subject_kind",
+          "value": "security-platform-runtime"
+        },
+        {
+          "name": "smartparking.subject_type",
+          "value": "identity-runtime"
+        },
+        {
+          "name": "smartparking.supplier_name",
+          "value": "Identity And Access Team"
+        },
+        {
+          "name": "smartparking.supplier_type",
+          "value": "third-party-platform"
+        },
+        {
+          "name": "smartparking.synthetic_content",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.technology",
+          "value": "Keycloak/Auth0"
+        },
+        {
+          "name": "smartparking.exploitability_context",
+          "value": "token issuance and trust anchor service with broad blast radius."
+        },
+        {
+          "name": "smartparking.relationship_count",
+          "value": "9"
+        },
+        {
+          "name": "smartparking.vex_scope",
+          "value": "identity-runtime"
+        }
+      ],
+      "type": "application",
+      "version": "0.5.0-architecture-scaffold"
+    },
+    "properties": [
+      {
+        "name": "smartparking.default_analysis_state",
+        "value": "not-reviewed"
+      },
+      {
+        "name": "smartparking.evidence_limitations",
+        "value": "Evidence binding placeholder only; no evidence artifact is committed in this repository."
+      },
+      {
+        "name": "smartparking.evidence_mode",
+        "value": "synthetic-with-rule-evaluated-bindings"
+      },
+      {
+        "name": "smartparking.evidence_references",
+        "value": "placeholder://identity-provider/vendor-vex"
+      },
+      {
+        "name": "smartparking.note",
+        "value": "Architecture-derived VEX scaffold. Add real vulnerability assertions only after scanner or advisory review."
+      },
+      {
+        "name": "smartparking.scope_kind",
+        "value": "vex"
+      }
+    ]
+  },
+  "serialNumber": "urn:uuid:e293d0a3-8c18-508c-934f-fc1e01fe24db",
+  "specVersion": "1.6",
+  "version": 1,
+  "vulnerabilities": []
+}

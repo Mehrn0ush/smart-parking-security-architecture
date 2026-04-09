@@ -1,0 +1,927 @@
+{
+  "derived_from": "model/workspace.json",
+  "evaluation_date_utc": "2025-08-20T00:00:00Z",
+  "evidence_file": "model/supply-chain-evidence.yaml",
+  "evidence_sha256": "776a88572c40193a63d5456822f045cbf4a6321d1b5019398a556dd6b3031fe2",
+  "generation_basis": "Structurizr architecture metadata plus policy mapping plus decomposed evidence subjects plus normalized evidence adapters",
+  "policy_file": "model/supply-chain-mapping.yaml",
+  "policy_sha256": "313a084c95f6fca49bd084de06bf95e6f7662b00e85e2bb6d159876d99cebff3",
+  "schema_version": "7.0",
+  "source_of_truth": "model/workspace.dsl",
+  "tracked_subject_count": 6,
+  "tracked_subjects": [
+    {
+      "arch_ref": "smartparking.arch.container.api-gateway",
+      "architecture_subject": "API Gateway",
+      "artifacts": {
+        "cbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "Awaiting TLS boundary review artifacts.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "Awaiting supplier SBOM import.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "partially-evidenced",
+          "derived_maturity_state": "partially_evidenced",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "fresh",
+          "governed_maturity_state": "partially_evidenced",
+          "handoff_to": "none",
+          "next_review_due": "2025-09-11",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "2025-08-12",
+            "next_review_due": "auto",
+            "review_notes": "Advisory review captured locally; supplier-issued VEX still absent.",
+            "review_status": "reviewed-with-open-followup",
+            "reviewed_by": "Platform Security Review Board"
+          },
+          "review_blocking": false,
+          "selected_source": {
+            "adapter": "advisory_record",
+            "collection_method": "advisory_reviewed",
+            "confidence": "medium",
+            "evidence_kind": "advisory_record",
+            "evidence_subject_id": "api-gateway-runtime",
+            "input_state": "local-file",
+            "input_summary": {
+              "adapter": "advisory_record",
+              "review_outcome": "monitoring-only",
+              "review_status": "advisory-reviewed",
+              "reviewed_at": "2025-08-12",
+              "subject": "API Gateway"
+            },
+            "last_verified": "2025-08-12",
+            "limitations": "Internal advisory review record only. No supplier VEX file is committed in this repository.",
+            "maturity": "reviewed",
+            "reference": "evidence/reviews/api-gateway-vendor-advisory-review.json",
+            "source_sha256": "0df9951a07043f82fe49a64af17842e8be5dfcba27046bd553ccd4525f20777e",
+            "source_type": "vendor-advisory-review",
+            "subject_variant": "managed_runtime"
+          },
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.api-gateway",
+      "criticality": "high",
+      "deployment_zone": "cloud",
+      "domain_flags": {
+        "ai_decision_role": "none",
+        "cyber_physical_criticality": "medium",
+        "handles_secrets": true,
+        "internet_exposure": "direct",
+        "physical_control": "none",
+        "privilege_level": "request-routing",
+        "safety_impact": "medium"
+      },
+      "escalation_owner": "platform-security-review-board",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "api-gateway-runtime",
+          "review": {
+            "last_reviewed": "2025-08-12",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "reviewed-with-open-followup",
+            "reviewed_by": "Platform Security Review Board"
+          },
+          "runtime_unit": "cloud-api-gateway",
+          "subject_kind": "managed_service_runtime",
+          "subject_variant": "managed_runtime"
+        }
+      ],
+      "files": {
+        "cbom": "bom/cbom/api-gateway.cdx.json",
+        "sbom": "bom/sbom/api-gateway.cdx.json",
+        "vex": "bom/vex/api-gateway.cdx.json"
+      },
+      "mapping_mode": "one-to-one-runtime",
+      "owner": "platform-edge-team",
+      "ownership": "platform-team",
+      "provenance": {
+        "content_status": "not-collected",
+        "derived_maturity_state": "scaffolded",
+        "escalation_required": false,
+        "escalation_status": "not-required",
+        "freshness_state": "unknown",
+        "governed_maturity_state": "scaffolded",
+        "handoff_to": "none",
+        "next_review_due": "unscheduled",
+        "review": {
+          "last_reviewed": "not-reviewed",
+          "next_review_due": "auto",
+          "review_notes": "Awaiting deployment provenance.",
+          "review_status": "planned",
+          "reviewed_by": "unassigned"
+        },
+        "review_blocking": false,
+        "selected_source": null
+      },
+      "review_cadence": "monthly",
+      "runtime_unit": "cloud-api-gateway",
+      "subject_kind": "platform-runtime",
+      "subject_type": "internet-facing-runtime",
+      "supplier": {
+        "name": "Platform Edge Team",
+        "type": "third-party-platform"
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.edge-ai-runtime",
+      "architecture_subject": "Edge AI Runtime",
+      "artifacts": {
+        "cbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "Awaiting AI runtime integrity review artifacts.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "Awaiting runtime package or image evidence.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "Awaiting AI runtime advisory review.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.edge-ai-runtime",
+      "criticality": "high",
+      "deployment_zone": "edge",
+      "domain_flags": {
+        "ai_decision_role": "decision-support",
+        "cyber_physical_criticality": "high",
+        "handles_secrets": false,
+        "internet_exposure": "indirect",
+        "physical_control": "indirect",
+        "privilege_level": "model-execution",
+        "safety_impact": "medium"
+      },
+      "escalation_owner": "ai-assurance-board",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "edge-ai-runtime-service",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "runtime_unit": "edge-ai-runtime",
+          "subject_kind": "ai_runtime",
+          "subject_variant": "runtime_service"
+        },
+        {
+          "evidence_subject_id": "edge-ai-model-package",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "runtime_unit": "edge-ai-runtime",
+          "subject_kind": "model_package",
+          "subject_variant": "model_package"
+        }
+      ],
+      "files": {
+        "cbom": "bom/cbom/edge-ai-runtime.cdx.json",
+        "sbom": "bom/sbom/edge-ai-runtime.cdx.json",
+        "vex": "bom/vex/edge-ai-runtime.cdx.json"
+      },
+      "mapping_mode": "one-to-one-runtime",
+      "owner": "ai-team",
+      "ownership": "ai-team",
+      "provenance": {
+        "content_status": "partially-evidenced",
+        "derived_maturity_state": "partially_evidenced",
+        "escalation_required": true,
+        "escalation_status": "expired-review-required",
+        "freshness_state": "expired",
+        "governed_maturity_state": "partially_evidenced",
+        "handoff_to": "ai-assurance-board",
+        "next_review_due": "2025-07-15",
+        "review": {
+          "last_reviewed": "2025-06-15",
+          "next_review_due": "auto",
+          "review_notes": "Reference record reviewed, but no signed attestation is committed.",
+          "review_status": "reviewed-with-open-followup",
+          "reviewed_by": "AI Assurance Board"
+        },
+        "review_blocking": false,
+        "selected_source": {
+          "adapter": "attestation_reference",
+          "collection_method": "imported",
+          "confidence": "medium",
+          "evidence_kind": "attestation",
+          "evidence_subject_id": "edge-ai-model-package",
+          "input_state": "local-file",
+          "input_summary": {
+            "adapter": "attestation_reference",
+            "record_type": "teaching_provenance_reference",
+            "statement_type": "provenance-reference",
+            "subject": "Edge AI Model Package"
+          },
+          "last_verified": "2025-06-15",
+          "limitations": "Reference record only. It points to an intended provenance path but is not a signed attestation.",
+          "maturity": "reviewed",
+          "reference": "evidence/references/edge-ai-model-package-provenance-reference.json",
+          "source_sha256": "af7dcbc10ec96b56414b91aeacaacf7b2cd1257c2b7e6867ea969245cd6f600d",
+          "source_type": "model-package-attestation",
+          "subject_variant": "model_package"
+        }
+      },
+      "review_cadence": "monthly",
+      "runtime_unit": "edge-ai-runtime",
+      "subject_kind": "ai-runtime",
+      "subject_type": "ai-edge-runtime",
+      "supplier": {
+        "name": "Smart Parking AI Team",
+        "type": "first-party"
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.event-bus",
+      "architecture_subject": "Event Bus",
+      "artifacts": {
+        "cbom": {
+          "applicable": false,
+          "content_status": "not-applicable",
+          "derived_maturity_state": "not_applicable",
+          "escalation_required": false,
+          "escalation_status": "not-applicable",
+          "freshness_state": "not_applicable",
+          "governed_maturity_state": "not_applicable",
+          "handoff_to": "none",
+          "next_review_due": "none",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "not-applicable"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.event-bus",
+      "criticality": "high",
+      "deployment_zone": "cloud",
+      "domain_flags": {
+        "ai_decision_role": "training-data-feed",
+        "cyber_physical_criticality": "medium",
+        "handles_secrets": false,
+        "internet_exposure": "internal-only",
+        "physical_control": "none",
+        "privilege_level": "event-broker",
+        "safety_impact": "medium"
+      },
+      "escalation_owner": "data-platform-governance",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "event-bus-runtime",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "runtime_unit": "cloud-event-bus",
+          "subject_kind": "managed_service_runtime",
+          "subject_variant": "managed_runtime"
+        }
+      ],
+      "files": {
+        "sbom": "bom/sbom/event-bus.cdx.json",
+        "vex": "bom/vex/event-bus.cdx.json"
+      },
+      "mapping_mode": "one-to-one-runtime",
+      "owner": "data-platform-team",
+      "ownership": "data-platform-team",
+      "provenance": {
+        "content_status": "not-collected",
+        "derived_maturity_state": "scaffolded",
+        "escalation_required": false,
+        "escalation_status": "not-required",
+        "freshness_state": "unknown",
+        "governed_maturity_state": "scaffolded",
+        "handoff_to": "none",
+        "next_review_due": "unscheduled",
+        "review": {
+          "last_reviewed": "not-reviewed",
+          "next_review_due": "auto",
+          "review_notes": "No artifact-specific review recorded.",
+          "review_status": "planned",
+          "reviewed_by": "unassigned"
+        },
+        "review_blocking": false,
+        "selected_source": null
+      },
+      "review_cadence": "quarterly",
+      "runtime_unit": "cloud-event-bus",
+      "subject_kind": "platform-runtime",
+      "subject_type": "platform-service",
+      "supplier": {
+        "name": "Data Platform Team",
+        "type": "third-party-platform"
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.gateway-service",
+      "architecture_subject": "Gateway Service",
+      "artifacts": {
+        "cbom": {
+          "applicable": true,
+          "content_status": "partially-evidenced",
+          "derived_maturity_state": "partially_evidenced",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "fresh",
+          "governed_maturity_state": "partially_evidenced",
+          "handoff_to": "none",
+          "next_review_due": "2025-09-07",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "2025-08-08",
+            "next_review_due": "auto",
+            "review_notes": "Control evidence reviewed; still not a discovered crypto inventory.",
+            "review_status": "reviewed",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "review_blocking": false,
+          "selected_source": {
+            "adapter": "none",
+            "collection_method": "manually_curated",
+            "confidence": "medium",
+            "evidence_kind": "crypto_policy",
+            "evidence_subject_id": "gateway-control-profile",
+            "input_state": "local-file",
+            "input_summary": null,
+            "last_verified": "2025-08-08",
+            "limitations": "Policy evidence supports boundary controls but does not enumerate certificates or algorithms.",
+            "maturity": "reviewed",
+            "reference": "code/policy/edge-access-policy.rego",
+            "source_sha256": "41be5c7c1af75c5bc6d663af3225bf6dbff69603d4bcf63a111e7d80be6d612a",
+            "source_type": "edge-access-policy",
+            "subject_variant": "control_profile"
+          },
+          "status": "scaffolded"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "evidence-backed",
+          "derived_maturity_state": "evidence_backed",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "fresh",
+          "governed_maturity_state": "evidence_backed",
+          "handoff_to": "none",
+          "next_review_due": "2025-09-17",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "2025-08-18",
+            "next_review_due": "auto",
+            "review_notes": "Imported teaching CycloneDX artifact accepted for repository normalization coverage.",
+            "review_status": "approved-for-teaching-use",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "review_blocking": false,
+          "selected_source": {
+            "adapter": "cyclonedx_json",
+            "collection_method": "imported",
+            "confidence": "medium",
+            "evidence_kind": "imported_artifact",
+            "evidence_subject_id": "gateway-runtime",
+            "input_state": "local-file",
+            "input_summary": {
+              "adapter": "cyclonedx_json",
+              "component_count": 0,
+              "component_name": "Gateway Service",
+              "component_version": "0.5.0-imported-teaching-artifact",
+              "format": "1.6"
+            },
+            "last_verified": "2025-08-18",
+            "limitations": "Imported teaching artifact only. It demonstrates a real CycloneDX input shape, not a discovered dependency inventory.",
+            "maturity": "reviewed",
+            "reference": "evidence/imports/gateway-runtime-imported-sbom.cdx.json",
+            "source_sha256": "a3f5dfdbb929e618c1ef444ff3067b9e679f4959bdf984bf921d927804a4549e",
+            "source_type": "teaching-imported-cyclonedx",
+            "subject_variant": "runtime_service"
+          },
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No gateway advisory review has been attached yet.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.gateway-service",
+      "criticality": "high",
+      "deployment_zone": "edge",
+      "domain_flags": {
+        "ai_decision_role": "supporting",
+        "cyber_physical_criticality": "high",
+        "handles_secrets": true,
+        "internet_exposure": "indirect",
+        "physical_control": "direct",
+        "privilege_level": "device-control",
+        "safety_impact": "high"
+      },
+      "escalation_owner": "platform-security-review-board",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "gateway-runtime",
+          "review": {
+            "last_reviewed": "2025-08-18",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "approved-for-teaching-use",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "runtime_unit": "edge-gateway-service",
+          "subject_kind": "runtime_service",
+          "subject_variant": "runtime_service"
+        },
+        {
+          "evidence_subject_id": "gateway-control-profile",
+          "review": {
+            "last_reviewed": "2025-08-08",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "reviewed",
+            "reviewed_by": "Platform Security Architecture"
+          },
+          "runtime_unit": "edge-gateway-service",
+          "subject_kind": "control_document_set",
+          "subject_variant": "control_profile"
+        }
+      ],
+      "files": {
+        "cbom": "bom/cbom/gateway-service.cdx.json",
+        "sbom": "bom/sbom/gateway-service.cdx.json",
+        "vex": "bom/vex/gateway-service.cdx.json"
+      },
+      "mapping_mode": "one-to-many-evidence-subjects",
+      "owner": "platform-team",
+      "ownership": "platform-team",
+      "provenance": {
+        "content_status": "not-collected",
+        "derived_maturity_state": "scaffolded",
+        "escalation_required": false,
+        "escalation_status": "not-required",
+        "freshness_state": "unknown",
+        "governed_maturity_state": "scaffolded",
+        "handoff_to": "none",
+        "next_review_due": "unscheduled",
+        "review": {
+          "last_reviewed": "not-reviewed",
+          "next_review_due": "auto",
+          "review_notes": "Awaiting signed build provenance.",
+          "review_status": "planned",
+          "reviewed_by": "unassigned"
+        },
+        "review_blocking": false,
+        "selected_source": null
+      },
+      "review_cadence": "monthly",
+      "runtime_unit": "edge-gateway-service",
+      "subject_kind": "deployable-service",
+      "subject_type": "cyber-physical-runtime",
+      "supplier": {
+        "name": "Smart Parking Platform Team",
+        "type": "first-party"
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.identity-provider",
+      "architecture_subject": "Identity Provider",
+      "artifacts": {
+        "cbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.identity-provider",
+      "criticality": "high",
+      "deployment_zone": "cloud",
+      "domain_flags": {
+        "ai_decision_role": "none",
+        "cyber_physical_criticality": "high",
+        "handles_secrets": true,
+        "internet_exposure": "indirect",
+        "physical_control": "indirect",
+        "privilege_level": "identity-control-plane",
+        "safety_impact": "medium"
+      },
+      "escalation_owner": "identity-security-board",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "identity-provider-runtime",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "runtime_unit": "cloud-identity-provider",
+          "subject_kind": "managed_service_runtime",
+          "subject_variant": "managed_runtime"
+        }
+      ],
+      "files": {
+        "cbom": "bom/cbom/identity-provider.cdx.json",
+        "sbom": "bom/sbom/identity-provider.cdx.json",
+        "vex": "bom/vex/identity-provider.cdx.json"
+      },
+      "mapping_mode": "one-to-one-runtime",
+      "owner": "identity-team",
+      "ownership": "identity-team",
+      "provenance": {
+        "content_status": "not-collected",
+        "derived_maturity_state": "scaffolded",
+        "escalation_required": false,
+        "escalation_status": "not-required",
+        "freshness_state": "unknown",
+        "governed_maturity_state": "scaffolded",
+        "handoff_to": "none",
+        "next_review_due": "unscheduled",
+        "review": {
+          "last_reviewed": "not-reviewed",
+          "next_review_due": "auto",
+          "review_notes": "No artifact-specific review recorded.",
+          "review_status": "planned",
+          "reviewed_by": "unassigned"
+        },
+        "review_blocking": false,
+        "selected_source": null
+      },
+      "review_cadence": "monthly",
+      "runtime_unit": "cloud-identity-provider",
+      "subject_kind": "security-platform-runtime",
+      "subject_type": "identity-runtime",
+      "supplier": {
+        "name": "Identity And Access Team",
+        "type": "third-party-platform"
+      }
+    },
+    {
+      "arch_ref": "smartparking.arch.container.secrets-manager",
+      "architecture_subject": "Secrets Manager",
+      "artifacts": {
+        "cbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "sbom": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        },
+        "vex": {
+          "applicable": true,
+          "content_status": "scaffolded",
+          "derived_maturity_state": "scaffolded",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "freshness_state": "unknown",
+          "governed_maturity_state": "scaffolded",
+          "handoff_to": "none",
+          "next_review_due": "unscheduled",
+          "origin": "architecture-derived-scaffold",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "review_blocking": false,
+          "selected_source": null,
+          "status": "scaffolded"
+        }
+      },
+      "bom_ref": "smartparking.bom.secrets-manager",
+      "criticality": "high",
+      "deployment_zone": "cloud",
+      "domain_flags": {
+        "ai_decision_role": "none",
+        "cyber_physical_criticality": "high",
+        "handles_secrets": true,
+        "internet_exposure": "internal-only",
+        "physical_control": "indirect",
+        "privilege_level": "secret-control-plane",
+        "safety_impact": "medium"
+      },
+      "escalation_owner": "trust-governance-board",
+      "evidence_subjects": [
+        {
+          "evidence_subject_id": "secrets-manager-runtime",
+          "review": {
+            "last_reviewed": "not-reviewed",
+            "next_review_due": "auto",
+            "review_notes": "No artifact-specific review recorded.",
+            "review_status": "planned",
+            "reviewed_by": "unassigned"
+          },
+          "runtime_unit": "cloud-secrets-manager",
+          "subject_kind": "managed_service_runtime",
+          "subject_variant": "managed_runtime"
+        }
+      ],
+      "files": {
+        "cbom": "bom/cbom/secrets-manager.cdx.json",
+        "sbom": "bom/sbom/secrets-manager.cdx.json",
+        "vex": "bom/vex/secrets-manager.cdx.json"
+      },
+      "mapping_mode": "one-to-one-runtime",
+      "owner": "trust-team",
+      "ownership": "trust-team",
+      "provenance": {
+        "content_status": "not-collected",
+        "derived_maturity_state": "scaffolded",
+        "escalation_required": false,
+        "escalation_status": "not-required",
+        "freshness_state": "unknown",
+        "governed_maturity_state": "scaffolded",
+        "handoff_to": "none",
+        "next_review_due": "unscheduled",
+        "review": {
+          "last_reviewed": "not-reviewed",
+          "next_review_due": "auto",
+          "review_notes": "No artifact-specific review recorded.",
+          "review_status": "planned",
+          "reviewed_by": "unassigned"
+        },
+        "review_blocking": false,
+        "selected_source": null
+      },
+      "review_cadence": "monthly",
+      "runtime_unit": "cloud-secrets-manager",
+      "subject_kind": "security-platform-runtime",
+      "subject_type": "secret-management-runtime",
+      "supplier": {
+        "name": "Secrets And Trust Team",
+        "type": "third-party-platform"
+      }
+    }
+  ],
+  "workspace_json_sha256": "de79fe9695f0f01f08f9fc2149338354ab3d1d71673371fb5896e32fe03cb8e4"
+}

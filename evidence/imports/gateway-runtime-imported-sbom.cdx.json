@@ -1,0 +1,31 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:9cdcefbf-d889-4a2c-a295-27f57d0c6466",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-08-18T00:00:00Z",
+    "component": {
+      "bom-ref": "teaching.gateway-runtime.imported-sbom",
+      "type": "application",
+      "group": "smartparking",
+      "name": "Gateway Service",
+      "version": "0.5.0-imported-teaching-artifact",
+      "description": "Minimal imported CycloneDX artifact used to exercise the repository adapter path. It is a real JSON input file, but it is not a discovered dependency inventory."
+    },
+    "properties": [
+      {
+        "name": "smartparking.note",
+        "value": "Teaching import only. This file demonstrates adapter normalization without claiming package completeness."
+      }
+    ]
+  },
+  "components": [],
+  "dependencies": [
+    {
+      "ref": "teaching.gateway-runtime.imported-sbom",
+      "dependsOn": []
+    }
+  ]
+}

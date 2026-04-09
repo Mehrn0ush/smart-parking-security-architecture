@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "record_type": "teaching_provenance_reference",
+  "subject": "Edge AI Model Package",
+  "statement_type": "provenance-reference",
+  "source_path": "placeholder://edge-ai-runtime/model-package-attestation",
+  "summary": "This local record captures the intended provenance attachment point for the edge AI model package. It is not a signed attestation and does not prove build integrity on its own.",
+  "reviewed_at": "2025-06-15",
+  "reviewed_by": "AI Assurance Board"
+}
