@@ -1,5 +1,5 @@
 {
-  "schema_version": "4.0",
+  "schema_version": "7.0",
   "format_note": "This file uses a YAML-compatible JSON subset so the repository can stay standard-library-only.",
   "policy_defaults": {
     "artifact_origin": "architecture-derived-scaffold",
@@ -13,7 +13,49 @@
     "ownership": "team-managed",
     "owner": "unassigned",
     "review_cadence": "quarterly",
-    "escalation_owner": "architecture-governance"
+    "escalation_owner": "architecture-governance",
+    "artifact_governance_defaults": {
+      "sbom": {
+        "reviewer_group": "platform-engineering",
+        "approval_group": "architecture-governance",
+        "approval_required_for_evidence_backed": true,
+        "approval_validity_days": 30,
+        "approval_expiring_soon_days": 7,
+        "dual_review_required": false,
+        "secondary_approval_group": "none",
+        "escalation_group": "architecture-governance"
+      },
+      "cbom": {
+        "reviewer_group": "security-architecture-and-crypto-governance",
+        "approval_group": "security-architecture-and-crypto-governance",
+        "approval_required_for_evidence_backed": false,
+        "approval_validity_days": 45,
+        "approval_expiring_soon_days": 10,
+        "dual_review_required": false,
+        "secondary_approval_group": "none",
+        "escalation_group": "architecture-governance"
+      },
+      "vex": {
+        "reviewer_group": "product-security-and-vendor-assurance",
+        "approval_group": "product-security-and-vendor-assurance",
+        "approval_required_for_evidence_backed": false,
+        "approval_validity_days": 21,
+        "approval_expiring_soon_days": 7,
+        "dual_review_required": false,
+        "secondary_approval_group": "none",
+        "escalation_group": "architecture-governance"
+      },
+      "provenance": {
+        "reviewer_group": "platform-release-governance",
+        "approval_group": "platform-release-governance",
+        "approval_required_for_evidence_backed": true,
+        "approval_validity_days": 21,
+        "approval_expiring_soon_days": 7,
+        "dual_review_required": false,
+        "secondary_approval_group": "none",
+        "escalation_group": "architecture-governance"
+      }
+    }
   },
   "review_cadence_days": {
     "monthly": 30,
@@ -42,7 +84,11 @@
       "review_governance": {
         "stale_requires_escalation": true,
         "expired_requires_escalation": true,
-        "expired_blocks_evidence_backed": true
+        "expired_blocks_evidence_backed": true,
+        "overdue_review_requires_escalation": true,
+        "overdue_review_blocks_evidence_backed": true,
+        "rejected_requires_escalation": true,
+        "rejected_blocks_governed": true
       }
     },
     "cbom": {
@@ -67,7 +113,11 @@
       "review_governance": {
         "stale_requires_escalation": true,
         "expired_requires_escalation": true,
-        "expired_blocks_evidence_backed": true
+        "expired_blocks_evidence_backed": true,
+        "overdue_review_requires_escalation": true,
+        "overdue_review_blocks_evidence_backed": false,
+        "rejected_requires_escalation": true,
+        "rejected_blocks_governed": true
       }
     },
     "vex": {
@@ -93,7 +143,11 @@
       "review_governance": {
         "stale_requires_escalation": true,
         "expired_requires_escalation": true,
-        "expired_blocks_evidence_backed": true
+        "expired_blocks_evidence_backed": true,
+        "overdue_review_requires_escalation": true,
+        "overdue_review_blocks_evidence_backed": false,
+        "rejected_requires_escalation": true,
+        "rejected_blocks_governed": true
       }
     },
     "provenance": {
@@ -118,7 +172,11 @@
       "review_governance": {
         "stale_requires_escalation": true,
         "expired_requires_escalation": true,
-        "expired_blocks_evidence_backed": true
+        "expired_blocks_evidence_backed": true,
+        "overdue_review_requires_escalation": true,
+        "overdue_review_blocks_evidence_backed": true,
+        "rejected_requires_escalation": true,
+        "rejected_blocks_governed": true
       }
     }
   },
@@ -135,6 +193,24 @@
       "owner": "platform-team",
       "review_cadence": "monthly",
       "escalation_owner": "platform-security-review-board",
+      "artifact_governance_overrides": {
+        "sbom": {
+          "approval_group": "platform-security-review-board",
+          "approval_validity_days": 7
+        },
+        "cbom": {
+          "reviewer_group": "edge-security-and-crypto-governance",
+          "approval_group": "edge-security-and-crypto-governance",
+          "dual_review_required": true,
+          "secondary_approval_group": "platform-security-review-board",
+          "escalation_group": "platform-security-review-board"
+        },
+        "vex": {
+          "reviewer_group": "product-security-and-incident-response",
+          "approval_group": "product-security-and-incident-response",
+          "escalation_group": "platform-security-review-board"
+        }
+      },
       "supplier": {
         "name": "Smart Parking Platform Team",
         "type": "first-party"
@@ -184,6 +260,20 @@
       "owner": "ai-team",
       "review_cadence": "monthly",
       "escalation_owner": "ai-assurance-board",
+      "artifact_governance_overrides": {
+        "provenance": {
+          "reviewer_group": "ai-assurance-and-ml-governance",
+          "approval_group": "ai-assurance-board",
+          "dual_review_required": true,
+          "secondary_approval_group": "platform-release-governance",
+          "escalation_group": "ai-assurance-board"
+        },
+        "vex": {
+          "reviewer_group": "ai-product-security",
+          "approval_group": "ai-product-security",
+          "escalation_group": "ai-assurance-board"
+        }
+      },
       "supplier": {
         "name": "Smart Parking AI Team",
         "type": "first-party"
@@ -233,6 +323,18 @@
       "owner": "platform-edge-team",
       "review_cadence": "monthly",
       "escalation_owner": "platform-security-review-board",
+      "artifact_governance_overrides": {
+        "vex": {
+          "reviewer_group": "vendor-assurance-and-product-security",
+          "approval_group": "vendor-assurance-and-product-security",
+          "escalation_group": "platform-security-review-board"
+        },
+        "cbom": {
+          "reviewer_group": "internet-edge-crypto-governance",
+          "approval_group": "internet-edge-crypto-governance",
+          "escalation_group": "platform-security-review-board"
+        }
+      },
       "supplier": {
         "name": "Platform Edge Team",
         "type": "third-party-platform"
@@ -282,6 +384,13 @@
       "owner": "data-platform-team",
       "review_cadence": "quarterly",
       "escalation_owner": "data-platform-governance",
+      "artifact_governance_overrides": {
+        "sbom": {
+          "reviewer_group": "data-platform-engineering",
+          "approval_group": "data-platform-engineering",
+          "escalation_group": "data-platform-governance"
+        }
+      },
       "supplier": {
         "name": "Data Platform Team",
         "type": "third-party-platform"
@@ -330,6 +439,20 @@
       "owner": "identity-team",
       "review_cadence": "monthly",
       "escalation_owner": "identity-security-board",
+      "artifact_governance_overrides": {
+        "cbom": {
+          "reviewer_group": "identity-crypto-governance",
+          "approval_group": "identity-security-board",
+          "dual_review_required": true,
+          "secondary_approval_group": "security-architecture-and-crypto-governance",
+          "escalation_group": "identity-security-board"
+        },
+        "vex": {
+          "reviewer_group": "identity-product-security",
+          "approval_group": "identity-product-security",
+          "escalation_group": "identity-security-board"
+        }
+      },
       "supplier": {
         "name": "Identity And Access Team",
         "type": "third-party-platform"
@@ -379,6 +502,20 @@
       "owner": "trust-team",
       "review_cadence": "monthly",
       "escalation_owner": "trust-governance-board",
+      "artifact_governance_overrides": {
+        "cbom": {
+          "reviewer_group": "secrets-and-trust-governance",
+          "approval_group": "trust-governance-board",
+          "dual_review_required": true,
+          "secondary_approval_group": "security-architecture-and-crypto-governance",
+          "escalation_group": "trust-governance-board"
+        },
+        "vex": {
+          "reviewer_group": "secrets-vendor-assurance",
+          "approval_group": "secrets-vendor-assurance",
+          "escalation_group": "trust-governance-board"
+        }
+      },
       "supplier": {
         "name": "Secrets And Trust Team",
         "type": "third-party-platform"

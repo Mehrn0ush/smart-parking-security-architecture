@@ -96,3 +96,24 @@ Milestone 7 adds one more teaching point:
 - review state is now artifact-specific
 - stale or expired evidence can trigger escalation and handoff
 - the edge AI model-package provenance example shows how incomplete AI provenance should still be governed explicitly
+
+Milestone 8 adds static governance visibility:
+
+- [`governance-summary.md`](governance-summary.md) gives repository-level counts for governed maturity, freshness, overdue review, review blocking, and escalation
+- reviewer groups are now shown per artifact type so SBOM, CBOM, VEX, and provenance do not all imply the same review path
+- Gateway Service SBOM is the main review-blocking downgrade example
+- Secrets Manager VEX is the main trust-boundary escalation example outside the AI path
+
+Milestone 9 adds workflow-oriented reading guidance:
+
+- `governance-summary.md` now also counts awaiting-approval and waived artifacts
+- the evidence matrix now shows review lifecycle, approval group, waiver state, and provenance assurance level
+- Gateway Service SBOM is the main approval-lifecycle example
+- Identity Provider CBOM is the main waiver example
+
+Milestone 10 adds two more static outputs and interpretations:
+
+- `governance-summary.md` now counts approval expiry, dual-review pending items, and waivers expiring soon
+- [`reviewer-actions.md`](reviewer-actions.md) groups action items by reviewer group
+- Gateway Service SBOM is the main approval-expiry example
+- Gateway Service CBOM and Edge AI provenance are the main dual-review examples

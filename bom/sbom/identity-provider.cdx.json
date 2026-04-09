@@ -26,6 +26,18 @@
           "value": "none"
         },
         {
+          "name": "smartparking.approval_group",
+          "value": "architecture-governance"
+        },
+        {
+          "name": "smartparking.approval_required",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.approval_state",
+          "value": "not_applicable"
+        },
+        {
           "name": "smartparking.arch_ref",
           "value": "smartparking.arch.container.identity-provider"
         },
@@ -46,6 +58,10 @@
           "value": "high"
         },
         {
+          "name": "smartparking.awaiting_approval",
+          "value": "false"
+        },
+        {
           "name": "smartparking.bom_ref",
           "value": "smartparking.bom.identity-provider"
         },
@@ -60,6 +76,18 @@
         {
           "name": "smartparking.derived_maturity_state",
           "value": "scaffolded"
+        },
+        {
+          "name": "smartparking.dual_review_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.dual_review_satisfied",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.escalation_group",
+          "value": "architecture-governance"
         },
         {
           "name": "smartparking.escalation_owner",
@@ -146,6 +174,14 @@
           "value": "scaffolded"
         },
         {
+          "name": "smartparking.provenance_selected_assurance_level",
+          "value": "not-applicable"
+        },
+        {
+          "name": "smartparking.provenance_selected_attestation_type",
+          "value": "not-applicable"
+        },
+        {
           "name": "smartparking.provenance_selected_source",
           "value": "none"
         },
@@ -158,6 +194,14 @@
           "value": "monthly"
         },
         {
+          "name": "smartparking.review_due_status",
+          "value": "unscheduled"
+        },
+        {
+          "name": "smartparking.review_lifecycle_state",
+          "value": "pending"
+        },
+        {
           "name": "smartparking.review_status",
           "value": "planned"
         },
@@ -166,12 +210,20 @@
           "value": "unassigned"
         },
         {
+          "name": "smartparking.reviewer_group",
+          "value": "platform-engineering"
+        },
+        {
           "name": "smartparking.runtime_unit",
           "value": "cloud-identity-provider"
         },
         {
           "name": "smartparking.safety_impact",
           "value": "medium"
+        },
+        {
+          "name": "smartparking.secondary_approval_group",
+          "value": "none"
         },
         {
           "name": "smartparking.selected_evidence_adapter",
@@ -188,6 +240,14 @@
         {
           "name": "smartparking.selected_evidence_subject",
           "value": "none"
+        },
+        {
+          "name": "smartparking.selected_provenance_assurance_level",
+          "value": "not-applicable"
+        },
+        {
+          "name": "smartparking.selected_provenance_attestation_type",
+          "value": "not-applicable"
         },
         {
           "name": "smartparking.selected_source_reference",
@@ -220,6 +280,30 @@
         {
           "name": "smartparking.technology",
           "value": "Keycloak/Auth0"
+        },
+        {
+          "name": "smartparking.waiver_active",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.waiver_effect",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.waiver_expiry",
+          "value": "none"
+        },
+        {
+          "name": "smartparking.waiver_expiry_state",
+          "value": "not_applicable"
+        },
+        {
+          "name": "smartparking.waiver_owner",
+          "value": "unassigned"
+        },
+        {
+          "name": "smartparking.waiver_state",
+          "value": "none"
         },
         {
           "name": "smartparking.external_provider_count",

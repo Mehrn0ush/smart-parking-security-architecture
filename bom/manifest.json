@@ -2,22 +2,151 @@
   "derived_from": "model/workspace.json",
   "evaluation_date_utc": "2025-08-20T00:00:00Z",
   "evidence_file": "model/supply-chain-evidence.yaml",
-  "evidence_sha256": "776a88572c40193a63d5456822f045cbf4a6321d1b5019398a556dd6b3031fe2",
+  "evidence_sha256": "4f6d307781118d45f59d112ce25bc22a40d82bea5669b1181fa6ac5c05f431c9",
   "generation_basis": "Structurizr architecture metadata plus policy mapping plus decomposed evidence subjects plus normalized evidence adapters",
+  "governance_summary": {
+    "approval_expired_count": 2,
+    "approval_expiring_soon_count": 0,
+    "artifact_total": 24,
+    "awaiting_approval_count": 1,
+    "by_approval_state": {
+      "current": 1,
+      "expired": 2,
+      "not_applicable": 21
+    },
+    "by_freshness": {
+      "expired": 2,
+      "fresh": 3,
+      "not_applicable": 1,
+      "unknown": 18
+    },
+    "by_governed_maturity": {
+      "not_applicable": 1,
+      "partially_evidenced": 5,
+      "scaffolded": 18
+    },
+    "by_provenance_assurance_level": {
+      "not-applicable": 5,
+      "reference_only": 1
+    },
+    "by_raw_maturity": {
+      "evidence_backed": 1,
+      "not_applicable": 1,
+      "partially_evidenced": 4,
+      "scaffolded": 18
+    },
+    "by_review_due_status": {
+      "current": 2,
+      "not-applicable": 1,
+      "overdue": 5,
+      "unscheduled": 16
+    },
+    "by_review_lifecycle_state": {
+      "approved": 1,
+      "in_review": 5,
+      "pending": 17,
+      "waived": 1
+    },
+    "by_review_status": {
+      "approval-refresh-required": 1,
+      "planned": 17,
+      "reviewed": 1,
+      "reviewed-with-open-followup": 4,
+      "waived": 1
+    },
+    "by_reviewer_group": {
+      "ai-assurance-and-ml-governance": 1,
+      "ai-product-security": 1,
+      "data-platform-engineering": 1,
+      "edge-security-and-crypto-governance": 1,
+      "identity-crypto-governance": 1,
+      "identity-product-security": 1,
+      "internet-edge-crypto-governance": 1,
+      "platform-engineering": 5,
+      "platform-release-governance": 5,
+      "product-security-and-incident-response": 1,
+      "product-security-and-vendor-assurance": 1,
+      "secrets-and-trust-governance": 1,
+      "secrets-vendor-assurance": 1,
+      "security-architecture-and-crypto-governance": 2,
+      "vendor-assurance-and-product-security": 1
+    },
+    "by_waiver_expiry_state": {
+      "expiring_soon": 1,
+      "not_applicable": 23
+    },
+    "dual_review_pending_count": 4,
+    "escalation_required_count": 6,
+    "expired_waiver_count": 0,
+    "overdue_review_count": 5,
+    "review_blocking_count": 5,
+    "waived_artifact_count": 1,
+    "waiver_expiring_soon_count": 1
+  },
   "policy_file": "model/supply-chain-mapping.yaml",
-  "policy_sha256": "313a084c95f6fca49bd084de06bf95e6f7662b00e85e2bb6d159876d99cebff3",
-  "schema_version": "7.0",
+  "policy_sha256": "6e07084fa1926ee6d9d9ab2fcd3e9bd1fd9fa62e59699319297c47a038bc4c6f",
+  "reviewer_action_count": 7,
+  "schema_version": "10.0",
   "source_of_truth": "model/workspace.dsl",
   "tracked_subject_count": 6,
   "tracked_subjects": [
     {
       "arch_ref": "smartparking.arch.container.api-gateway",
       "architecture_subject": "API Gateway",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "internet-edge-crypto-governance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": false,
+          "escalation_group": "platform-security-review-board",
+          "reviewer_group": "internet-edge-crypto-governance",
+          "secondary_approval_group": "none"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-release-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-release-governance",
+          "secondary_approval_group": "none"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "architecture-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 30,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "vendor-assurance-and-product-security",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "platform-security-review-board",
+          "reviewer_group": "vendor-assurance-and-product-security",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": true,
+          "approval_group": "internet-edge-crypto-governance",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -26,20 +155,42 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "Awaiting TLS boundary review artifacts.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "internet-edge-crypto-governance",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "architecture-governance",
+          "approval_required": true,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -48,20 +199,42 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "Awaiting supplier SBOM import.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
+          "approval_group": "vendor-assurance-and-product-security",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "partially-evidenced",
           "derived_maturity_state": "partially_evidenced",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "fresh",
@@ -70,13 +243,19 @@
           "next_review_due": "2025-09-11",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "2025-08-12",
             "next_review_due": "auto",
+            "review_lifecycle_state": "in_review",
             "review_notes": "Advisory review captured locally; supplier-issued VEX still absent.",
+            "review_outcome": "reviewed-with-open-followup",
             "review_status": "reviewed-with-open-followup",
             "reviewed_by": "Platform Security Review Board"
           },
           "review_blocking": false,
+          "review_due_status": "current",
+          "reviewer_group": "vendor-assurance-and-product-security",
+          "secondary_approval_group": "none",
           "selected_source": {
             "adapter": "advisory_record",
             "collection_method": "advisory_reviewed",
@@ -94,12 +273,23 @@
             "last_verified": "2025-08-12",
             "limitations": "Internal advisory review record only. No supplier VEX file is committed in this repository.",
             "maturity": "reviewed",
+            "provenance_assurance_level": "not-applicable",
+            "provenance_attestation_type": "not-applicable",
             "reference": "evidence/reviews/api-gateway-vendor-advisory-review.json",
             "source_sha256": "0df9951a07043f82fe49a64af17842e8be5dfcba27046bd553ccd4525f20777e",
             "source_type": "vendor-advisory-review",
             "subject_variant": "managed_runtime"
           },
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.api-gateway",
@@ -119,9 +309,12 @@
         {
           "evidence_subject_id": "api-gateway-runtime",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "2025-08-12",
             "next_review_due": "auto",
+            "review_lifecycle_state": "in_review",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "reviewed-with-open-followup",
             "review_status": "reviewed-with-open-followup",
             "reviewed_by": "Platform Security Review Board"
           },
@@ -139,8 +332,15 @@
       "owner": "platform-edge-team",
       "ownership": "platform-team",
       "provenance": {
+        "approval_group": "platform-release-governance",
+        "approval_required": true,
+        "approval_state": "not_applicable",
+        "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
+        "dual_review_required": false,
+        "dual_review_satisfied": true,
+        "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
         "freshness_state": "unknown",
@@ -148,14 +348,29 @@
         "handoff_to": "none",
         "next_review_due": "unscheduled",
         "review": {
+          "approval_signoffs": [],
           "last_reviewed": "not-reviewed",
           "next_review_due": "auto",
+          "review_lifecycle_state": "pending",
           "review_notes": "Awaiting deployment provenance.",
+          "review_outcome": "planned",
           "review_status": "planned",
           "reviewed_by": "unassigned"
         },
         "review_blocking": false,
-        "selected_source": null
+        "review_due_status": "unscheduled",
+        "reviewer_group": "platform-release-governance",
+        "secondary_approval_group": "none",
+        "selected_source": null,
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "monthly",
       "runtime_unit": "cloud-api-gateway",
@@ -169,11 +384,60 @@
     {
       "arch_ref": "smartparking.arch.container.edge-ai-runtime",
       "architecture_subject": "Edge AI Runtime",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "security-architecture-and-crypto-governance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "security-architecture-and-crypto-governance",
+          "secondary_approval_group": "none"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "ai-assurance-board",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": true,
+          "escalation_group": "ai-assurance-board",
+          "reviewer_group": "ai-assurance-and-ml-governance",
+          "secondary_approval_group": "platform-release-governance"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "architecture-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 30,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "ai-product-security",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "ai-assurance-board",
+          "reviewer_group": "ai-product-security",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": true,
+          "approval_group": "security-architecture-and-crypto-governance",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -182,20 +446,42 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "Awaiting AI runtime integrity review artifacts.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "security-architecture-and-crypto-governance",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "architecture-governance",
+          "approval_required": true,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -204,20 +490,42 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "Awaiting runtime package or image evidence.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
+          "approval_group": "ai-product-security",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "ai-assurance-board",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -226,15 +534,30 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "Awaiting AI runtime advisory review.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "ai-product-security",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.edge-ai-runtime",
@@ -254,9 +577,12 @@
         {
           "evidence_subject_id": "edge-ai-runtime-service",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
@@ -267,9 +593,12 @@
         {
           "evidence_subject_id": "edge-ai-model-package",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
@@ -287,8 +616,15 @@
       "owner": "ai-team",
       "ownership": "ai-team",
       "provenance": {
+        "approval_group": "ai-assurance-board",
+        "approval_required": true,
+        "approval_state": "expired",
+        "awaiting_approval": false,
         "content_status": "partially-evidenced",
         "derived_maturity_state": "partially_evidenced",
+        "dual_review_required": true,
+        "dual_review_satisfied": false,
+        "escalation_group": "ai-assurance-board",
         "escalation_required": true,
         "escalation_status": "expired-review-required",
         "freshness_state": "expired",
@@ -296,13 +632,25 @@
         "handoff_to": "ai-assurance-board",
         "next_review_due": "2025-07-15",
         "review": {
+          "approval_signoffs": [
+            {
+              "approved_at": "2025-06-15",
+              "approved_by": "AI Assurance Board",
+              "group": "ai-assurance-board"
+            }
+          ],
           "last_reviewed": "2025-06-15",
           "next_review_due": "auto",
+          "review_lifecycle_state": "in_review",
           "review_notes": "Reference record reviewed, but no signed attestation is committed.",
+          "review_outcome": "reviewed-with-open-followup",
           "review_status": "reviewed-with-open-followup",
           "reviewed_by": "AI Assurance Board"
         },
-        "review_blocking": false,
+        "review_blocking": true,
+        "review_due_status": "overdue",
+        "reviewer_group": "ai-assurance-and-ml-governance",
+        "secondary_approval_group": "platform-release-governance",
         "selected_source": {
           "adapter": "attestation_reference",
           "collection_method": "imported",
@@ -319,11 +667,22 @@
           "last_verified": "2025-06-15",
           "limitations": "Reference record only. It points to an intended provenance path but is not a signed attestation.",
           "maturity": "reviewed",
+          "provenance_assurance_level": "reference_only",
+          "provenance_attestation_type": "reference_only",
           "reference": "evidence/references/edge-ai-model-package-provenance-reference.json",
           "source_sha256": "af7dcbc10ec96b56414b91aeacaacf7b2cd1257c2b7e6867ea969245cd6f600d",
           "source_type": "model-package-attestation",
           "subject_variant": "model_package"
-        }
+        },
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "monthly",
       "runtime_unit": "edge-ai-runtime",
@@ -337,11 +696,60 @@
     {
       "arch_ref": "smartparking.arch.container.event-bus",
       "architecture_subject": "Event Bus",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "security-architecture-and-crypto-governance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "security-architecture-and-crypto-governance",
+          "secondary_approval_group": "none"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-release-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-release-governance",
+          "secondary_approval_group": "none"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "data-platform-engineering",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 30,
+          "dual_review_required": false,
+          "escalation_group": "data-platform-governance",
+          "reviewer_group": "data-platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "product-security-and-vendor-assurance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "product-security-and-vendor-assurance",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": false,
+          "approval_group": "security-architecture-and-crypto-governance",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "not-applicable",
           "derived_maturity_state": "not_applicable",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-applicable",
           "freshness_state": "not_applicable",
@@ -350,20 +758,42 @@
           "next_review_due": "none",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "not-applicable",
+          "reviewer_group": "security-architecture-and-crypto-governance",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "not-applicable"
+          "status": "not-applicable",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "data-platform-engineering",
+          "approval_required": true,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "data-platform-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -372,37 +802,74 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "data-platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
+          "approval_group": "product-security-and-vendor-assurance",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
-          "escalation_required": false,
-          "escalation_status": "not-required",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
+          "escalation_required": true,
+          "escalation_status": "overdue-review-required",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
-          "handoff_to": "none",
-          "next_review_due": "unscheduled",
+          "handoff_to": "architecture-governance",
+          "next_review_due": "2025-08-16",
           "origin": "architecture-derived-scaffold",
           "review": {
-            "last_reviewed": "not-reviewed",
+            "approval_signoffs": [],
+            "last_reviewed": "2025-05-18",
             "next_review_due": "auto",
-            "review_notes": "No artifact-specific review recorded.",
-            "review_status": "planned",
-            "reviewed_by": "unassigned"
+            "review_lifecycle_state": "in_review",
+            "review_notes": "Local secrets-platform advisory review is present, but the review is stale and requires follow-up.",
+            "review_outcome": "reviewed-with-open-followup",
+            "review_status": "reviewed-with-open-followup",
+            "reviewed_by": "Trust Governance Board"
           },
           "review_blocking": false,
+          "review_due_status": "overdue",
+          "reviewer_group": "product-security-and-vendor-assurance",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.event-bus",
@@ -422,9 +889,12 @@
         {
           "evidence_subject_id": "event-bus-runtime",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
@@ -441,8 +911,15 @@
       "owner": "data-platform-team",
       "ownership": "data-platform-team",
       "provenance": {
+        "approval_group": "platform-release-governance",
+        "approval_required": true,
+        "approval_state": "not_applicable",
+        "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
+        "dual_review_required": false,
+        "dual_review_satisfied": true,
+        "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
         "freshness_state": "unknown",
@@ -450,14 +927,29 @@
         "handoff_to": "none",
         "next_review_due": "unscheduled",
         "review": {
+          "approval_signoffs": [],
           "last_reviewed": "not-reviewed",
           "next_review_due": "auto",
+          "review_lifecycle_state": "pending",
           "review_notes": "No artifact-specific review recorded.",
+          "review_outcome": "planned",
           "review_status": "planned",
           "reviewed_by": "unassigned"
         },
         "review_blocking": false,
-        "selected_source": null
+        "review_due_status": "unscheduled",
+        "reviewer_group": "platform-release-governance",
+        "secondary_approval_group": "none",
+        "selected_source": null,
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "quarterly",
       "runtime_unit": "cloud-event-bus",
@@ -471,26 +963,87 @@
     {
       "arch_ref": "smartparking.arch.container.gateway-service",
       "architecture_subject": "Gateway Service",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "edge-security-and-crypto-governance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": true,
+          "escalation_group": "platform-security-review-board",
+          "reviewer_group": "edge-security-and-crypto-governance",
+          "secondary_approval_group": "platform-security-review-board"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-release-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-release-governance",
+          "secondary_approval_group": "none"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-security-review-board",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 7,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "product-security-and-incident-response",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "platform-security-review-board",
+          "reviewer_group": "product-security-and-incident-response",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": true,
+          "approval_group": "edge-security-and-crypto-governance",
+          "approval_required": false,
+          "approval_state": "current",
+          "awaiting_approval": false,
           "content_status": "partially-evidenced",
           "derived_maturity_state": "partially_evidenced",
-          "escalation_required": false,
-          "escalation_status": "not-required",
+          "dual_review_required": true,
+          "dual_review_satisfied": false,
+          "escalation_group": "platform-security-review-board",
+          "escalation_required": true,
+          "escalation_status": "dual-review-pending",
           "freshness_state": "fresh",
           "governed_maturity_state": "partially_evidenced",
-          "handoff_to": "none",
+          "handoff_to": "platform-security-review-board",
           "next_review_due": "2025-09-07",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [
+              {
+                "approved_at": "2025-08-08",
+                "approved_by": "Platform Security Architecture",
+                "group": "edge-security-and-crypto-governance"
+              }
+            ],
             "last_reviewed": "2025-08-08",
             "next_review_due": "auto",
+            "review_lifecycle_state": "approved",
             "review_notes": "Control evidence reviewed; still not a discovered crypto inventory.",
+            "review_outcome": "reviewed",
             "review_status": "reviewed",
             "reviewed_by": "Platform Security Architecture"
           },
-          "review_blocking": false,
+          "review_blocking": true,
+          "review_due_status": "current",
+          "reviewer_group": "edge-security-and-crypto-governance",
+          "secondary_approval_group": "platform-security-review-board",
           "selected_source": {
             "adapter": "none",
             "collection_method": "manually_curated",
@@ -502,32 +1055,62 @@
             "last_verified": "2025-08-08",
             "limitations": "Policy evidence supports boundary controls but does not enumerate certificates or algorithms.",
             "maturity": "reviewed",
+            "provenance_assurance_level": "not-applicable",
+            "provenance_attestation_type": "not-applicable",
             "reference": "code/policy/edge-access-policy.rego",
             "source_sha256": "41be5c7c1af75c5bc6d663af3225bf6dbff69603d4bcf63a111e7d80be6d612a",
             "source_type": "edge-access-policy",
             "subject_variant": "control_profile"
           },
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "platform-security-review-board",
+          "approval_required": true,
+          "approval_state": "expired",
+          "awaiting_approval": true,
           "content_status": "evidence-backed",
           "derived_maturity_state": "evidence_backed",
-          "escalation_required": false,
-          "escalation_status": "not-required",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
+          "escalation_required": true,
+          "escalation_status": "overdue-review-required",
           "freshness_state": "fresh",
-          "governed_maturity_state": "evidence_backed",
-          "handoff_to": "none",
-          "next_review_due": "2025-09-17",
+          "governed_maturity_state": "partially_evidenced",
+          "handoff_to": "architecture-governance",
+          "next_review_due": "2025-07-10",
           "origin": "architecture-derived-scaffold",
           "review": {
-            "last_reviewed": "2025-08-18",
+            "approval_signoffs": [
+              {
+                "approved_at": "2025-06-10",
+                "approved_by": "Platform Security Architecture",
+                "group": "platform-security-review-board"
+              }
+            ],
+            "last_reviewed": "2025-06-10",
             "next_review_due": "auto",
-            "review_notes": "Imported teaching CycloneDX artifact accepted for repository normalization coverage.",
-            "review_status": "approved-for-teaching-use",
+            "review_lifecycle_state": "in_review",
+            "review_notes": "Imported teaching CycloneDX artifact remains usable for normalization, but approval must be refreshed on the monthly cadence.",
+            "review_outcome": "approval-renewal-pending",
+            "review_status": "approval-refresh-required",
             "reviewed_by": "Platform Security Architecture"
           },
-          "review_blocking": false,
+          "review_blocking": true,
+          "review_due_status": "overdue",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": {
             "adapter": "cyclonedx_json",
             "collection_method": "imported",
@@ -545,17 +1128,35 @@
             "last_verified": "2025-08-18",
             "limitations": "Imported teaching artifact only. It demonstrates a real CycloneDX input shape, not a discovered dependency inventory.",
             "maturity": "reviewed",
+            "provenance_assurance_level": "not-applicable",
+            "provenance_attestation_type": "not-applicable",
             "reference": "evidence/imports/gateway-runtime-imported-sbom.cdx.json",
             "source_sha256": "a3f5dfdbb929e618c1ef444ff3067b9e679f4959bdf984bf921d927804a4549e",
             "source_type": "teaching-imported-cyclonedx",
             "subject_variant": "runtime_service"
           },
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
+          "approval_group": "product-security-and-incident-response",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -564,15 +1165,30 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No gateway advisory review has been attached yet.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "product-security-and-incident-response",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.gateway-service",
@@ -592,9 +1208,12 @@
         {
           "evidence_subject_id": "gateway-runtime",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "2025-08-18",
             "next_review_due": "auto",
+            "review_lifecycle_state": "approved",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "approved-for-teaching-use",
             "review_status": "approved-for-teaching-use",
             "reviewed_by": "Platform Security Architecture"
           },
@@ -605,9 +1224,12 @@
         {
           "evidence_subject_id": "gateway-control-profile",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "2025-08-08",
             "next_review_due": "auto",
+            "review_lifecycle_state": "approved",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "reviewed",
             "review_status": "reviewed",
             "reviewed_by": "Platform Security Architecture"
           },
@@ -625,8 +1247,15 @@
       "owner": "platform-team",
       "ownership": "platform-team",
       "provenance": {
+        "approval_group": "platform-release-governance",
+        "approval_required": true,
+        "approval_state": "not_applicable",
+        "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
+        "dual_review_required": false,
+        "dual_review_satisfied": true,
+        "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
         "freshness_state": "unknown",
@@ -634,14 +1263,29 @@
         "handoff_to": "none",
         "next_review_due": "unscheduled",
         "review": {
+          "approval_signoffs": [],
           "last_reviewed": "not-reviewed",
           "next_review_due": "auto",
+          "review_lifecycle_state": "pending",
           "review_notes": "Awaiting signed build provenance.",
+          "review_outcome": "planned",
           "review_status": "planned",
           "reviewed_by": "unassigned"
         },
         "review_blocking": false,
-        "selected_source": null
+        "review_due_status": "unscheduled",
+        "reviewer_group": "platform-release-governance",
+        "secondary_approval_group": "none",
+        "selected_source": null,
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "monthly",
       "runtime_unit": "edge-gateway-service",
@@ -655,33 +1299,104 @@
     {
       "arch_ref": "smartparking.arch.container.identity-provider",
       "architecture_subject": "Identity Provider",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "identity-security-board",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": true,
+          "escalation_group": "identity-security-board",
+          "reviewer_group": "identity-crypto-governance",
+          "secondary_approval_group": "security-architecture-and-crypto-governance"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-release-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-release-governance",
+          "secondary_approval_group": "none"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "architecture-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 30,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "identity-product-security",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "identity-security-board",
+          "reviewer_group": "identity-product-security",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": true,
+          "approval_group": "identity-security-board",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": true,
+          "dual_review_satisfied": false,
+          "escalation_group": "identity-security-board",
           "escalation_required": false,
-          "escalation_status": "not-required",
+          "escalation_status": "waiver-active",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
-          "next_review_due": "unscheduled",
+          "next_review_due": "2025-05-01",
           "origin": "architecture-derived-scaffold",
           "review": {
-            "last_reviewed": "not-reviewed",
+            "approval_signoffs": [],
+            "last_reviewed": "2025-04-01",
             "next_review_due": "auto",
-            "review_notes": "No artifact-specific review recorded.",
-            "review_status": "planned",
-            "reviewed_by": "unassigned"
+            "review_lifecycle_state": "waived",
+            "review_notes": "Temporary exception while the managed identity platform does not expose local crypto inventory artifacts for this teaching repository.",
+            "review_outcome": "waived",
+            "review_status": "waived",
+            "reviewed_by": "Identity Security Board"
           },
-          "review_blocking": false,
+          "review_blocking": true,
+          "review_due_status": "overdue",
+          "reviewer_group": "identity-crypto-governance",
+          "secondary_approval_group": "security-architecture-and-crypto-governance",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "suppress_escalation",
+            "waiver_expiry": "2025-09-05",
+            "waiver_owner": "identity-security-board",
+            "waiver_rationale": "Managed identity crypto internals are supplier-controlled and not directly enumerable in this repository.",
+            "waiver_state": "active"
+          },
+          "waiver_active": true,
+          "waiver_expiry_state": "expiring_soon"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "architecture-governance",
+          "approval_required": true,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -690,20 +1405,42 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
+          "approval_group": "identity-product-security",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "identity-security-board",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -712,15 +1449,30 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "identity-product-security",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.identity-provider",
@@ -740,9 +1492,12 @@
         {
           "evidence_subject_id": "identity-provider-runtime",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
@@ -760,8 +1515,15 @@
       "owner": "identity-team",
       "ownership": "identity-team",
       "provenance": {
+        "approval_group": "platform-release-governance",
+        "approval_required": true,
+        "approval_state": "not_applicable",
+        "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
+        "dual_review_required": false,
+        "dual_review_satisfied": true,
+        "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
         "freshness_state": "unknown",
@@ -769,14 +1531,29 @@
         "handoff_to": "none",
         "next_review_due": "unscheduled",
         "review": {
+          "approval_signoffs": [],
           "last_reviewed": "not-reviewed",
           "next_review_due": "auto",
+          "review_lifecycle_state": "pending",
           "review_notes": "No artifact-specific review recorded.",
+          "review_outcome": "planned",
           "review_status": "planned",
           "reviewed_by": "unassigned"
         },
         "review_blocking": false,
-        "selected_source": null
+        "review_due_status": "unscheduled",
+        "reviewer_group": "platform-release-governance",
+        "secondary_approval_group": "none",
+        "selected_source": null,
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "monthly",
       "runtime_unit": "cloud-identity-provider",
@@ -790,33 +1567,104 @@
     {
       "arch_ref": "smartparking.arch.container.secrets-manager",
       "architecture_subject": "Secrets Manager",
+      "artifact_governance": {
+        "cbom": {
+          "approval_expiring_soon_days": 10,
+          "approval_group": "trust-governance-board",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 45,
+          "dual_review_required": true,
+          "escalation_group": "trust-governance-board",
+          "reviewer_group": "secrets-and-trust-governance",
+          "secondary_approval_group": "security-architecture-and-crypto-governance"
+        },
+        "provenance": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "platform-release-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-release-governance",
+          "secondary_approval_group": "none"
+        },
+        "sbom": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "architecture-governance",
+          "approval_required_for_evidence_backed": true,
+          "approval_validity_days": 30,
+          "dual_review_required": false,
+          "escalation_group": "architecture-governance",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none"
+        },
+        "vex": {
+          "approval_expiring_soon_days": 7,
+          "approval_group": "secrets-vendor-assurance",
+          "approval_required_for_evidence_backed": false,
+          "approval_validity_days": 21,
+          "dual_review_required": false,
+          "escalation_group": "trust-governance-board",
+          "reviewer_group": "secrets-vendor-assurance",
+          "secondary_approval_group": "none"
+        }
+      },
       "artifacts": {
         "cbom": {
           "applicable": true,
+          "approval_group": "trust-governance-board",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
-          "escalation_required": false,
-          "escalation_status": "not-required",
+          "dual_review_required": true,
+          "dual_review_satisfied": false,
+          "escalation_group": "trust-governance-board",
+          "escalation_required": true,
+          "escalation_status": "dual-review-pending",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
-          "handoff_to": "none",
+          "handoff_to": "trust-governance-board",
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
-          "review_blocking": false,
+          "review_blocking": true,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "secrets-and-trust-governance",
+          "secondary_approval_group": "security-architecture-and-crypto-governance",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "sbom": {
           "applicable": true,
+          "approval_group": "architecture-governance",
+          "approval_required": true,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
           "freshness_state": "unknown",
@@ -825,37 +1673,97 @@
           "next_review_due": "unscheduled",
           "origin": "architecture-derived-scaffold",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
           "review_blocking": false,
+          "review_due_status": "unscheduled",
+          "reviewer_group": "platform-engineering",
+          "secondary_approval_group": "none",
           "selected_source": null,
-          "status": "scaffolded"
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         },
         "vex": {
           "applicable": true,
-          "content_status": "scaffolded",
-          "derived_maturity_state": "scaffolded",
-          "escalation_required": false,
-          "escalation_status": "not-required",
-          "freshness_state": "unknown",
-          "governed_maturity_state": "scaffolded",
-          "handoff_to": "none",
-          "next_review_due": "unscheduled",
+          "approval_group": "secrets-vendor-assurance",
+          "approval_required": false,
+          "approval_state": "not_applicable",
+          "awaiting_approval": false,
+          "content_status": "partially-evidenced",
+          "derived_maturity_state": "partially_evidenced",
+          "dual_review_required": false,
+          "dual_review_satisfied": true,
+          "escalation_group": "trust-governance-board",
+          "escalation_required": true,
+          "escalation_status": "expired-review-required",
+          "freshness_state": "expired",
+          "governed_maturity_state": "partially_evidenced",
+          "handoff_to": "trust-governance-board",
+          "next_review_due": "2025-06-17",
           "origin": "architecture-derived-scaffold",
           "review": {
-            "last_reviewed": "not-reviewed",
+            "approval_signoffs": [],
+            "last_reviewed": "2025-05-18",
             "next_review_due": "auto",
-            "review_notes": "No artifact-specific review recorded.",
-            "review_status": "planned",
-            "reviewed_by": "unassigned"
+            "review_lifecycle_state": "in_review",
+            "review_notes": "Local secrets-platform advisory review is present, but it is stale and still requires supplier or operator follow-up.",
+            "review_outcome": "reviewed-with-open-followup",
+            "review_status": "reviewed-with-open-followup",
+            "reviewed_by": "Trust Governance Board"
           },
           "review_blocking": false,
-          "selected_source": null,
-          "status": "scaffolded"
+          "review_due_status": "overdue",
+          "reviewer_group": "secrets-vendor-assurance",
+          "secondary_approval_group": "none",
+          "selected_source": {
+            "adapter": "advisory_record",
+            "collection_method": "advisory_reviewed",
+            "confidence": "medium",
+            "evidence_kind": "advisory_record",
+            "evidence_subject_id": "secrets-manager-runtime",
+            "input_state": "local-file",
+            "input_summary": {
+              "adapter": "advisory_record",
+              "review_outcome": "stale-followup-required",
+              "review_status": "advisory-reviewed",
+              "reviewed_at": "2025-05-18",
+              "subject": "Secrets Manager"
+            },
+            "last_verified": "2025-05-18",
+            "limitations": "Local secrets-platform review record only. It is not a supplier-issued VEX document.",
+            "maturity": "reviewed",
+            "provenance_assurance_level": "not-applicable",
+            "provenance_attestation_type": "not-applicable",
+            "reference": "evidence/reviews/secrets-manager-vault-advisory-review.json",
+            "source_sha256": "a6e642b9be3d0733bdbc0448c258b95fe23b227f8a607cab6b56b7563fd1f400",
+            "source_type": "vault-advisory-review",
+            "subject_variant": "managed_runtime"
+          },
+          "status": "scaffolded",
+          "waiver": {
+            "waiver_effect": "none",
+            "waiver_expiry": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_state": "none"
+          },
+          "waiver_active": false,
+          "waiver_expiry_state": "not_applicable"
         }
       },
       "bom_ref": "smartparking.bom.secrets-manager",
@@ -875,9 +1783,12 @@
         {
           "evidence_subject_id": "secrets-manager-runtime",
           "review": {
+            "approval_signoffs": [],
             "last_reviewed": "not-reviewed",
             "next_review_due": "auto",
+            "review_lifecycle_state": "pending",
             "review_notes": "No artifact-specific review recorded.",
+            "review_outcome": "planned",
             "review_status": "planned",
             "reviewed_by": "unassigned"
           },
@@ -895,8 +1806,15 @@
       "owner": "trust-team",
       "ownership": "trust-team",
       "provenance": {
+        "approval_group": "platform-release-governance",
+        "approval_required": true,
+        "approval_state": "not_applicable",
+        "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
+        "dual_review_required": false,
+        "dual_review_satisfied": true,
+        "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
         "freshness_state": "unknown",
@@ -904,14 +1822,29 @@
         "handoff_to": "none",
         "next_review_due": "unscheduled",
         "review": {
+          "approval_signoffs": [],
           "last_reviewed": "not-reviewed",
           "next_review_due": "auto",
+          "review_lifecycle_state": "pending",
           "review_notes": "No artifact-specific review recorded.",
+          "review_outcome": "planned",
           "review_status": "planned",
           "reviewed_by": "unassigned"
         },
         "review_blocking": false,
-        "selected_source": null
+        "review_due_status": "unscheduled",
+        "reviewer_group": "platform-release-governance",
+        "secondary_approval_group": "none",
+        "selected_source": null,
+        "waiver": {
+          "waiver_effect": "none",
+          "waiver_expiry": "none",
+          "waiver_owner": "unassigned",
+          "waiver_rationale": "No active waiver.",
+          "waiver_state": "none"
+        },
+        "waiver_active": false,
+        "waiver_expiry_state": "not_applicable"
       },
       "review_cadence": "monthly",
       "runtime_unit": "cloud-secrets-manager",
@@ -923,5 +1856,5 @@
       }
     }
   ],
-  "workspace_json_sha256": "de79fe9695f0f01f08f9fc2149338354ab3d1d71673371fb5896e32fe03cb8e4"
+  "workspace_json_sha256": "f78c735367b0ce63685e246e292f786fb88f6308c663626d7a4685e991c10bba"
 }

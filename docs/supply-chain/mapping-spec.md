@@ -310,6 +310,27 @@ and a third:
 - that file is normalized through the `advisory_record` adapter
 - it becomes a `partially_evidenced` source without claiming a supplier-issued VEX document
 
+Milestone 8 adds governance-specific interpretation on top of those same rules:
+
+- reviewer groups are now assigned per artifact type in the policy layer
+- the same architecture subject can therefore route SBOM, CBOM, VEX, and provenance review to different teams
+- raw maturity and governed maturity can now diverge when review-blocking rules apply
+- Gateway Service SBOM is the main example: imported CycloneDX evidence still satisfies the raw `evidence_backed` rule, but overdue monthly review downgrades the governed state
+- provenance sources now also distinguish `reference_only` from signed or verified attestation-backed evidence so the repository does not overclaim provenance strength
+
+Milestone 9 adds one more layer of static workflow meaning:
+
+- reviewer groups can also have approval responsibility
+- governed `evidence_backed` state can now require explicit approval, not only fresh evidence
+- review lifecycle and waiver state are carried in the evidence layer and interpreted by policy rules
+- the provenance ladder now distinguishes `reference_only`, `attestation_present`, `signature_verified`, and `policy_verified`, even when the repository only uses the weakest honest example today
+
+Milestone 10 extends policy in three more operational ways:
+
+- approvals can now expire or become expiring soon
+- selected high-risk artifacts can require dual review with a secondary approval group
+- waiver-expiry and reviewer-action summaries are derived from the same policy and evidence layers, rather than tracked separately in prose
+
 ## CBOM Strategy
 
 CBOM is attached only to containers with explicit cryptographic or trust-material relevance.

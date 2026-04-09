@@ -206,6 +206,62 @@ Current milestone 7 result:
 - API Gateway VEX remains the main advisory-reviewed partial-evidence pilot
 - Edge AI model-package provenance now demonstrates stale AI provenance with explicit escalation to the AI assurance board
 
+## Why Milestone 8 Exists
+
+Milestone 7 proved that stale evidence could escalate, but it still treated reviewer responsibility too coarsely.
+
+Milestone 8 adds:
+
+- reviewer groups that vary by artifact type
+- explicit provenance distinction between reference-only and signed or verified attestation-backed inputs
+- a static governance summary so readers can see overdue review, escalation, and review-blocking counts without reading every artifact file
+- an explicit review-blocking downgrade example
+- a secrets-focused escalation example
+
+Current milestone 8 result:
+
+- Gateway Service SBOM is still raw `evidence_backed`, but its governed state is downgraded to `partially_evidenced` because review is overdue
+- Edge AI model-package provenance remains reference-only and therefore does not overclaim signed provenance
+- Secrets Manager VEX now shows a stale local advisory-review binding that escalates to trust governance
+- [`../../bom/governance-summary.md`](../../bom/governance-summary.md) summarizes the current repository-wide governance posture
+
+## Why Milestone 9 Exists
+
+Milestone 8 made governance visible, but it still treated review as mostly point-in-time state.
+
+Milestone 9 adds:
+
+- a small review lifecycle model
+- approval-aware reviewer-group semantics
+- a provenance assurance ladder
+- waiver and exception handling
+- action-oriented governance summaries for overdue, blocked, awaiting-approval, and waived artifacts
+
+Current milestone 9 result:
+
+- Gateway Service SBOM is now the main approval-lifecycle example: raw `evidence_backed`, governed `partially_evidenced`, lifecycle `in_review`, and awaiting approval
+- Identity Provider CBOM is the waiver example: it remains scaffolded, but an active waiver suppresses escalation while the managed crypto boundary stays opaque
+- Edge AI model-package provenance now uses the explicit assurance ladder and remains `reference_only`
+- Secrets Manager VEX remains the main secrets-focused escalation example
+
+## Why Milestone 10 Exists
+
+Milestone 9 introduced approval and waiver semantics, but it still treated them mostly as present-or-absent conditions.
+
+Milestone 10 adds:
+
+- approval expiry
+- dual-review rules for selected high-risk artifacts
+- waiver-expiry inventory
+- reviewer-group action summaries
+
+Current milestone 10 result:
+
+- Gateway Service SBOM is the main approval-expiry example: evidence still exists, but approval is expired and the governed state stays degraded
+- Gateway Service CBOM and Edge AI provenance are the main dual-review examples
+- Identity Provider CBOM is the main expiring-waiver example
+- [`../../bom/reviewer-actions.md`](../../bom/reviewer-actions.md) now groups action items by reviewer group
+
 ## Next Evolution Path
 
 The next steps would be:

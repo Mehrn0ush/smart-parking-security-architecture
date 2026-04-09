@@ -1,5 +1,5 @@
 {
-  "schema_version": "7.0",
+  "schema_version": "10.0",
   "format_note": "This file uses a YAML-compatible JSON subset so the repository can stay standard-library-only.",
   "defaults": {
     "evaluation_date_utc": "2025-08-20T00:00:00Z",
@@ -12,11 +12,21 @@
     "last_verified": "not-verified",
     "limitations": "Evidence binding placeholder only; no evidence artifact is committed in this repository.",
     "adapter": "none",
+    "provenance_attestation_type": "not-applicable",
+    "provenance_assurance_level": "not-applicable",
+    "review_lifecycle_state": "pending",
     "review_status": "not-reviewed",
     "last_reviewed": "not-reviewed",
     "reviewed_by": "unassigned",
     "review_notes": "No artifact-specific review recorded.",
-    "next_review_due": "auto"
+    "next_review_due": "auto",
+    "review_outcome": "not-reviewed",
+    "approval_signoffs": [],
+    "waiver_state": "none",
+    "waiver_owner": "unassigned",
+    "waiver_rationale": "No active waiver.",
+    "waiver_expiry": "none",
+    "waiver_effect": "none"
   },
   "subjects": [
     {
@@ -31,6 +41,7 @@
           "runtime_unit": "edge-gateway-service",
           "review": {
             "review_status": "approved-for-teaching-use",
+            "review_lifecycle_state": "approved",
             "last_reviewed": "2025-08-18",
             "reviewed_by": "Platform Security Architecture"
           },
@@ -40,10 +51,19 @@
               "binding_state": "verified",
               "evidence_scope": "runtime-unit",
               "review": {
-                "review_status": "approved-for-teaching-use",
-                "last_reviewed": "2025-08-18",
+                "review_status": "approval-refresh-required",
+                "review_lifecycle_state": "in_review",
+                "last_reviewed": "2025-06-10",
                 "reviewed_by": "Platform Security Architecture",
-                "review_notes": "Imported teaching CycloneDX artifact accepted for repository normalization coverage."
+                "review_notes": "Imported teaching CycloneDX artifact remains usable for normalization, but approval must be refreshed on the monthly cadence.",
+                "review_outcome": "approval-renewal-pending",
+                "approval_signoffs": [
+                  {
+                    "group": "platform-security-review-board",
+                    "approved_at": "2025-06-10",
+                    "approved_by": "Platform Security Architecture"
+                  }
+                ]
               },
               "sources": [
                 {
@@ -133,6 +153,7 @@
           "subject_kind": "control_document_set",
           "review": {
             "review_status": "reviewed",
+            "review_lifecycle_state": "approved",
             "last_reviewed": "2025-08-08",
             "reviewed_by": "Platform Security Architecture"
           },
@@ -143,9 +164,17 @@
               "evidence_scope": "crypto-surface",
               "review": {
                 "review_status": "reviewed",
+                "review_lifecycle_state": "approved",
                 "last_reviewed": "2025-08-08",
                 "reviewed_by": "Platform Security Architecture",
-                "review_notes": "Control evidence reviewed; still not a discovered crypto inventory."
+                "review_notes": "Control evidence reviewed; still not a discovered crypto inventory.",
+                "approval_signoffs": [
+                  {
+                    "group": "edge-security-and-crypto-governance",
+                    "approved_at": "2025-08-08",
+                    "approved_by": "Platform Security Architecture"
+                  }
+                ]
               },
               "sources": [
                 {
@@ -186,6 +215,7 @@
           "runtime_unit": "edge-ai-runtime",
           "review": {
             "review_status": "planned",
+            "review_lifecycle_state": "pending",
             "last_reviewed": "not-reviewed",
             "reviewed_by": "unassigned"
           },
@@ -257,9 +287,17 @@
               "evidence_scope": "model-and-runtime-build",
               "review": {
                 "review_status": "reviewed-with-open-followup",
+                "review_lifecycle_state": "in_review",
                 "last_reviewed": "2025-06-15",
                 "reviewed_by": "AI Assurance Board",
-                "review_notes": "Reference record reviewed, but no signed attestation is committed."
+                "review_notes": "Reference record reviewed, but no signed attestation is committed.",
+                "approval_signoffs": [
+                  {
+                    "group": "ai-assurance-board",
+                    "approved_at": "2025-06-15",
+                    "approved_by": "AI Assurance Board"
+                  }
+                ]
               },
               "sources": [
                 {
@@ -267,6 +305,8 @@
                   "source_type": "model-package-attestation",
                   "collection_method": "imported",
                   "adapter": "attestation_reference",
+                  "provenance_attestation_type": "reference_only",
+                  "provenance_assurance_level": "reference_only",
                   "reference": "evidence/references/edge-ai-model-package-provenance-reference.json",
                   "maturity": "reviewed",
                   "confidence": "medium",
@@ -291,6 +331,7 @@
           "runtime_unit": "cloud-api-gateway",
           "review": {
             "review_status": "reviewed-with-open-followup",
+            "review_lifecycle_state": "in_review",
             "last_reviewed": "2025-08-12",
             "reviewed_by": "Platform Security Review Board"
           },
@@ -332,6 +373,7 @@
               "binding_state": "linked",
               "review": {
                 "review_status": "reviewed-with-open-followup",
+                "review_lifecycle_state": "in_review",
                 "last_reviewed": "2025-08-12",
                 "reviewed_by": "Platform Security Review Board",
                 "review_notes": "Advisory review captured locally; supplier-issued VEX still absent."
@@ -384,6 +426,7 @@
           "runtime_unit": "cloud-event-bus",
           "review": {
             "review_status": "planned",
+            "review_lifecycle_state": "pending",
             "last_reviewed": "not-reviewed",
             "reviewed_by": "unassigned"
           },
@@ -405,6 +448,12 @@
               "sources": []
             },
             "vex": {
+              "review": {
+                "review_status": "reviewed-with-open-followup",
+                "last_reviewed": "2025-05-18",
+                "reviewed_by": "Trust Governance Board",
+                "review_notes": "Local secrets-platform advisory review is present, but the review is stale and requires follow-up."
+              },
               "sources": [
                 {
                   "evidence_kind": "advisory_record",
@@ -458,6 +507,20 @@
             },
             "cbom": {
               "evidence_scope": "token-signing-and-trust-material",
+              "review": {
+                "review_status": "waived",
+                "review_lifecycle_state": "waived",
+                "last_reviewed": "2025-04-01",
+                "reviewed_by": "Identity Security Board",
+                "review_notes": "Temporary exception while the managed identity platform does not expose local crypto inventory artifacts for this teaching repository."
+              },
+              "waiver": {
+                "waiver_state": "active",
+                "waiver_owner": "identity-security-board",
+                "waiver_rationale": "Managed identity crypto internals are supplier-controlled and not directly enumerable in this repository.",
+                "waiver_expiry": "2025-09-05",
+                "waiver_effect": "suppress_escalation"
+              },
               "sources": [
                 {
                   "evidence_kind": "crypto_policy",
@@ -505,6 +568,7 @@
           "runtime_unit": "cloud-secrets-manager",
           "review": {
             "review_status": "planned",
+            "review_lifecycle_state": "pending",
             "last_reviewed": "not-reviewed",
             "reviewed_by": "unassigned"
           },
@@ -531,12 +595,26 @@
               ]
             },
             "vex": {
+              "content_status": "linked",
+              "binding_state": "linked",
+              "review": {
+                "review_status": "reviewed-with-open-followup",
+                "review_lifecycle_state": "in_review",
+                "last_reviewed": "2025-05-18",
+                "reviewed_by": "Trust Governance Board",
+                "review_notes": "Local secrets-platform advisory review is present, but it is stale and still requires supplier or operator follow-up."
+              },
               "sources": [
                 {
                   "evidence_kind": "advisory_record",
                   "source_type": "vault-advisory-review",
                   "collection_method": "advisory_reviewed",
-                  "reference": "placeholder://secrets-manager/vendor-vex"
+                  "adapter": "advisory_record",
+                  "reference": "evidence/reviews/secrets-manager-vault-advisory-review.json",
+                  "maturity": "reviewed",
+                  "confidence": "medium",
+                  "last_verified": "2025-05-18",
+                  "limitations": "Local secrets-platform review record only. It is not a supplier-issued VEX document."
                 }
               ]
             },

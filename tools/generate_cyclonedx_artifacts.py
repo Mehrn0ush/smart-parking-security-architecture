@@ -173,6 +173,25 @@ def crypto_clues(container: dict, relationships: list[dict[str, str]]) -> list[s
     return clues or ["architecture-review-required"]
 
 
+def merged_artifact_governance(subject: dict, defaults: dict) -> dict[str, dict[str, str]]:
+    default_governance = defaults.get("artifact_governance_defaults", {})
+    overrides = subject.get("artifact_governance_overrides", {})
+    merged = {}
+    for kind in ALL_EVIDENCE_ARTIFACTS:
+        baseline = dict(default_governance.get(kind, {}))
+        baseline.update(overrides.get(kind, {}))
+        baseline.setdefault("reviewer_group", "unassigned-reviewer-group")
+        baseline.setdefault("approval_group", baseline["reviewer_group"])
+        baseline.setdefault("approval_required_for_evidence_backed", False)
+        baseline.setdefault("approval_validity_days", 30)
+        baseline.setdefault("approval_expiring_soon_days", 7)
+        baseline.setdefault("dual_review_required", False)
+        baseline.setdefault("secondary_approval_group", "none")
+        baseline.setdefault("escalation_group", subject.get("escalation_owner", defaults["escalation_owner"]))
+        merged[kind] = baseline
+    return merged
+
+
 def normalize_policy_subject(container: dict, subject: dict, defaults: dict) -> dict:
     artifacts = {}
     for kind in ARTIFACT_KINDS:
@@ -197,6 +216,7 @@ def normalize_policy_subject(container: dict, subject: dict, defaults: dict) -> 
         "owner": subject.get("owner", defaults["owner"]),
         "review_cadence": subject.get("review_cadence", defaults["review_cadence"]),
         "escalation_owner": subject.get("escalation_owner", defaults["escalation_owner"]),
+        "artifact_governance": merged_artifact_governance(subject, defaults),
         "domain_flags": subject.get("domain_flags", {}),
         "artifacts": artifacts,
     }
@@ -242,14 +262,45 @@ def validate_mapping(workspace: dict, mapping: dict) -> dict[str, dict]:
     return dict(sorted(subjects.items(), key=lambda item: item[1]["mapping"]["element_name"]))
 
 
+def derive_review_lifecycle_state(review_status: str) -> str:
+    mapping = {
+        "not-reviewed": "pending",
+        "planned": "pending",
+        "reviewed-with-open-followup": "in_review",
+        "approval-refresh-required": "in_review",
+        "reviewed": "approved",
+        "approved-for-teaching-use": "approved",
+        "approved": "approved",
+        "rejected": "rejected",
+        "waived": "waived",
+        "superseded": "superseded",
+    }
+    return mapping.get(review_status, "pending")
+
+
 def normalize_review(review: dict | None, defaults: dict) -> dict:
     review = dict(review or {})
+    review_status = review.get("review_status", defaults["review_status"])
     return {
-        "review_status": review.get("review_status", defaults["review_status"]),
+        "review_status": review_status,
+        "review_lifecycle_state": review.get("review_lifecycle_state", derive_review_lifecycle_state(review_status)),
         "last_reviewed": review.get("last_reviewed", defaults["last_reviewed"]),
         "reviewed_by": review.get("reviewed_by", defaults["reviewed_by"]),
         "review_notes": review.get("review_notes", defaults["review_notes"]),
         "next_review_due": review.get("next_review_due", defaults["next_review_due"]),
+        "review_outcome": review.get("review_outcome", review_status),
+        "approval_signoffs": list(review.get("approval_signoffs", defaults.get("approval_signoffs", []))),
+    }
+
+
+def normalize_waiver(waiver: dict | None, defaults: dict) -> dict:
+    waiver = dict(waiver or {})
+    return {
+        "waiver_state": waiver.get("waiver_state", defaults["waiver_state"]),
+        "waiver_owner": waiver.get("waiver_owner", defaults["waiver_owner"]),
+        "waiver_rationale": waiver.get("waiver_rationale", defaults["waiver_rationale"]),
+        "waiver_expiry": waiver.get("waiver_expiry", defaults["waiver_expiry"]),
+        "waiver_effect": waiver.get("waiver_effect", defaults["waiver_effect"]),
     }
 
 
@@ -328,8 +379,19 @@ def normalize_source(source: dict, defaults: dict, package_root: Path) -> dict:
     normalized.setdefault("last_verified", defaults["last_verified"])
     normalized.setdefault("limitations", defaults["limitations"])
     normalized.setdefault("adapter", defaults["adapter"])
+    normalized.setdefault("provenance_attestation_type", defaults["provenance_attestation_type"])
+    normalized.setdefault("provenance_assurance_level", defaults["provenance_assurance_level"])
     if "source_type" not in normalized or "reference" not in normalized:
         raise SystemExit("Each evidence source must include source_type and reference.")
+    if normalized["evidence_kind"] == "attestation" and normalized["provenance_attestation_type"] == "not-applicable":
+        normalized["provenance_attestation_type"] = "reference_only" if normalized["adapter"] == "attestation_reference" else "unsigned-or-unspecified"
+    if normalized["evidence_kind"] == "attestation" and normalized["provenance_assurance_level"] == "not-applicable":
+        if normalized["adapter"] == "attestation_reference":
+            normalized["provenance_assurance_level"] = "reference_only"
+        elif not is_placeholder_reference(normalized["reference"]) and not is_external_reference(normalized["reference"]):
+            normalized["provenance_assurance_level"] = "attestation_present"
+        else:
+            normalized["provenance_assurance_level"] = "unknown"
     reference = normalized["reference"]
     if is_placeholder_reference(reference):
         normalized["input_state"] = "placeholder"
@@ -354,11 +416,13 @@ def normalize_source(source: dict, defaults: dict, package_root: Path) -> dict:
 def normalize_artifact_evidence(kind: str, artifact: dict, defaults: dict, applicable: bool, package_root: Path, subject_review: dict) -> dict:
     normalized = dict(artifact or {})
     review = normalize_review(normalized.pop("review", None), defaults if subject_review is None else {**defaults, **subject_review})
+    waiver = normalize_waiver(normalized.pop("waiver", None), defaults)
     normalized.setdefault("content_status", defaults["content_status"] if applicable else "not-applicable")
     normalized.setdefault("binding_state", defaults["binding_state"] if applicable else "not-applicable")
     normalized.setdefault("evidence_scope", defaults["evidence_scope"] if applicable else "none")
     normalized["sources"] = [normalize_source(source, defaults, package_root) for source in normalized.get("sources", [])]
     normalized["review"] = review
+    normalized["waiver"] = waiver
     if not applicable and normalized["sources"]:
         raise SystemExit(f"Non-applicable artifact kind {kind} must not define evidence sources.")
     return normalized
@@ -528,9 +592,85 @@ def compute_next_review_due(review: dict, subject: dict, selected_source: dict |
     return due.date().isoformat()
 
 
-def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: dict, state: dict, review: dict, selected_source: dict | None) -> dict:
+def review_due_status(next_review_due: str, evaluation_time: datetime) -> str:
+    if next_review_due in {"none", "unscheduled"}:
+        return "unscheduled"
+    due_at = parse_timestamp(next_review_due)
+    if not due_at:
+        return "unscheduled"
+    return "overdue" if evaluation_time.date() > due_at.date() else "current"
+
+
+def active_waiver(waiver: dict, evaluation_time: datetime) -> bool:
+    if waiver.get("waiver_state") != "active":
+        return False
+    expiry = waiver.get("waiver_expiry", "none")
+    if expiry in {"", "none"}:
+        return True
+    expiry_at = parse_timestamp(expiry)
+    if not expiry_at:
+        return False
+    return evaluation_time.date() <= expiry_at.date()
+
+
+def waiver_expiry_state(waiver: dict, evaluation_time: datetime, soon_days: int = 30) -> str:
+    if waiver.get("waiver_state") != "active":
+        return "not_applicable"
+    expiry = waiver.get("waiver_expiry", "none")
+    if expiry in {"", "none"}:
+        return "current"
+    expiry_at = parse_timestamp(expiry)
+    if not expiry_at:
+        return "unknown"
+    days = (expiry_at.date() - evaluation_time.date()).days
+    if days < 0:
+        return "expired"
+    if days <= soon_days:
+        return "expiring_soon"
+    return "current"
+
+
+def approval_expiry_state(signoff: dict | None, validity_days: int | None, soon_days: int, evaluation_time: datetime) -> str:
+    if not signoff or not validity_days:
+        return "not_applicable"
+    approved_at = parse_timestamp(signoff.get("approved_at", ""))
+    if not approved_at:
+        return "unknown"
+    age_days = (evaluation_time.date() - approved_at.date()).days
+    remaining = validity_days - age_days
+    if remaining < 0:
+        return "expired"
+    if remaining <= soon_days:
+        return "expiring_soon"
+    return "current"
+
+
+def signoff_for_group(review: dict, group: str) -> dict | None:
+    for signoff in review.get("approval_signoffs", []):
+        if signoff.get("group") == group:
+            return signoff
+    return None
+
+
+def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: dict, state: dict, review: dict, waiver: dict, selected_source: dict | None) -> dict:
     rule = artifact_rules.get(artifact_kind, {}).get("review_governance", {})
     freshness = state["freshness_state"]
+    next_due = compute_next_review_due(review, subject, selected_source)
+    due_status = review_due_status(next_due, subject["evaluation_time"])
+    lifecycle = review.get("review_lifecycle_state", "pending")
+    artifact_governance = subject["artifact_governance"][artifact_kind]
+    waiver_is_active = active_waiver(waiver, subject["evaluation_time"])
+    waiver_effect = waiver.get("waiver_effect", "none")
+    primary_signoff = signoff_for_group(review, artifact_governance["approval_group"])
+    secondary_signoff = signoff_for_group(review, artifact_governance.get("secondary_approval_group", "none"))
+    approval_state = approval_expiry_state(
+        primary_signoff,
+        artifact_governance.get("approval_validity_days"),
+        artifact_governance.get("approval_expiring_soon_days", 7),
+        subject["evaluation_time"],
+    )
+    dual_review_required = artifact_governance.get("dual_review_required", False)
+    dual_review_satisfied = not dual_review_required or secondary_signoff is not None
     escalation_required = False
     escalation_status = "not-required"
     if freshness == "stale" and rule.get("stale_requires_escalation", False):
@@ -539,12 +679,64 @@ def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: 
     if freshness == "expired" and rule.get("expired_requires_escalation", False):
         escalation_required = True
         escalation_status = "expired-review-required"
-    review_blocking = freshness == "expired" and rule.get("expired_blocks_evidence_backed", False) and state["maturity_state"] == "evidence_backed"
-    governed_maturity_state = "partially_evidenced" if review_blocking else state["maturity_state"]
-    handoff_to = subject.get("escalation_owner", subject["owner"]) if escalation_required else "none"
+    if due_status == "overdue" and rule.get("overdue_review_requires_escalation", False):
+        escalation_required = True
+        escalation_status = "overdue-review-required" if escalation_status == "not-required" else escalation_status
+    if lifecycle == "rejected" and rule.get("rejected_requires_escalation", False):
+        escalation_required = True
+        escalation_status = "review-rejected"
+    stale_blocks = freshness == "expired" and rule.get("expired_blocks_evidence_backed", False) and state["maturity_state"] == "evidence_backed"
+    review_blocks = due_status == "overdue" and rule.get("overdue_review_blocks_evidence_backed", False) and state["maturity_state"] == "evidence_backed"
+    approval_required = artifact_governance["approval_required_for_evidence_backed"] and state["maturity_state"] == "evidence_backed"
+    awaiting_approval = approval_required and (lifecycle != "approved" or primary_signoff is None)
+    rejected_blocking = lifecycle == "rejected" and rule.get("rejected_blocks_governed", False)
+    approval_expired_blocking = approval_required and approval_state == "expired"
+    dual_review_pending = dual_review_required and not dual_review_satisfied
+    review_blocking = stale_blocks or review_blocks or awaiting_approval or rejected_blocking or approval_expired_blocking or dual_review_pending
+    governed_maturity_state = state["maturity_state"]
+    if lifecycle == "rejected":
+        governed_maturity_state = "scaffolded"
+    elif review_blocking and state["maturity_state"] == "evidence_backed":
+        governed_maturity_state = "partially_evidenced"
+    if waiver_is_active and waiver_effect == "suppress_review_blocking":
+        review_blocking = False
+        governed_maturity_state = state["maturity_state"]
+    if waiver_is_active and waiver_effect == "suppress_approval_requirement":
+        awaiting_approval = False
+        approval_expired_blocking = False
+        if not (stale_blocks or review_blocks or rejected_blocking or dual_review_pending):
+            review_blocking = False
+            governed_maturity_state = state["maturity_state"]
+    if waiver_is_active and waiver_effect == "suppress_escalation":
+        escalation_required = False
+        escalation_status = "waiver-active"
+    if approval_expired_blocking and escalation_status == "not-required":
+        escalation_required = True
+        escalation_status = "approval-expired"
+    if dual_review_pending and escalation_status == "not-required":
+        escalation_required = True
+        escalation_status = "dual-review-pending"
+    handoff_to = artifact_governance["escalation_group"] if escalation_required else "none"
+    reported_approval_state = approval_state
+    if awaiting_approval and approval_state == "not_applicable":
+        reported_approval_state = "pending"
     return {
         "review": review,
-        "next_review_due": compute_next_review_due(review, subject, selected_source),
+        "waiver": waiver,
+        "waiver_active": waiver_is_active,
+        "waiver_expiry_state": waiver_expiry_state(waiver, subject["evaluation_time"]),
+        "next_review_due": next_due,
+        "review_due_status": due_status,
+        "reviewer_group": artifact_governance["reviewer_group"],
+        "approval_group": artifact_governance["approval_group"],
+        "approval_required_for_evidence_backed": artifact_governance["approval_required_for_evidence_backed"],
+        "awaiting_approval": awaiting_approval,
+        "approval_state": reported_approval_state,
+        "primary_approval_present": primary_signoff is not None,
+        "dual_review_required": dual_review_required,
+        "secondary_approval_group": artifact_governance.get("secondary_approval_group", "none"),
+        "dual_review_satisfied": dual_review_satisfied,
+        "escalation_group": artifact_governance["escalation_group"],
         "escalation_required": escalation_required,
         "escalation_owner": subject.get("escalation_owner", subject["owner"]),
         "handoff_to": handoff_to,
@@ -584,11 +776,21 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
     if not_applicable:
         representative_review = evidence_entries[0]["artifact_evidence"]["review"] if evidence_entries else {
             "review_status": "not-applicable",
+            "review_lifecycle_state": "not-applicable",
             "last_reviewed": "not-reviewed",
             "reviewed_by": "unassigned",
             "review_notes": "Artifact not applicable.",
             "next_review_due": "none",
+            "review_outcome": "not-applicable",
         }
+        representative_waiver = evidence_entries[0]["artifact_evidence"]["waiver"] if evidence_entries else {
+            "waiver_state": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_expiry": "none",
+            "waiver_effect": "none",
+        }
+        artifact_governance = subject["artifact_governance"][artifact_kind]
         return {
             "policy": artifact_policy,
             "evidence_entries": evidence_entries,
@@ -600,7 +802,21 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
             "freshness_state": "not_applicable",
             "governance": {
                 "review": representative_review,
+                "waiver": representative_waiver,
+                "waiver_active": False,
+                "waiver_expiry_state": "not_applicable",
                 "next_review_due": "none",
+                "review_due_status": "not-applicable",
+                "reviewer_group": artifact_governance["reviewer_group"],
+                "approval_group": artifact_governance["approval_group"],
+                "approval_required_for_evidence_backed": artifact_governance["approval_required_for_evidence_backed"],
+                "awaiting_approval": False,
+                "approval_state": "not_applicable",
+                "primary_approval_present": False,
+                "dual_review_required": artifact_governance.get("dual_review_required", False),
+                "secondary_approval_group": artifact_governance.get("secondary_approval_group", "none"),
+                "dual_review_satisfied": not artifact_governance.get("dual_review_required", False),
+                "escalation_group": artifact_governance["escalation_group"],
                 "escalation_required": False,
                 "escalation_owner": subject.get("escalation_owner", subject["owner"]),
                 "handoff_to": "none",
@@ -639,6 +855,22 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
         "content_status": "scaffolded",
         "binding_state": "planned",
         "evidence_scope": "runtime-unit",
+        "waiver": {
+            "waiver_state": "none",
+            "waiver_owner": "unassigned",
+            "waiver_rationale": "No active waiver.",
+            "waiver_expiry": "none",
+            "waiver_effect": "none",
+        },
+        "review": {
+            "review_status": "not-reviewed",
+            "review_lifecycle_state": "pending",
+            "last_reviewed": "not-reviewed",
+            "reviewed_by": "unassigned",
+            "review_notes": "No artifact-specific review recorded.",
+            "next_review_due": "auto",
+            "review_outcome": "not-reviewed",
+        },
     }
     summary = evidence_summary(combined_sources, representative_evidence)
     if maturity_state == "evidence_backed":
@@ -654,12 +886,14 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
     if selected_source:
         selected_entry = next((entry for entry in evidence_entries if entry["evidence_subject_id"] == selected_source["evidence_subject_id"]), None)
     effective_review = selected_entry["artifact_evidence"]["review"] if selected_entry else representative_evidence["review"]
+    effective_waiver = selected_entry["artifact_evidence"]["waiver"] if selected_entry else representative_evidence["waiver"]
     governance = derive_review_governance(
         subject,
         artifact_kind,
         artifact_rules,
         {"maturity_state": maturity_state, "freshness_state": freshness_state},
         effective_review,
+        effective_waiver,
         selected_source,
     )
 
@@ -713,6 +947,9 @@ def base_component(subject: dict, artifact_kind: str) -> dict:
                 "smartparking.owner": subject["owner"],
                 "smartparking.review_cadence": subject["review_cadence"],
                 "smartparking.escalation_owner_subject": subject["escalation_owner"],
+                "smartparking.reviewer_group": state["governance"]["reviewer_group"],
+                "smartparking.approval_group": state["governance"]["approval_group"],
+                "smartparking.escalation_group": state["governance"]["escalation_group"],
                 "smartparking.deployment_zone": props["deployment.zone"],
                 "smartparking.asset_criticality": props["asset.criticality"],
                 "smartparking.supplier_type": subject["supplier"]["type"],
@@ -723,15 +960,29 @@ def base_component(subject: dict, artifact_kind: str) -> dict:
                 "smartparking.derived_maturity_state": state["maturity_state"],
                 "smartparking.governed_maturity_state": state["governance"]["governed_maturity_state"],
                 "smartparking.freshness_state": state["freshness_state"],
+                "smartparking.review_lifecycle_state": state["governance"]["review"]["review_lifecycle_state"],
                 "smartparking.review_status": state["governance"]["review"]["review_status"],
                 "smartparking.last_reviewed": state["governance"]["review"]["last_reviewed"],
                 "smartparking.reviewed_by": state["governance"]["review"]["reviewed_by"],
                 "smartparking.next_review_due": state["governance"]["next_review_due"],
+                "smartparking.review_due_status": state["governance"]["review_due_status"],
+                "smartparking.approval_required": state["governance"]["approval_required_for_evidence_backed"],
+                "smartparking.awaiting_approval": state["governance"]["awaiting_approval"],
+                "smartparking.approval_state": state["governance"]["approval_state"],
+                "smartparking.dual_review_required": state["governance"]["dual_review_required"],
+                "smartparking.secondary_approval_group": state["governance"]["secondary_approval_group"],
+                "smartparking.dual_review_satisfied": state["governance"]["dual_review_satisfied"],
                 "smartparking.escalation_required": state["governance"]["escalation_required"],
                 "smartparking.escalation_status": state["governance"]["escalation_status"],
                 "smartparking.escalation_owner": state["governance"]["escalation_owner"],
                 "smartparking.handoff_to": state["governance"]["handoff_to"],
                 "smartparking.review_blocking": state["governance"]["review_blocking"],
+                "smartparking.waiver_state": state["governance"]["waiver"]["waiver_state"],
+                "smartparking.waiver_active": state["governance"]["waiver_active"],
+                "smartparking.waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                "smartparking.waiver_owner": state["governance"]["waiver"]["waiver_owner"],
+                "smartparking.waiver_expiry": state["governance"]["waiver"]["waiver_expiry"],
+                "smartparking.waiver_effect": state["governance"]["waiver"]["waiver_effect"],
                 "smartparking.evidence_reference_count": summary["source_count"],
                 "smartparking.evidence_kinds": summary["evidence_kinds"],
                 "smartparking.evidence_source_types": summary["source_types"],
@@ -741,9 +992,13 @@ def base_component(subject: dict, artifact_kind: str) -> dict:
                 "smartparking.selected_evidence_input_state": selected["input_state"] if selected else "none",
                 "smartparking.selected_source_type": selected["source_type"] if selected else "none",
                 "smartparking.selected_source_reference": selected["reference"] if selected else "none",
+                "smartparking.selected_provenance_attestation_type": selected["provenance_attestation_type"] if selected else "not-applicable",
+                "smartparking.selected_provenance_assurance_level": selected["provenance_assurance_level"] if selected else "not-applicable",
                 "smartparking.provenance_maturity_state": provenance_state["maturity_state"],
                 "smartparking.provenance_freshness_state": provenance_state["freshness_state"],
                 "smartparking.provenance_selected_source": provenance_selected["source_type"] if provenance_selected else "none",
+                "smartparking.provenance_selected_attestation_type": provenance_selected["provenance_attestation_type"] if provenance_selected else "not-applicable",
+                "smartparking.provenance_selected_assurance_level": provenance_selected["provenance_assurance_level"] if provenance_selected else "not-applicable",
                 "smartparking.synthetic_content": state["maturity_state"] == "scaffolded",
                 "smartparking.technology": container.get("technology", ""),
                 "smartparking.physical_control": subject["domain_flags"].get("physical_control", "unspecified"),
@@ -883,6 +1138,9 @@ def build_coverage_rows(subjects: list[dict]) -> list[dict[str, str]]:
                 "subject_type": subject["subject_type"],
                 "owner": subject["owner"],
                 "review_cadence": subject["review_cadence"],
+                "sbom_reviewer_group": subject["artifact_governance"]["sbom"]["reviewer_group"],
+                "cbom_reviewer_group": subject["artifact_governance"]["cbom"]["reviewer_group"],
+                "vex_reviewer_group": subject["artifact_governance"]["vex"]["reviewer_group"],
                 "sbom": subject["artifact_states"]["sbom"]["governance"]["governed_maturity_state"],
                 "cbom": subject["artifact_states"]["cbom"]["governance"]["governed_maturity_state"] if subject["artifacts"]["cbom"]["applicable"] else "not_applicable",
                 "vex": subject["artifact_states"]["vex"]["governance"]["governed_maturity_state"],
@@ -918,21 +1176,41 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "runtime_unit": entry["runtime_unit"],
                             "owner": subject["owner"],
                             "review_cadence": subject["review_cadence"],
+                            "reviewer_group": state["governance"]["reviewer_group"],
+                            "approval_group": state["governance"]["approval_group"],
+                            "escalation_group": state["governance"]["escalation_group"],
+                            "review_lifecycle_state": artifact_evidence["review"]["review_lifecycle_state"],
                             "review_status": artifact_evidence["review"]["review_status"],
                             "last_reviewed": artifact_evidence["review"]["last_reviewed"],
                             "reviewed_by": artifact_evidence["review"]["reviewed_by"],
                             "review_notes": artifact_evidence["review"]["review_notes"],
                             "next_review_due": state["governance"]["next_review_due"],
+                            "review_due_status": state["governance"]["review_due_status"],
+                            "approval_required": str(state["governance"]["approval_required_for_evidence_backed"]).lower(),
+                            "awaiting_approval": str(state["governance"]["awaiting_approval"]).lower(),
+                            "approval_state": state["governance"]["approval_state"],
+                            "dual_review_required": str(state["governance"]["dual_review_required"]).lower(),
+                            "secondary_approval_group": state["governance"]["secondary_approval_group"],
+                            "dual_review_satisfied": str(state["governance"]["dual_review_satisfied"]).lower(),
                             "escalation_required": str(state["governance"]["escalation_required"]).lower(),
                             "escalation_status": state["governance"]["escalation_status"],
+                            "escalation_owner": state["governance"]["escalation_owner"],
                             "handoff_to": state["governance"]["handoff_to"],
                             "review_blocking": str(state["governance"]["review_blocking"]).lower(),
+                            "waiver_state": artifact_evidence["waiver"]["waiver_state"],
+                            "waiver_active": str(state["governance"]["waiver_active"]).lower(),
+                            "waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                            "waiver_owner": artifact_evidence["waiver"]["waiver_owner"],
+                            "waiver_expiry": artifact_evidence["waiver"]["waiver_expiry"],
+                            "waiver_effect": artifact_evidence["waiver"]["waiver_effect"],
                             "artifact_type": artifact_kind,
                             "evidence_kind": "none",
                             "source_type": "none",
                             "source_reference": "none",
                             "adapter": "none",
                             "input_state": "none",
+                            "provenance_attestation_type": "not-applicable",
+                            "provenance_assurance_level": "not-applicable",
                             "policy_status": state["policy"]["status"],
                             "binding_state": artifact_evidence["binding_state"],
                             "derived_maturity_state": state["maturity_state"],
@@ -957,21 +1235,41 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "runtime_unit": entry["runtime_unit"],
                             "owner": subject["owner"],
                             "review_cadence": subject["review_cadence"],
+                            "reviewer_group": state["governance"]["reviewer_group"],
+                            "approval_group": state["governance"]["approval_group"],
+                            "escalation_group": state["governance"]["escalation_group"],
+                            "review_lifecycle_state": artifact_evidence["review"]["review_lifecycle_state"],
                             "review_status": artifact_evidence["review"]["review_status"],
                             "last_reviewed": artifact_evidence["review"]["last_reviewed"],
                             "reviewed_by": artifact_evidence["review"]["reviewed_by"],
                             "review_notes": artifact_evidence["review"]["review_notes"],
                             "next_review_due": state["governance"]["next_review_due"],
+                            "review_due_status": state["governance"]["review_due_status"],
+                            "approval_required": str(state["governance"]["approval_required_for_evidence_backed"]).lower(),
+                            "awaiting_approval": str(state["governance"]["awaiting_approval"]).lower(),
+                            "approval_state": state["governance"]["approval_state"],
+                            "dual_review_required": str(state["governance"]["dual_review_required"]).lower(),
+                            "secondary_approval_group": state["governance"]["secondary_approval_group"],
+                            "dual_review_satisfied": str(state["governance"]["dual_review_satisfied"]).lower(),
                             "escalation_required": str(state["governance"]["escalation_required"]).lower(),
                             "escalation_status": state["governance"]["escalation_status"],
+                            "escalation_owner": state["governance"]["escalation_owner"],
                             "handoff_to": state["governance"]["handoff_to"],
                             "review_blocking": str(state["governance"]["review_blocking"]).lower(),
+                            "waiver_state": artifact_evidence["waiver"]["waiver_state"],
+                            "waiver_active": str(state["governance"]["waiver_active"]).lower(),
+                            "waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                            "waiver_owner": artifact_evidence["waiver"]["waiver_owner"],
+                            "waiver_expiry": artifact_evidence["waiver"]["waiver_expiry"],
+                            "waiver_effect": artifact_evidence["waiver"]["waiver_effect"],
                             "artifact_type": artifact_kind,
                             "evidence_kind": source["evidence_kind"],
                             "source_type": source["source_type"],
                             "source_reference": source["reference"],
                             "adapter": source["adapter"],
                             "input_state": source["input_state"],
+                            "provenance_attestation_type": source["provenance_attestation_type"],
+                            "provenance_assurance_level": source["provenance_assurance_level"],
                             "policy_status": state["policy"]["status"],
                             "binding_state": artifact_evidence["binding_state"],
                             "derived_maturity_state": state["maturity_state"],
@@ -1006,6 +1304,179 @@ def markdown_table(title: str, intro: str, rows: list[dict[str, str]], columns: 
     return "\n".join(lines)
 
 
+def count_values(values: list[str]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for value in values:
+        counts[value] = counts.get(value, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def governance_summary(subjects: list[dict]) -> dict:
+    records = []
+    provenance_assurance = []
+    waiver_expiry = []
+    for subject in subjects:
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            if artifact_kind == "provenance":
+                provenance_assurance.append(
+                    state["selected_source"]["provenance_assurance_level"] if state["selected_source"] else "not-applicable"
+                )
+            waiver_expiry.append(state["governance"]["waiver_expiry_state"])
+            records.append(
+                {
+                    "architecture_subject": subject["mapping"]["element_name"],
+                    "artifact_type": artifact_kind,
+                    "raw_maturity": state["maturity_state"],
+                    "governed_maturity": state["governance"]["governed_maturity_state"],
+                    "freshness": state["freshness_state"],
+                    "review_lifecycle_state": state["governance"]["review"]["review_lifecycle_state"],
+                    "review_status": state["governance"]["review"]["review_status"],
+                    "review_due_status": state["governance"]["review_due_status"],
+                    "reviewer_group": state["governance"]["reviewer_group"],
+                    "awaiting_approval": state["governance"]["awaiting_approval"],
+                    "approval_state": state["governance"]["approval_state"],
+                    "dual_review_required": state["governance"]["dual_review_required"],
+                    "dual_review_satisfied": state["governance"]["dual_review_satisfied"],
+                    "waiver_active": state["governance"]["waiver_active"],
+                    "waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                    "escalation_required": state["governance"]["escalation_required"],
+                    "review_blocking": state["governance"]["review_blocking"],
+                }
+            )
+    return {
+        "artifact_total": len(records),
+        "by_raw_maturity": count_values([item["raw_maturity"] for item in records]),
+        "by_governed_maturity": count_values([item["governed_maturity"] for item in records]),
+        "by_freshness": count_values([item["freshness"] for item in records]),
+        "by_review_lifecycle_state": count_values([item["review_lifecycle_state"] for item in records]),
+        "by_review_status": count_values([item["review_status"] for item in records]),
+        "by_review_due_status": count_values([item["review_due_status"] for item in records]),
+        "by_reviewer_group": count_values([item["reviewer_group"] for item in records]),
+        "by_provenance_assurance_level": count_values(provenance_assurance),
+        "by_approval_state": count_values([item["approval_state"] for item in records]),
+        "by_waiver_expiry_state": count_values(waiver_expiry),
+        "awaiting_approval_count": sum(1 for item in records if item["awaiting_approval"]),
+        "waived_artifact_count": sum(1 for item in records if item["waiver_active"]),
+        "dual_review_pending_count": sum(1 for item in records if item["dual_review_required"] and not item["dual_review_satisfied"]),
+        "approval_expiring_soon_count": sum(1 for item in records if item["approval_state"] == "expiring_soon"),
+        "approval_expired_count": sum(1 for item in records if item["approval_state"] == "expired"),
+        "waiver_expiring_soon_count": sum(1 for item in records if item["waiver_expiry_state"] == "expiring_soon"),
+        "expired_waiver_count": sum(1 for item in records if item["waiver_expiry_state"] == "expired"),
+        "escalation_required_count": sum(1 for item in records if item["escalation_required"]),
+        "review_blocking_count": sum(1 for item in records if item["review_blocking"]),
+        "overdue_review_count": sum(1 for item in records if item["review_due_status"] == "overdue"),
+    }
+
+
+def governance_summary_markdown(summary: dict) -> bytes:
+    lines = [
+        "# Governance Summary",
+        "",
+        "This file summarizes the current governance posture across generated supply-chain artifacts.",
+        "",
+        f"- Artifact total: {summary['artifact_total']}",
+        f"- Escalation required: {summary['escalation_required_count']}",
+        f"- Review blocking: {summary['review_blocking_count']}",
+        f"- Overdue review: {summary['overdue_review_count']}",
+        f"- Awaiting approval: {summary['awaiting_approval_count']}",
+        f"- Approval expiring soon: {summary['approval_expiring_soon_count']}",
+        f"- Approval expired: {summary['approval_expired_count']}",
+        f"- Active waivers: {summary['waived_artifact_count']}",
+        f"- Waivers expiring soon: {summary['waiver_expiring_soon_count']}",
+        f"- Expired waivers: {summary['expired_waiver_count']}",
+        f"- Dual-review pending: {summary['dual_review_pending_count']}",
+        "",
+        "## Counts By Governed Maturity",
+        "",
+    ]
+    for key, value in summary["by_governed_maturity"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Freshness", ""])
+    for key, value in summary["by_freshness"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Review Lifecycle", ""])
+    for key, value in summary["by_review_lifecycle_state"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Approval State", ""])
+    for key, value in summary["by_approval_state"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Waiver Expiry", ""])
+    for key, value in summary["by_waiver_expiry_state"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Provenance Assurance", ""])
+    for key, value in summary["by_provenance_assurance_level"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Reviewer Group", ""])
+    for key, value in summary["by_reviewer_group"].items():
+        lines.append(f"- {key}: {value}")
+    lines.append("")
+    return ("\n".join(lines) + "\n").encode("utf-8")
+
+
+def reviewer_action_rows(subjects: list[dict]) -> list[dict[str, str]]:
+    rows = []
+    for subject in subjects:
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            actions = []
+            if state["governance"]["awaiting_approval"]:
+                actions.append("awaiting_approval")
+            if state["governance"]["review_due_status"] == "overdue":
+                actions.append("overdue_review")
+            if state["governance"]["review_blocking"]:
+                actions.append("review_blocking")
+            if state["governance"]["dual_review_required"] and not state["governance"]["dual_review_satisfied"]:
+                actions.append("dual_review_pending")
+            if state["governance"]["approval_state"] == "expiring_soon":
+                actions.append("approval_expiring_soon")
+            if state["governance"]["approval_state"] == "expired":
+                actions.append("approval_expired")
+            if state["governance"]["waiver_expiry_state"] == "expiring_soon":
+                actions.append("waiver_expiring_soon")
+            if not actions:
+                continue
+            rows.append(
+                {
+                    "reviewer_group": state["governance"]["reviewer_group"],
+                    "architecture_subject": subject["mapping"]["element_name"],
+                    "artifact_type": artifact_kind,
+                    "actions": ", ".join(actions),
+                    "approval_group": state["governance"]["approval_group"],
+                    "escalation_group": state["governance"]["escalation_group"],
+                    "next_review_due": state["governance"]["next_review_due"],
+                    "approval_state": state["governance"]["approval_state"],
+                    "waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                }
+            )
+    return sorted(rows, key=lambda row: (row["reviewer_group"], row["architecture_subject"], row["artifact_type"]))
+
+
+def reviewer_actions_markdown(rows: list[dict[str, str]]) -> bytes:
+    lines = [
+        "# Reviewer Action Summary",
+        "",
+        "This file groups action-oriented review items by reviewer group.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No actions currently derived.", ""])
+        return ("\n".join(lines)).encode("utf-8")
+    current_group = None
+    for row in rows:
+        if row["reviewer_group"] != current_group:
+            current_group = row["reviewer_group"]
+            lines.extend([f"## {current_group}", ""])
+        lines.append(
+            f"- {row['architecture_subject']} / {row['artifact_type']}: {row['actions']} "
+            f"(approval_group={row['approval_group']}, escalation_group={row['escalation_group']}, "
+            f"next_review_due={row['next_review_due']}, approval_state={row['approval_state']}, "
+            f"waiver_expiry_state={row['waiver_expiry_state']})"
+        )
+    lines.append("")
+    return ("\n".join(lines)).encode("utf-8")
+
+
 def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[str, bytes]:
     paths = package_paths()
     mapping_subjects = validate_mapping(workspace, mapping)
@@ -1018,6 +1489,7 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
     for arch_ref, mapping_subject in mapping_subjects.items():
         subject = dict(mapping_subject)
         subject["review_cadence_days"] = mapping.get("review_cadence_days", {})
+        subject["evaluation_time"] = evaluation_time
         subject["evidence_subjects"] = evidence_subjects[arch_ref]
         subject["artifact_states"] = build_subject_states(subject, artifact_rules, evaluation_time)
         subjects.append(subject)
@@ -1051,6 +1523,7 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                 "owner": subject["owner"],
                 "review_cadence": subject["review_cadence"],
                 "escalation_owner": subject["escalation_owner"],
+                "artifact_governance": subject["artifact_governance"],
                 "deployment_zone": props["deployment.zone"],
                 "criticality": props["asset.criticality"],
                 "supplier": subject["supplier"],
@@ -1066,11 +1539,24 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                         "selected_source": subject["artifact_states"][kind]["selected_source"],
                         "content_status": subject["artifact_states"][kind]["summary"]["content_status"],
                         "review": subject["artifact_states"][kind]["governance"]["review"],
+                        "reviewer_group": subject["artifact_states"][kind]["governance"]["reviewer_group"],
+                        "approval_group": subject["artifact_states"][kind]["governance"]["approval_group"],
+                        "approval_required": subject["artifact_states"][kind]["governance"]["approval_required_for_evidence_backed"],
+                        "awaiting_approval": subject["artifact_states"][kind]["governance"]["awaiting_approval"],
+                        "approval_state": subject["artifact_states"][kind]["governance"]["approval_state"],
+                        "dual_review_required": subject["artifact_states"][kind]["governance"]["dual_review_required"],
+                        "secondary_approval_group": subject["artifact_states"][kind]["governance"]["secondary_approval_group"],
+                        "dual_review_satisfied": subject["artifact_states"][kind]["governance"]["dual_review_satisfied"],
+                        "escalation_group": subject["artifact_states"][kind]["governance"]["escalation_group"],
                         "next_review_due": subject["artifact_states"][kind]["governance"]["next_review_due"],
+                        "review_due_status": subject["artifact_states"][kind]["governance"]["review_due_status"],
                         "escalation_required": subject["artifact_states"][kind]["governance"]["escalation_required"],
                         "escalation_status": subject["artifact_states"][kind]["governance"]["escalation_status"],
                         "handoff_to": subject["artifact_states"][kind]["governance"]["handoff_to"],
                         "review_blocking": subject["artifact_states"][kind]["governance"]["review_blocking"],
+                        "waiver": subject["artifact_states"][kind]["governance"]["waiver"],
+                        "waiver_active": subject["artifact_states"][kind]["governance"]["waiver_active"],
+                        "waiver_expiry_state": subject["artifact_states"][kind]["governance"]["waiver_expiry_state"],
                     }
                     for kind in ARTIFACT_KINDS
                 },
@@ -1081,11 +1567,24 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                     "selected_source": subject["artifact_states"]["provenance"]["selected_source"],
                     "content_status": subject["artifact_states"]["provenance"]["summary"]["content_status"],
                     "review": subject["artifact_states"]["provenance"]["governance"]["review"],
+                    "reviewer_group": subject["artifact_states"]["provenance"]["governance"]["reviewer_group"],
+                    "approval_group": subject["artifact_states"]["provenance"]["governance"]["approval_group"],
+                    "approval_required": subject["artifact_states"]["provenance"]["governance"]["approval_required_for_evidence_backed"],
+                    "awaiting_approval": subject["artifact_states"]["provenance"]["governance"]["awaiting_approval"],
+                    "approval_state": subject["artifact_states"]["provenance"]["governance"]["approval_state"],
+                    "dual_review_required": subject["artifact_states"]["provenance"]["governance"]["dual_review_required"],
+                    "secondary_approval_group": subject["artifact_states"]["provenance"]["governance"]["secondary_approval_group"],
+                    "dual_review_satisfied": subject["artifact_states"]["provenance"]["governance"]["dual_review_satisfied"],
+                    "escalation_group": subject["artifact_states"]["provenance"]["governance"]["escalation_group"],
                     "next_review_due": subject["artifact_states"]["provenance"]["governance"]["next_review_due"],
+                    "review_due_status": subject["artifact_states"]["provenance"]["governance"]["review_due_status"],
                     "escalation_required": subject["artifact_states"]["provenance"]["governance"]["escalation_required"],
                     "escalation_status": subject["artifact_states"]["provenance"]["governance"]["escalation_status"],
                     "handoff_to": subject["artifact_states"]["provenance"]["governance"]["handoff_to"],
                     "review_blocking": subject["artifact_states"]["provenance"]["governance"]["review_blocking"],
+                    "waiver": subject["artifact_states"]["provenance"]["governance"]["waiver"],
+                    "waiver_active": subject["artifact_states"]["provenance"]["governance"]["waiver_active"],
+                    "waiver_expiry_state": subject["artifact_states"]["provenance"]["governance"]["waiver_expiry_state"],
                 },
                 "evidence_subjects": [
                     {
@@ -1108,13 +1607,15 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
 
     coverage_rows = build_coverage_rows(subjects)
     evidence_rows = build_evidence_rows(subjects)
+    summary = governance_summary(subjects)
+    action_rows = reviewer_action_rows(subjects)
 
     files["coverage-matrix.csv"] = csv_text(coverage_rows).encode("utf-8")
     files["coverage-matrix.md"] = markdown_table(
         "Supply-Chain Coverage Matrix",
         "This file is generated from the architecture, policy, and decomposed evidence subject layers.",
         coverage_rows,
-        ["architecture_subject", "runtime_unit", "deployment_zone", "criticality", "subject_type", "owner", "review_cadence", "sbom", "cbom", "vex", "generated_files"],
+        ["architecture_subject", "runtime_unit", "deployment_zone", "criticality", "subject_type", "owner", "review_cadence", "sbom_reviewer_group", "cbom_reviewer_group", "vex_reviewer_group", "sbom", "cbom", "vex", "generated_files"],
         "Coverage states are rule-derived. They only count as real evidence-backed when a non-placeholder, admissible input is actually attached.",
     ).encode("utf-8")
     files["evidence-matrix.csv"] = csv_text(evidence_rows).encode("utf-8")
@@ -1129,31 +1630,53 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
             "runtime_unit",
             "owner",
             "review_cadence",
+            "reviewer_group",
+            "approval_group",
+            "escalation_group",
+            "review_lifecycle_state",
             "review_status",
             "last_reviewed",
             "reviewed_by",
             "review_notes",
             "next_review_due",
+            "review_due_status",
+            "approval_required",
+            "awaiting_approval",
+            "approval_state",
+            "dual_review_required",
+            "secondary_approval_group",
+            "dual_review_satisfied",
             "escalation_required",
             "escalation_status",
+            "escalation_owner",
             "handoff_to",
             "review_blocking",
+            "waiver_state",
+            "waiver_active",
+            "waiver_expiry_state",
+            "waiver_owner",
+            "waiver_expiry",
+            "waiver_effect",
             "artifact_type",
             "evidence_kind",
             "source_type",
             "adapter",
             "input_state",
+            "provenance_attestation_type",
+            "provenance_assurance_level",
             "policy_status",
             "derived_maturity_state",
             "governed_maturity_state",
             "freshness_state",
             "precedence_outcome",
         ],
-        "A selected source is the current best admissible source for that artifact type. Supporting sources still matter, but they did not win precedence. Real local files appear with input_state=local-file. Governed maturity reflects review blocking when stale or expired evidence needs escalation.",
+        "A selected source is the current best admissible source for that artifact type. Supporting sources still matter, but they did not win precedence. Real local files appear with input_state=local-file. Governed maturity reflects review blocking, approval requirements, and waiver handling on top of raw evidence state.",
     ).encode("utf-8")
+    files["governance-summary.md"] = governance_summary_markdown(summary)
+    files["reviewer-actions.md"] = reviewer_actions_markdown(action_rows)
 
     manifest = {
-        "schema_version": "7.0",
+        "schema_version": "10.0",
         "source_of_truth": "model/workspace.dsl",
         "derived_from": "model/workspace.json",
         "policy_file": "model/supply-chain-mapping.yaml",
@@ -1164,6 +1687,8 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
         "policy_sha256": sha256_bytes(json_bytes(mapping)),
         "evidence_sha256": sha256_bytes(json_bytes(evidence)),
         "tracked_subject_count": len(manifest_subjects),
+        "governance_summary": summary,
+        "reviewer_action_count": len(action_rows),
         "tracked_subjects": manifest_subjects,
     }
     files["manifest.json"] = json_bytes(manifest)

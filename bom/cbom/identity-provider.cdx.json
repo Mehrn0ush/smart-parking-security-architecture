@@ -26,6 +26,18 @@
           "value": "none"
         },
         {
+          "name": "smartparking.approval_group",
+          "value": "identity-security-board"
+        },
+        {
+          "name": "smartparking.approval_required",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.approval_state",
+          "value": "not_applicable"
+        },
+        {
           "name": "smartparking.arch_ref",
           "value": "smartparking.arch.container.identity-provider"
         },
@@ -46,6 +58,10 @@
           "value": "high"
         },
         {
+          "name": "smartparking.awaiting_approval",
+          "value": "false"
+        },
+        {
           "name": "smartparking.bom_ref",
           "value": "smartparking.bom.identity-provider"
         },
@@ -62,6 +78,18 @@
           "value": "scaffolded"
         },
         {
+          "name": "smartparking.dual_review_required",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.dual_review_satisfied",
+          "value": "false"
+        },
+        {
+          "name": "smartparking.escalation_group",
+          "value": "identity-security-board"
+        },
+        {
           "name": "smartparking.escalation_owner",
           "value": "identity-security-board"
         },
@@ -75,7 +103,7 @@
         },
         {
           "name": "smartparking.escalation_status",
-          "value": "not-required"
+          "value": "waiver-active"
         },
         {
           "name": "smartparking.evidence_kinds",
@@ -111,7 +139,7 @@
         },
         {
           "name": "smartparking.last_reviewed",
-          "value": "not-reviewed"
+          "value": "2025-04-01"
         },
         {
           "name": "smartparking.mapping_mode",
@@ -119,7 +147,7 @@
         },
         {
           "name": "smartparking.next_review_due",
-          "value": "unscheduled"
+          "value": "2025-05-01"
         },
         {
           "name": "smartparking.owner",
@@ -146,24 +174,44 @@
           "value": "scaffolded"
         },
         {
+          "name": "smartparking.provenance_selected_assurance_level",
+          "value": "not-applicable"
+        },
+        {
+          "name": "smartparking.provenance_selected_attestation_type",
+          "value": "not-applicable"
+        },
+        {
           "name": "smartparking.provenance_selected_source",
           "value": "none"
         },
         {
           "name": "smartparking.review_blocking",
-          "value": "false"
+          "value": "true"
         },
         {
           "name": "smartparking.review_cadence",
           "value": "monthly"
         },
         {
+          "name": "smartparking.review_due_status",
+          "value": "overdue"
+        },
+        {
+          "name": "smartparking.review_lifecycle_state",
+          "value": "waived"
+        },
+        {
           "name": "smartparking.review_status",
-          "value": "planned"
+          "value": "waived"
         },
         {
           "name": "smartparking.reviewed_by",
-          "value": "unassigned"
+          "value": "Identity Security Board"
+        },
+        {
+          "name": "smartparking.reviewer_group",
+          "value": "identity-crypto-governance"
         },
         {
           "name": "smartparking.runtime_unit",
@@ -172,6 +220,10 @@
         {
           "name": "smartparking.safety_impact",
           "value": "medium"
+        },
+        {
+          "name": "smartparking.secondary_approval_group",
+          "value": "security-architecture-and-crypto-governance"
         },
         {
           "name": "smartparking.selected_evidence_adapter",
@@ -188,6 +240,14 @@
         {
           "name": "smartparking.selected_evidence_subject",
           "value": "none"
+        },
+        {
+          "name": "smartparking.selected_provenance_assurance_level",
+          "value": "not-applicable"
+        },
+        {
+          "name": "smartparking.selected_provenance_attestation_type",
+          "value": "not-applicable"
         },
         {
           "name": "smartparking.selected_source_reference",
@@ -220,6 +280,30 @@
         {
           "name": "smartparking.technology",
           "value": "Keycloak/Auth0"
+        },
+        {
+          "name": "smartparking.waiver_active",
+          "value": "true"
+        },
+        {
+          "name": "smartparking.waiver_effect",
+          "value": "suppress_escalation"
+        },
+        {
+          "name": "smartparking.waiver_expiry",
+          "value": "2025-09-05"
+        },
+        {
+          "name": "smartparking.waiver_expiry_state",
+          "value": "expiring_soon"
+        },
+        {
+          "name": "smartparking.waiver_owner",
+          "value": "identity-security-board"
+        },
+        {
+          "name": "smartparking.waiver_state",
+          "value": "active"
         },
         {
           "name": "smartparking.cbom_scope",

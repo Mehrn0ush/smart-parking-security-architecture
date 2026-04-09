@@ -36,17 +36,19 @@ Examples:
 
 ## Current Pilot Inputs
 
-The repository currently uses two real local inputs:
+The repository currently uses a small set of real local inputs:
 
 - [`../../evidence/imports/gateway-runtime-imported-sbom.cdx.json`](../../evidence/imports/gateway-runtime-imported-sbom.cdx.json)
 - [`../../evidence/reviews/api-gateway-vendor-advisory-review.json`](../../evidence/reviews/api-gateway-vendor-advisory-review.json)
 - [`../../evidence/references/edge-ai-model-package-provenance-reference.json`](../../evidence/references/edge-ai-model-package-provenance-reference.json)
+- [`../../evidence/reviews/secrets-manager-vault-advisory-review.json`](../../evidence/reviews/secrets-manager-vault-advisory-review.json)
 
 These are intentionally modest:
 
 - the gateway SBOM input is a real CycloneDX file, but not a discovered dependency inventory
 - the API Gateway advisory input is a real local review record, but not a supplier-issued VEX artifact
 - the edge AI provenance input is a real local provenance-reference record, but not a signed attestation
+- the secrets-manager advisory input is a real local trust review record, but not a supplier-issued VEX artifact
 
 ## Reviewability
 
@@ -65,6 +67,23 @@ These fields help readers answer:
 - whether the current input has actually been reviewed
 
 Milestone 7 refines that further by making review state artifact-specific and by deriving escalation when freshness is no longer acceptable.
+
+Milestone 8 adds two more adapter-facing semantics:
+
+- attestation-related inputs now distinguish `reference_only` provenance from stronger signed or verified provenance
+- generated outputs now surface reviewer group, escalation group, overdue review, and review-blocking posture alongside the normalized input
+
+Milestone 9 keeps the adapters lightweight, but gives their outputs more workflow meaning:
+
+- review lifecycle is now explicit, so a normalized input can be pending, in review, approved, rejected, waived, or superseded
+- approval-aware governance can keep a raw `evidence_backed` artifact out of governed `evidence_backed` state until approval is refreshed
+- attestation-related inputs now also expose a provenance assurance level such as `reference_only` or, later, `attestation_present`
+
+Milestone 10 keeps the adapters static, but makes their outputs more time-aware:
+
+- imported inputs can now carry approval signoff metadata used to derive approval expiry
+- selected artifacts can require a second approval group even when only one local signoff exists
+- local inputs can therefore drive reviewer action summaries without becoming a workflow engine
 
 ## Current Limitations
 

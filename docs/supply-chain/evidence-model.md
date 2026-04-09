@@ -373,4 +373,41 @@ Milestone 7 adds one more teaching example:
 
 This does not claim a signed attestation. It demonstrates governance around an incomplete AI provenance trail.
 
+Milestone 8 extends the same model in three practical ways:
+
+- review responsibility is now artifact-specific at team level, not only subject-level
+- provenance can now be marked as `reference_only` or as a stronger signed or verified form later
+- repository summaries now count overdue review, review-blocking posture, and escalation-required artifacts
+
+Current milestone 8 examples:
+
+- Gateway Service SBOM stays raw `evidence_backed`, but becomes governed `partially_evidenced` because review is overdue
+- `edge-ai-model-package` provenance is explicitly `reference_only`, so students can see the difference between provenance intent and signed attestation proof
+- Secrets Manager VEX is now a trust-boundary example of stale reviewed evidence that escalates without pretending to be a supplier-issued VEX artifact
+
+Milestone 9 extends the evidence model again:
+
+- review is now lifecycle-aware, not only status-aware
+- approval can be required for governed `evidence_backed` outcomes
+- waivers can suppress escalation or similar workflow effects without changing what the evidence actually proves
+- provenance now has an explicit assurance ladder
+
+Current milestone 9 examples:
+
+- Gateway Service SBOM uses lifecycle `in_review` plus approval-required governance, so it stays raw `evidence_backed` but governed `partially_evidenced`
+- Identity Provider CBOM uses an active waiver to suppress escalation while the managed crypto boundary remains under supplier control
+- `edge-ai-model-package` provenance remains `reference_only`, which is intentionally weaker than `attestation_present`, `signature_verified`, or `policy_verified`
+
+Milestone 10 adds one more set of derived interpretations:
+
+- approval can be `current`, `expiring_soon`, `expired`, or `not_applicable`
+- dual review can be required and still unsatisfied even when one approval already exists
+- waivers can be active and also expiring soon
+
+Current milestone 10 examples:
+
+- Gateway Service SBOM has an expired approval
+- Gateway Service CBOM and `edge-ai-model-package` provenance both show dual-review pending
+- Identity Provider CBOM has a waiver that is active today but expiring soon
+
 It creates the structure needed for that later work without pretending the evidence already exists.

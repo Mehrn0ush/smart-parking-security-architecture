@@ -91,6 +91,7 @@ It combines:
 - [`bom/coverage-matrix.csv`](bom/coverage-matrix.csv): generated machine-readable coverage summary
 - [`bom/evidence-matrix.md`](bom/evidence-matrix.md): generated evidence-binding summary
 - [`bom/evidence-matrix.csv`](bom/evidence-matrix.csv): generated machine-readable evidence-binding summary
+- [`bom/governance-summary.md`](bom/governance-summary.md): generated static governance dashboard with maturity, freshness, review, and escalation counts
 - [`bom/sbom/`](bom/sbom): generated CycloneDX SBOM scaffolds
 - [`bom/cbom/`](bom/cbom): generated CycloneDX CBOM scaffolds for crypto-relevant containers
 - [`bom/vex/`](bom/vex): generated CycloneDX VEX scaffolds
@@ -174,6 +175,20 @@ That means:
 - owner and review cadence are now visible in the generated coverage and evidence outputs
 - milestone 7 tracks review at the artifact level and can escalate stale evidence to a handoff owner
 - the AI model-package provenance path is now represented by a local provenance-reference record with explicit review and escalation semantics
+- milestone 8 assigns reviewer groups by artifact type instead of treating every escalation the same
+- provenance now distinguishes reference-only evidence from signed or verified attestation-backed evidence
+- static governance summaries now show overdue reviews, review-blocking artifacts, and escalation counts at repository level
+- Gateway Service SBOM is the main review-blocking example: its raw state is still `evidence_backed`, but the governed state is downgraded because monthly review is overdue
+- Secrets Manager VEX now demonstrates a non-AI escalation path using a local advisory-review record with stale review posture
+- milestone 9 adds a lightweight review lifecycle so evidence can be pending, in review, approved, rejected, waived, or superseded
+- reviewer groups now also carry approval semantics for governed `evidence_backed` outcomes
+- provenance now uses an assurance ladder, with the current AI example explicitly remaining `reference_only`
+- waivers can now suppress escalation or similar governance effects without pretending the underlying evidence is stronger than it is
+- governance summaries now expose awaiting-approval and waived-artifact counts alongside overdue and blocked artifacts
+- milestone 10 adds approval-expiry semantics so an old approval can become operationally stale even when evidence still exists
+- selected high-risk artifacts can now require dual review, with unmet second approvals shown explicitly
+- waiver reporting now distinguishes active waivers from waivers expiring soon
+- reviewer-group action summaries are generated as static Markdown for repository-friendly review workflows
 
 Start here:
 
