@@ -21,6 +21,11 @@
         "approval_required_for_evidence_backed": true,
         "approval_validity_days": 30,
         "approval_expiring_soon_days": 7,
+        "approval_validity_days_by_criticality": {
+          "high": 14,
+          "medium": 21,
+          "low": 30
+        },
         "dual_review_required": false,
         "secondary_approval_group": "none",
         "escalation_group": "architecture-governance"
@@ -31,6 +36,11 @@
         "approval_required_for_evidence_backed": false,
         "approval_validity_days": 45,
         "approval_expiring_soon_days": 10,
+        "approval_validity_days_by_criticality": {
+          "high": 21,
+          "medium": 30,
+          "low": 45
+        },
         "dual_review_required": false,
         "secondary_approval_group": "none",
         "escalation_group": "architecture-governance"
@@ -41,6 +51,11 @@
         "approval_required_for_evidence_backed": false,
         "approval_validity_days": 21,
         "approval_expiring_soon_days": 7,
+        "approval_validity_days_by_criticality": {
+          "high": 14,
+          "medium": 21,
+          "low": 21
+        },
         "dual_review_required": false,
         "secondary_approval_group": "none",
         "escalation_group": "architecture-governance"
@@ -51,6 +66,11 @@
         "approval_required_for_evidence_backed": true,
         "approval_validity_days": 21,
         "approval_expiring_soon_days": 7,
+        "approval_validity_days_by_criticality": {
+          "high": 14,
+          "medium": 21,
+          "low": 30
+        },
         "dual_review_required": false,
         "secondary_approval_group": "none",
         "escalation_group": "architecture-governance"

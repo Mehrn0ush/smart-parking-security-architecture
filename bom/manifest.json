@@ -1,18 +1,130 @@
 {
+  "artifact_type_action_count": 7,
+  "artifact_type_action_summary": {
+    "cbom": {
+      "approval_expiring_soon": 1,
+      "dual_review_pending": 2,
+      "escalation_required": 1,
+      "review_overdue": 1,
+      "waiver_expiring_soon": 1
+    },
+    "provenance": {
+      "approval_expired": 1,
+      "dual_review_pending": 1,
+      "escalation_required": 1,
+      "review_overdue": 1
+    },
+    "sbom": {
+      "approval_expired": 1,
+      "awaiting_approval": 1,
+      "blocked_awaiting_approval": 1,
+      "escalation_required": 1,
+      "review_overdue": 1
+    },
+    "vex": {
+      "escalation_required": 2,
+      "review_overdue": 2
+    }
+  },
+  "attention_now_by_category": {
+    "approval_expired_now": 2,
+    "blocked_awaiting_approval": 1,
+    "dual_review_pending": 3,
+    "escalation_required": 5,
+    "low_assurance_ai_provenance": 1,
+    "stale_trust_boundary": 1,
+    "waiver_expiring_soon": 1
+  },
+  "attention_now_count": 6,
   "derived_from": "model/workspace.json",
   "evaluation_date_utc": "2025-08-20T00:00:00Z",
   "evidence_file": "model/supply-chain-evidence.yaml",
-  "evidence_sha256": "4f6d307781118d45f59d112ce25bc22a40d82bea5669b1181fa6ac5c05f431c9",
+  "evidence_sha256": "8bf8d69e4c5c28c4df8a8ba922aa48bec3d91809460b0a29f6447e818d1a0422",
   "generation_basis": "Structurizr architecture metadata plus policy mapping plus decomposed evidence subjects plus normalized evidence adapters",
   "governance_summary": {
     "approval_expired_count": 2,
-    "approval_expiring_soon_count": 0,
+    "approval_expiring_soon_count": 1,
     "artifact_total": 24,
     "awaiting_approval_count": 1,
+    "by_approval_presence_state": {
+      "not_applicable": 21,
+      "present": 3
+    },
     "by_approval_state": {
-      "current": 1,
       "expired": 2,
+      "expiring_soon": 1,
       "not_applicable": 21
+    },
+    "by_artifact_type": {
+      "cbom": 6,
+      "provenance": 6,
+      "sbom": 6,
+      "vex": 6
+    },
+    "by_artifact_type_approval_state": {
+      "cbom": {
+        "expiring_soon": 1,
+        "not_applicable": 5
+      },
+      "provenance": {
+        "expired": 1,
+        "not_applicable": 5
+      },
+      "sbom": {
+        "expired": 1,
+        "not_applicable": 5
+      },
+      "vex": {
+        "not_applicable": 6
+      }
+    },
+    "by_artifact_type_evidence_support": {
+      "cbom": {
+        "none": 4,
+        "not_applicable": 1,
+        "verified": 1
+      },
+      "provenance": {
+        "none": 5,
+        "verified": 1
+      },
+      "sbom": {
+        "none": 5,
+        "verified": 1
+      },
+      "vex": {
+        "none": 4,
+        "verified": 2
+      }
+    },
+    "by_artifact_type_governed_maturity": {
+      "cbom": {
+        "not_applicable": 1,
+        "partially_evidenced": 1,
+        "scaffolded": 4
+      },
+      "provenance": {
+        "partially_evidenced": 1,
+        "scaffolded": 5
+      },
+      "sbom": {
+        "partially_evidenced": 1,
+        "scaffolded": 5
+      },
+      "vex": {
+        "partially_evidenced": 2,
+        "scaffolded": 4
+      }
+    },
+    "by_artifact_type_review_blocking_count": {
+      "cbom": 2,
+      "provenance": 1,
+      "sbom": 1
+    },
+    "by_evidence_support_state": {
+      "none": 18,
+      "not_applicable": 1,
+      "verified": 5
     },
     "by_freshness": {
       "expired": 2,
@@ -75,18 +187,21 @@
       "expiring_soon": 1,
       "not_applicable": 23
     },
-    "dual_review_pending_count": 4,
-    "escalation_required_count": 6,
+    "by_waiver_owner": {
+      "identity-security-board": 1
+    },
+    "dual_review_pending_count": 3,
+    "escalation_required_count": 5,
     "expired_waiver_count": 0,
     "overdue_review_count": 5,
-    "review_blocking_count": 5,
+    "review_blocking_count": 4,
     "waived_artifact_count": 1,
     "waiver_expiring_soon_count": 1
   },
   "policy_file": "model/supply-chain-mapping.yaml",
-  "policy_sha256": "6e07084fa1926ee6d9d9ab2fcd3e9bd1fd9fa62e59699319297c47a038bc4c6f",
+  "policy_sha256": "e18e1c4d9101910e99ea8c3f2a77175e048fcaa988c3e9fe0c93a7041a299f82",
   "reviewer_action_count": 7,
-  "schema_version": "10.0",
+  "schema_version": "13.0",
   "source_of_truth": "model/workspace.dsl",
   "tracked_subject_count": 6,
   "tracked_subjects": [
@@ -99,6 +214,11 @@
           "approval_group": "internet-edge-crypto-governance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": false,
           "escalation_group": "platform-security-review-board",
           "reviewer_group": "internet-edge-crypto-governance",
@@ -109,6 +229,11 @@
           "approval_group": "platform-release-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-release-governance",
@@ -119,6 +244,11 @@
           "approval_group": "architecture-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 30,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-engineering",
@@ -129,6 +259,11 @@
           "approval_group": "vendor-assurance-and-product-security",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "platform-security-review-board",
           "reviewer_group": "vendor-assurance-and-product-security",
@@ -139,8 +274,10 @@
         "cbom": {
           "applicable": true,
           "approval_group": "internet-edge-crypto-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -149,6 +286,7 @@
           "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -168,6 +306,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "internet-edge-crypto-governance",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -183,8 +322,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "architecture-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": true,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -193,6 +334,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -212,6 +354,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -227,8 +370,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "vendor-assurance-and-product-security",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "partially-evidenced",
           "derived_maturity_state": "partially_evidenced",
@@ -237,6 +382,7 @@
           "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "verified",
           "freshness_state": "fresh",
           "governed_maturity_state": "partially_evidenced",
           "handoff_to": "none",
@@ -256,6 +402,7 @@
           "review_due_status": "current",
           "reviewer_group": "vendor-assurance-and-product-security",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": {
             "adapter": "advisory_record",
             "collection_method": "advisory_reviewed",
@@ -333,8 +480,10 @@
       "ownership": "platform-team",
       "provenance": {
         "approval_group": "platform-release-governance",
+        "approval_presence_state": "not_applicable",
         "approval_required": true,
         "approval_state": "not_applicable",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
@@ -343,6 +492,7 @@
         "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
+        "evidence_support_state": "none",
         "freshness_state": "unknown",
         "governed_maturity_state": "scaffolded",
         "handoff_to": "none",
@@ -361,6 +511,7 @@
         "review_due_status": "unscheduled",
         "reviewer_group": "platform-release-governance",
         "secondary_approval_group": "none",
+        "secondary_signoff_present": false,
         "selected_source": null,
         "waiver": {
           "waiver_effect": "none",
@@ -390,6 +541,11 @@
           "approval_group": "security-architecture-and-crypto-governance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "security-architecture-and-crypto-governance",
@@ -400,6 +556,11 @@
           "approval_group": "ai-assurance-board",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": true,
           "escalation_group": "ai-assurance-board",
           "reviewer_group": "ai-assurance-and-ml-governance",
@@ -410,6 +571,11 @@
           "approval_group": "architecture-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 30,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-engineering",
@@ -420,6 +586,11 @@
           "approval_group": "ai-product-security",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "ai-assurance-board",
           "reviewer_group": "ai-product-security",
@@ -430,8 +601,10 @@
         "cbom": {
           "applicable": true,
           "approval_group": "security-architecture-and-crypto-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -440,6 +613,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -459,6 +633,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "security-architecture-and-crypto-governance",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -474,8 +649,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "architecture-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": true,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -484,6 +661,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -503,6 +681,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -518,8 +697,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "ai-product-security",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -528,6 +709,7 @@
           "escalation_group": "ai-assurance-board",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -547,6 +729,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "ai-product-security",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -617,8 +800,10 @@
       "ownership": "ai-team",
       "provenance": {
         "approval_group": "ai-assurance-board",
+        "approval_presence_state": "present",
         "approval_required": true,
         "approval_state": "expired",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "partially-evidenced",
         "derived_maturity_state": "partially_evidenced",
@@ -627,6 +812,7 @@
         "escalation_group": "ai-assurance-board",
         "escalation_required": true,
         "escalation_status": "expired-review-required",
+        "evidence_support_state": "verified",
         "freshness_state": "expired",
         "governed_maturity_state": "partially_evidenced",
         "handoff_to": "ai-assurance-board",
@@ -636,7 +822,9 @@
             {
               "approved_at": "2025-06-15",
               "approved_by": "AI Assurance Board",
-              "group": "ai-assurance-board"
+              "group": "ai-assurance-board",
+              "record_reference": "none",
+              "signoff_role": "primary"
             }
           ],
           "last_reviewed": "2025-06-15",
@@ -651,6 +839,7 @@
         "review_due_status": "overdue",
         "reviewer_group": "ai-assurance-and-ml-governance",
         "secondary_approval_group": "platform-release-governance",
+        "secondary_signoff_present": false,
         "selected_source": {
           "adapter": "attestation_reference",
           "collection_method": "imported",
@@ -702,6 +891,11 @@
           "approval_group": "security-architecture-and-crypto-governance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "security-architecture-and-crypto-governance",
@@ -712,6 +906,11 @@
           "approval_group": "platform-release-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-release-governance",
@@ -722,6 +921,11 @@
           "approval_group": "data-platform-engineering",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 30,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "data-platform-governance",
           "reviewer_group": "data-platform-engineering",
@@ -732,6 +936,11 @@
           "approval_group": "product-security-and-vendor-assurance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "product-security-and-vendor-assurance",
@@ -742,8 +951,10 @@
         "cbom": {
           "applicable": false,
           "approval_group": "security-architecture-and-crypto-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "not-applicable",
           "derived_maturity_state": "not_applicable",
@@ -752,6 +963,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-applicable",
+          "evidence_support_state": "not_applicable",
           "freshness_state": "not_applicable",
           "governed_maturity_state": "not_applicable",
           "handoff_to": "none",
@@ -771,6 +983,7 @@
           "review_due_status": "not-applicable",
           "reviewer_group": "security-architecture-and-crypto-governance",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "not-applicable",
           "waiver": {
@@ -786,8 +999,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "data-platform-engineering",
+          "approval_presence_state": "not_applicable",
           "approval_required": true,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -796,6 +1011,7 @@
           "escalation_group": "data-platform-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -815,6 +1031,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "data-platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -830,8 +1047,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "product-security-and-vendor-assurance",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -840,6 +1059,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": true,
           "escalation_status": "overdue-review-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "architecture-governance",
@@ -859,6 +1079,7 @@
           "review_due_status": "overdue",
           "reviewer_group": "product-security-and-vendor-assurance",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -912,8 +1133,10 @@
       "ownership": "data-platform-team",
       "provenance": {
         "approval_group": "platform-release-governance",
+        "approval_presence_state": "not_applicable",
         "approval_required": true,
         "approval_state": "not_applicable",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
@@ -922,6 +1145,7 @@
         "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
+        "evidence_support_state": "none",
         "freshness_state": "unknown",
         "governed_maturity_state": "scaffolded",
         "handoff_to": "none",
@@ -940,6 +1164,7 @@
         "review_due_status": "unscheduled",
         "reviewer_group": "platform-release-governance",
         "secondary_approval_group": "none",
+        "secondary_signoff_present": false,
         "selected_source": null,
         "waiver": {
           "waiver_effect": "none",
@@ -969,6 +1194,11 @@
           "approval_group": "edge-security-and-crypto-governance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": true,
           "escalation_group": "platform-security-review-board",
           "reviewer_group": "edge-security-and-crypto-governance",
@@ -979,6 +1209,11 @@
           "approval_group": "platform-release-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-release-governance",
@@ -989,6 +1224,11 @@
           "approval_group": "platform-security-review-board",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 7,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-engineering",
@@ -999,6 +1239,11 @@
           "approval_group": "product-security-and-incident-response",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "platform-security-review-board",
           "reviewer_group": "product-security-and-incident-response",
@@ -1009,19 +1254,22 @@
         "cbom": {
           "applicable": true,
           "approval_group": "edge-security-and-crypto-governance",
+          "approval_presence_state": "present",
           "approval_required": false,
-          "approval_state": "current",
+          "approval_state": "expiring_soon",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "partially-evidenced",
           "derived_maturity_state": "partially_evidenced",
           "dual_review_required": true,
-          "dual_review_satisfied": false,
+          "dual_review_satisfied": true,
           "escalation_group": "platform-security-review-board",
-          "escalation_required": true,
-          "escalation_status": "dual-review-pending",
+          "escalation_required": false,
+          "escalation_status": "not-required",
+          "evidence_support_state": "verified",
           "freshness_state": "fresh",
           "governed_maturity_state": "partially_evidenced",
-          "handoff_to": "platform-security-review-board",
+          "handoff_to": "none",
           "next_review_due": "2025-09-07",
           "origin": "architecture-derived-scaffold",
           "review": {
@@ -1029,7 +1277,16 @@
               {
                 "approved_at": "2025-08-08",
                 "approved_by": "Platform Security Architecture",
-                "group": "edge-security-and-crypto-governance"
+                "group": "edge-security-and-crypto-governance",
+                "record_reference": "none",
+                "signoff_role": "primary"
+              },
+              {
+                "approved_at": "2025-08-09",
+                "approved_by": "Platform Security Review Board",
+                "group": "platform-security-review-board",
+                "record_reference": "evidence/reviews/gateway-cbom-secondary-approval.json",
+                "signoff_role": "secondary"
               }
             ],
             "last_reviewed": "2025-08-08",
@@ -1040,10 +1297,11 @@
             "review_status": "reviewed",
             "reviewed_by": "Platform Security Architecture"
           },
-          "review_blocking": true,
+          "review_blocking": false,
           "review_due_status": "current",
           "reviewer_group": "edge-security-and-crypto-governance",
           "secondary_approval_group": "platform-security-review-board",
+          "secondary_signoff_present": true,
           "selected_source": {
             "adapter": "none",
             "collection_method": "manually_curated",
@@ -1076,8 +1334,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "platform-security-review-board",
+          "approval_presence_state": "present",
           "approval_required": true,
           "approval_state": "expired",
+          "approval_validity_days": 14,
           "awaiting_approval": true,
           "content_status": "evidence-backed",
           "derived_maturity_state": "evidence_backed",
@@ -1086,6 +1346,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": true,
           "escalation_status": "overdue-review-required",
+          "evidence_support_state": "verified",
           "freshness_state": "fresh",
           "governed_maturity_state": "partially_evidenced",
           "handoff_to": "architecture-governance",
@@ -1096,7 +1357,9 @@
               {
                 "approved_at": "2025-06-10",
                 "approved_by": "Platform Security Architecture",
-                "group": "platform-security-review-board"
+                "group": "platform-security-review-board",
+                "record_reference": "none",
+                "signoff_role": "primary"
               }
             ],
             "last_reviewed": "2025-06-10",
@@ -1111,6 +1374,7 @@
           "review_due_status": "overdue",
           "reviewer_group": "platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": {
             "adapter": "cyclonedx_json",
             "collection_method": "imported",
@@ -1149,8 +1413,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "product-security-and-incident-response",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1159,6 +1425,7 @@
           "escalation_group": "platform-security-review-board",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -1178,6 +1445,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "product-security-and-incident-response",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1248,8 +1516,10 @@
       "ownership": "platform-team",
       "provenance": {
         "approval_group": "platform-release-governance",
+        "approval_presence_state": "not_applicable",
         "approval_required": true,
         "approval_state": "not_applicable",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
@@ -1258,6 +1528,7 @@
         "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
+        "evidence_support_state": "none",
         "freshness_state": "unknown",
         "governed_maturity_state": "scaffolded",
         "handoff_to": "none",
@@ -1276,6 +1547,7 @@
         "review_due_status": "unscheduled",
         "reviewer_group": "platform-release-governance",
         "secondary_approval_group": "none",
+        "secondary_signoff_present": false,
         "selected_source": null,
         "waiver": {
           "waiver_effect": "none",
@@ -1305,6 +1577,11 @@
           "approval_group": "identity-security-board",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": true,
           "escalation_group": "identity-security-board",
           "reviewer_group": "identity-crypto-governance",
@@ -1315,6 +1592,11 @@
           "approval_group": "platform-release-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-release-governance",
@@ -1325,6 +1607,11 @@
           "approval_group": "architecture-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 30,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-engineering",
@@ -1335,6 +1622,11 @@
           "approval_group": "identity-product-security",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "identity-security-board",
           "reviewer_group": "identity-product-security",
@@ -1345,8 +1637,10 @@
         "cbom": {
           "applicable": true,
           "approval_group": "identity-security-board",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1355,6 +1649,7 @@
           "escalation_group": "identity-security-board",
           "escalation_required": false,
           "escalation_status": "waiver-active",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -1374,6 +1669,7 @@
           "review_due_status": "overdue",
           "reviewer_group": "identity-crypto-governance",
           "secondary_approval_group": "security-architecture-and-crypto-governance",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1389,8 +1685,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "architecture-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": true,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1399,6 +1697,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -1418,6 +1717,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1433,8 +1733,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "identity-product-security",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1443,6 +1745,7 @@
           "escalation_group": "identity-security-board",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -1462,6 +1765,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "identity-product-security",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1516,8 +1820,10 @@
       "ownership": "identity-team",
       "provenance": {
         "approval_group": "platform-release-governance",
+        "approval_presence_state": "not_applicable",
         "approval_required": true,
         "approval_state": "not_applicable",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
@@ -1526,6 +1832,7 @@
         "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
+        "evidence_support_state": "none",
         "freshness_state": "unknown",
         "governed_maturity_state": "scaffolded",
         "handoff_to": "none",
@@ -1544,6 +1851,7 @@
         "review_due_status": "unscheduled",
         "reviewer_group": "platform-release-governance",
         "secondary_approval_group": "none",
+        "secondary_signoff_present": false,
         "selected_source": null,
         "waiver": {
           "waiver_effect": "none",
@@ -1573,6 +1881,11 @@
           "approval_group": "trust-governance-board",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 45,
+          "approval_validity_days_by_criticality": {
+            "high": 21,
+            "low": 45,
+            "medium": 30
+          },
           "dual_review_required": true,
           "escalation_group": "trust-governance-board",
           "reviewer_group": "secrets-and-trust-governance",
@@ -1583,6 +1896,11 @@
           "approval_group": "platform-release-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-release-governance",
@@ -1593,6 +1911,11 @@
           "approval_group": "architecture-governance",
           "approval_required_for_evidence_backed": true,
           "approval_validity_days": 30,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 30,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "architecture-governance",
           "reviewer_group": "platform-engineering",
@@ -1603,6 +1926,11 @@
           "approval_group": "secrets-vendor-assurance",
           "approval_required_for_evidence_backed": false,
           "approval_validity_days": 21,
+          "approval_validity_days_by_criticality": {
+            "high": 14,
+            "low": 21,
+            "medium": 21
+          },
           "dual_review_required": false,
           "escalation_group": "trust-governance-board",
           "reviewer_group": "secrets-vendor-assurance",
@@ -1613,8 +1941,10 @@
         "cbom": {
           "applicable": true,
           "approval_group": "trust-governance-board",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 21,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1623,6 +1953,7 @@
           "escalation_group": "trust-governance-board",
           "escalation_required": true,
           "escalation_status": "dual-review-pending",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "trust-governance-board",
@@ -1642,6 +1973,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "secrets-and-trust-governance",
           "secondary_approval_group": "security-architecture-and-crypto-governance",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1657,8 +1989,10 @@
         "sbom": {
           "applicable": true,
           "approval_group": "architecture-governance",
+          "approval_presence_state": "not_applicable",
           "approval_required": true,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "scaffolded",
           "derived_maturity_state": "scaffolded",
@@ -1667,6 +2001,7 @@
           "escalation_group": "architecture-governance",
           "escalation_required": false,
           "escalation_status": "not-required",
+          "evidence_support_state": "none",
           "freshness_state": "unknown",
           "governed_maturity_state": "scaffolded",
           "handoff_to": "none",
@@ -1686,6 +2021,7 @@
           "review_due_status": "unscheduled",
           "reviewer_group": "platform-engineering",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": null,
           "status": "scaffolded",
           "waiver": {
@@ -1701,8 +2037,10 @@
         "vex": {
           "applicable": true,
           "approval_group": "secrets-vendor-assurance",
+          "approval_presence_state": "not_applicable",
           "approval_required": false,
           "approval_state": "not_applicable",
+          "approval_validity_days": 14,
           "awaiting_approval": false,
           "content_status": "partially-evidenced",
           "derived_maturity_state": "partially_evidenced",
@@ -1711,6 +2049,7 @@
           "escalation_group": "trust-governance-board",
           "escalation_required": true,
           "escalation_status": "expired-review-required",
+          "evidence_support_state": "verified",
           "freshness_state": "expired",
           "governed_maturity_state": "partially_evidenced",
           "handoff_to": "trust-governance-board",
@@ -1730,6 +2069,7 @@
           "review_due_status": "overdue",
           "reviewer_group": "secrets-vendor-assurance",
           "secondary_approval_group": "none",
+          "secondary_signoff_present": false,
           "selected_source": {
             "adapter": "advisory_record",
             "collection_method": "advisory_reviewed",
@@ -1807,8 +2147,10 @@
       "ownership": "trust-team",
       "provenance": {
         "approval_group": "platform-release-governance",
+        "approval_presence_state": "not_applicable",
         "approval_required": true,
         "approval_state": "not_applicable",
+        "approval_validity_days": 14,
         "awaiting_approval": false,
         "content_status": "not-collected",
         "derived_maturity_state": "scaffolded",
@@ -1817,6 +2159,7 @@
         "escalation_group": "architecture-governance",
         "escalation_required": false,
         "escalation_status": "not-required",
+        "evidence_support_state": "none",
         "freshness_state": "unknown",
         "governed_maturity_state": "scaffolded",
         "handoff_to": "none",
@@ -1835,6 +2178,7 @@
         "review_due_status": "unscheduled",
         "reviewer_group": "platform-release-governance",
         "secondary_approval_group": "none",
+        "secondary_signoff_present": false,
         "selected_source": null,
         "waiver": {
           "waiver_effect": "none",
@@ -1856,5 +2200,13 @@
       }
     }
   ],
-  "workspace_json_sha256": "f78c735367b0ce63685e246e292f786fb88f6308c663626d7a4685e991c10bba"
+  "trust_boundary_item_count": 9,
+  "trust_boundary_summary": {
+    "ai_ml_provenance_sensitive": 3,
+    "cyber_physical_control": 1,
+    "identity": 1,
+    "secrets": 4
+  },
+  "waiver_owner_action_count": 1,
+  "workspace_json_sha256": "db3077563bdfc3782392670c519e8a1a0aa1e5af6736f761fa5bd8b6b2ee6026"
 }

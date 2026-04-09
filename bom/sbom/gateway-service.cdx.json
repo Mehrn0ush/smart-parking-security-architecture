@@ -30,12 +30,20 @@
           "value": "platform-security-review-board"
         },
         {
+          "name": "smartparking.approval_presence_state",
+          "value": "present"
+        },
+        {
           "name": "smartparking.approval_required",
           "value": "true"
         },
         {
           "name": "smartparking.approval_state",
           "value": "expired"
+        },
+        {
+          "name": "smartparking.approval_validity_days",
+          "value": "14"
         },
         {
           "name": "smartparking.arch_ref",
@@ -116,6 +124,10 @@
         {
           "name": "smartparking.evidence_source_types",
           "value": "container-image-sbom, python-package-manifest, teaching-imported-cyclonedx"
+        },
+        {
+          "name": "smartparking.evidence_support_state",
+          "value": "verified"
         },
         {
           "name": "smartparking.freshness_state",
@@ -224,6 +236,10 @@
         {
           "name": "smartparking.secondary_approval_group",
           "value": "none"
+        },
+        {
+          "name": "smartparking.secondary_signoff_present",
+          "value": "false"
         },
         {
           "name": "smartparking.selected_evidence_adapter",

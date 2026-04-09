@@ -3,16 +3,16 @@
 This file summarizes the current governance posture across generated supply-chain artifacts.
 
 - Artifact total: 24
-- Escalation required: 6
-- Review blocking: 5
+- Escalation required: 5
+- Review blocking: 4
 - Overdue review: 5
 - Awaiting approval: 1
-- Approval expiring soon: 0
+- Approval expiring soon: 1
 - Approval expired: 2
 - Active waivers: 1
 - Waivers expiring soon: 1
 - Expired waivers: 0
-- Dual-review pending: 4
+- Dual-review pending: 3
 
 ## Counts By Governed Maturity
 
@@ -34,10 +34,21 @@ This file summarizes the current governance posture across generated supply-chai
 - pending: 17
 - waived: 1
 
+## Counts By Evidence Support
+
+- none: 18
+- not_applicable: 1
+- verified: 5
+
+## Counts By Approval Presence
+
+- not_applicable: 21
+- present: 3
+
 ## Counts By Approval State
 
-- current: 1
 - expired: 2
+- expiring_soon: 1
 - not_applicable: 21
 
 ## Counts By Waiver Expiry
@@ -45,10 +56,97 @@ This file summarizes the current governance posture across generated supply-chai
 - expiring_soon: 1
 - not_applicable: 23
 
+## Active Waivers By Owner
+
+- identity-security-board: 1
+
 ## Counts By Provenance Assurance
 
 - not-applicable: 5
 - reference_only: 1
+
+## Counts By Artifact Type
+
+- cbom: 6
+- provenance: 6
+- sbom: 6
+- vex: 6
+
+## Artifact-Type Governed Maturity
+
+### cbom
+
+- not_applicable: 1
+- partially_evidenced: 1
+- scaffolded: 4
+
+### provenance
+
+- partially_evidenced: 1
+- scaffolded: 5
+
+### sbom
+
+- partially_evidenced: 1
+- scaffolded: 5
+
+### vex
+
+- partially_evidenced: 2
+- scaffolded: 4
+
+
+## Artifact-Type Approval State
+
+### cbom
+
+- expiring_soon: 1
+- not_applicable: 5
+
+### provenance
+
+- expired: 1
+- not_applicable: 5
+
+### sbom
+
+- expired: 1
+- not_applicable: 5
+
+### vex
+
+- not_applicable: 6
+
+
+## Artifact-Type Evidence Support
+
+### cbom
+
+- none: 4
+- not_applicable: 1
+- verified: 1
+
+### provenance
+
+- none: 5
+- verified: 1
+
+### sbom
+
+- none: 5
+- verified: 1
+
+### vex
+
+- none: 4
+- verified: 2
+
+
+## Artifact-Type Review Blocking Counts
+
+- cbom: 2
+- provenance: 1
+- sbom: 1
 
 ## Counts By Reviewer Group
 

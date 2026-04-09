@@ -100,7 +100,11 @@ Milestone 7 adds one more teaching point:
 Milestone 8 adds static governance visibility:
 
 - [`governance-summary.md`](governance-summary.md) gives repository-level counts for governed maturity, freshness, overdue review, review blocking, and escalation
+- [`attention-now.md`](attention-now.md) gives a concise static view of the artifacts that need attention now, such as expired approvals, pending dual review, expiring waivers, stale trust-boundary evidence, and low-assurance AI provenance
+- [`artifact-type-actions.md`](artifact-type-actions.md) groups current actions by `sbom`, `cbom`, `vex`, and `provenance`
+- [`trust-boundary-summary.md`](trust-boundary-summary.md) groups governance posture around identity, secrets, cyber-physical control, and AI/ML provenance-sensitive subjects
 - reviewer groups are now shown per artifact type so SBOM, CBOM, VEX, and provenance do not all imply the same review path
+- release hardening keeps the static output surface explicit and stable enough for teaching, testing, and light automation
 - Gateway Service SBOM is the main review-blocking downgrade example
 - Secrets Manager VEX is the main trust-boundary escalation example outside the AI path
 
@@ -114,6 +118,8 @@ Milestone 9 adds workflow-oriented reading guidance:
 Milestone 10 adds two more static outputs and interpretations:
 
 - `governance-summary.md` now counts approval expiry, dual-review pending items, and waivers expiring soon
+- milestone 12 adds artifact-type-aware counts plus explicit `evidence_support_state` and `approval_presence_state` signals so evidence, approval, and governed posture are easier to compare
+- milestone 13 adds artifact-type action summaries and trust-boundary summaries as stable release-facing outputs
 - [`reviewer-actions.md`](reviewer-actions.md) groups action items by reviewer group
 - Gateway Service SBOM is the main approval-expiry example
 - Gateway Service CBOM and Edge AI provenance are the main dual-review examples

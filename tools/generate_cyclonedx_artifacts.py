@@ -281,6 +281,17 @@ def derive_review_lifecycle_state(review_status: str) -> str:
 def normalize_review(review: dict | None, defaults: dict) -> dict:
     review = dict(review or {})
     review_status = review.get("review_status", defaults["review_status"])
+    normalized_signoffs = []
+    for signoff in review.get("approval_signoffs", defaults.get("approval_signoffs", [])):
+        normalized_signoffs.append(
+            {
+                "group": signoff.get("group", "unassigned-approval-group"),
+                "approved_at": signoff.get("approved_at", "not-approved"),
+                "approved_by": signoff.get("approved_by", "unassigned"),
+                "signoff_role": signoff.get("signoff_role", "primary"),
+                "record_reference": signoff.get("record_reference", "none"),
+            }
+        )
     return {
         "review_status": review_status,
         "review_lifecycle_state": review.get("review_lifecycle_state", derive_review_lifecycle_state(review_status)),
@@ -289,7 +300,7 @@ def normalize_review(review: dict | None, defaults: dict) -> dict:
         "review_notes": review.get("review_notes", defaults["review_notes"]),
         "next_review_due": review.get("next_review_due", defaults["next_review_due"]),
         "review_outcome": review.get("review_outcome", review_status),
-        "approval_signoffs": list(review.get("approval_signoffs", defaults.get("approval_signoffs", []))),
+        "approval_signoffs": normalized_signoffs,
     }
 
 
@@ -433,6 +444,19 @@ def validate_evidence(mapping_subjects: dict[str, dict], evidence: dict, package
     normalized = {}
     seen_ids = set()
 
+    def validate_review_references(review: dict, evidence_subject_id: str, context: str) -> None:
+        for signoff in review.get("approval_signoffs", []):
+            reference = signoff.get("record_reference", "none")
+            if reference in {"", "none"}:
+                continue
+            if is_external_reference(reference) or is_placeholder_reference(reference):
+                continue
+            target = (package_root / reference).resolve()
+            if not target.exists():
+                raise SystemExit(f"Approval signoff reference does not exist for {evidence_subject_id} {context}: {reference}")
+            if not str(target).startswith(str(package_root.resolve())):
+                raise SystemExit(f"Approval signoff reference escapes the package for {evidence_subject_id} {context}: {reference}")
+
     for subject in evidence["subjects"]:
         arch_ref = subject["arch_ref"]
         if arch_ref not in mapping_subjects:
@@ -451,6 +475,7 @@ def validate_evidence(mapping_subjects: dict[str, dict], evidence: dict, package
                 raise SystemExit(f"Duplicate evidence_subject_id: {evidence_subject_id}")
             seen_ids.add(evidence_subject_id)
             subject_review = normalize_review(item.get("review"), defaults)
+            validate_review_references(subject_review, evidence_subject_id, "subject-review")
             artifact_evidence = {}
             for kind in ALL_EVIDENCE_ARTIFACTS:
                 applicable = True if kind == "provenance" else mapping_subject["artifacts"][kind]["applicable"]
@@ -470,6 +495,7 @@ def validate_evidence(mapping_subjects: dict[str, dict], evidence: dict, package
                             raise SystemExit(f"Evidence reference does not exist for {evidence_subject_id}: {reference}")
                         if not str(target).startswith(str(package_root.resolve())):
                             raise SystemExit(f"Evidence reference escapes the package for {evidence_subject_id}: {reference}")
+                validate_review_references(artifact["review"], evidence_subject_id, kind)
                 artifact_evidence[kind] = artifact
             evidence_subjects.append(
                 {
@@ -645,11 +671,33 @@ def approval_expiry_state(signoff: dict | None, validity_days: int | None, soon_
     return "current"
 
 
+def approval_presence_state(approval_required: bool, signoff: dict | None) -> str:
+    if signoff is not None:
+        return "present"
+    if approval_required:
+        return "missing"
+    return "not_applicable"
+
+
+def effective_approval_validity_days(subject: dict, artifact_governance: dict) -> int | None:
+    criticality = subject["container"]["properties"].get("asset.criticality", "").lower()
+    overrides = artifact_governance.get("approval_validity_days_by_criticality", {})
+    return overrides.get(criticality, artifact_governance.get("approval_validity_days"))
+
+
 def signoff_for_group(review: dict, group: str) -> dict | None:
     for signoff in review.get("approval_signoffs", []):
         if signoff.get("group") == group:
             return signoff
     return None
+
+
+def evidence_support_state(maturity_state: str, selected_source: dict | None) -> str:
+    if maturity_state == "not_applicable":
+        return "not_applicable"
+    if not selected_source:
+        return "none"
+    return "verified" if selected_source.get("last_verified", "not-verified") != "not-verified" else "linked"
 
 
 def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: dict, state: dict, review: dict, waiver: dict, selected_source: dict | None) -> dict:
@@ -663,9 +711,11 @@ def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: 
     waiver_effect = waiver.get("waiver_effect", "none")
     primary_signoff = signoff_for_group(review, artifact_governance["approval_group"])
     secondary_signoff = signoff_for_group(review, artifact_governance.get("secondary_approval_group", "none"))
+    validity_days = effective_approval_validity_days(subject, artifact_governance)
+    approval_required = artifact_governance["approval_required_for_evidence_backed"] and state["maturity_state"] == "evidence_backed"
     approval_state = approval_expiry_state(
         primary_signoff,
-        artifact_governance.get("approval_validity_days"),
+        validity_days,
         artifact_governance.get("approval_expiring_soon_days", 7),
         subject["evaluation_time"],
     )
@@ -687,7 +737,6 @@ def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: 
         escalation_status = "review-rejected"
     stale_blocks = freshness == "expired" and rule.get("expired_blocks_evidence_backed", False) and state["maturity_state"] == "evidence_backed"
     review_blocks = due_status == "overdue" and rule.get("overdue_review_blocks_evidence_backed", False) and state["maturity_state"] == "evidence_backed"
-    approval_required = artifact_governance["approval_required_for_evidence_backed"] and state["maturity_state"] == "evidence_backed"
     awaiting_approval = approval_required and (lifecycle != "approved" or primary_signoff is None)
     rejected_blocking = lifecycle == "rejected" and rule.get("rejected_blocks_governed", False)
     approval_expired_blocking = approval_required and approval_state == "expired"
@@ -730,12 +779,15 @@ def derive_review_governance(subject: dict, artifact_kind: str, artifact_rules: 
         "reviewer_group": artifact_governance["reviewer_group"],
         "approval_group": artifact_governance["approval_group"],
         "approval_required_for_evidence_backed": artifact_governance["approval_required_for_evidence_backed"],
+        "approval_presence_state": approval_presence_state(approval_required, primary_signoff),
+        "approval_validity_days": validity_days,
         "awaiting_approval": awaiting_approval,
         "approval_state": reported_approval_state,
         "primary_approval_present": primary_signoff is not None,
         "dual_review_required": dual_review_required,
         "secondary_approval_group": artifact_governance.get("secondary_approval_group", "none"),
         "dual_review_satisfied": dual_review_satisfied,
+        "secondary_signoff_present": secondary_signoff is not None,
         "escalation_group": artifact_governance["escalation_group"],
         "escalation_required": escalation_required,
         "escalation_owner": subject.get("escalation_owner", subject["owner"]),
@@ -798,6 +850,7 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
             "partial_candidates": [],
             "backed_candidates": [],
             "selected_source": None,
+            "evidence_support_state": "not_applicable",
             "maturity_state": "not_applicable",
             "freshness_state": "not_applicable",
             "governance": {
@@ -810,12 +863,15 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
                 "reviewer_group": artifact_governance["reviewer_group"],
                 "approval_group": artifact_governance["approval_group"],
                 "approval_required_for_evidence_backed": artifact_governance["approval_required_for_evidence_backed"],
+                "approval_presence_state": "not_applicable",
+                "approval_validity_days": effective_approval_validity_days(subject, artifact_governance),
                 "awaiting_approval": False,
                 "approval_state": "not_applicable",
                 "primary_approval_present": False,
                 "dual_review_required": artifact_governance.get("dual_review_required", False),
                 "secondary_approval_group": artifact_governance.get("secondary_approval_group", "none"),
                 "dual_review_satisfied": not artifact_governance.get("dual_review_required", False),
+                "secondary_signoff_present": False,
                 "escalation_group": artifact_governance["escalation_group"],
                 "escalation_required": False,
                 "escalation_owner": subject.get("escalation_owner", subject["owner"]),
@@ -904,6 +960,7 @@ def aggregate_artifact(subject: dict, artifact_kind: str, artifact_rules: dict, 
         "partial_candidates": partial_candidates,
         "backed_candidates": backed_candidates,
         "selected_source": selected_source,
+        "evidence_support_state": evidence_support_state(maturity_state, selected_source),
         "maturity_state": maturity_state,
         "freshness_state": freshness_state,
         "governance": governance,
@@ -957,6 +1014,7 @@ def base_component(subject: dict, artifact_kind: str) -> dict:
                 "smartparking.artifact_kind": artifact_kind,
                 "smartparking.artifact_origin": policy_artifact["origin"],
                 "smartparking.artifact_status": policy_artifact["status"],
+                "smartparking.evidence_support_state": state["evidence_support_state"],
                 "smartparking.derived_maturity_state": state["maturity_state"],
                 "smartparking.governed_maturity_state": state["governance"]["governed_maturity_state"],
                 "smartparking.freshness_state": state["freshness_state"],
@@ -967,11 +1025,14 @@ def base_component(subject: dict, artifact_kind: str) -> dict:
                 "smartparking.next_review_due": state["governance"]["next_review_due"],
                 "smartparking.review_due_status": state["governance"]["review_due_status"],
                 "smartparking.approval_required": state["governance"]["approval_required_for_evidence_backed"],
+                "smartparking.approval_presence_state": state["governance"]["approval_presence_state"],
+                "smartparking.approval_validity_days": state["governance"]["approval_validity_days"],
                 "smartparking.awaiting_approval": state["governance"]["awaiting_approval"],
                 "smartparking.approval_state": state["governance"]["approval_state"],
                 "smartparking.dual_review_required": state["governance"]["dual_review_required"],
                 "smartparking.secondary_approval_group": state["governance"]["secondary_approval_group"],
                 "smartparking.dual_review_satisfied": state["governance"]["dual_review_satisfied"],
+                "smartparking.secondary_signoff_present": state["governance"]["secondary_signoff_present"],
                 "smartparking.escalation_required": state["governance"]["escalation_required"],
                 "smartparking.escalation_status": state["governance"]["escalation_status"],
                 "smartparking.escalation_owner": state["governance"]["escalation_owner"],
@@ -1187,11 +1248,14 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "next_review_due": state["governance"]["next_review_due"],
                             "review_due_status": state["governance"]["review_due_status"],
                             "approval_required": str(state["governance"]["approval_required_for_evidence_backed"]).lower(),
+                            "approval_presence_state": state["governance"]["approval_presence_state"],
+                            "approval_validity_days": str(state["governance"]["approval_validity_days"]),
                             "awaiting_approval": str(state["governance"]["awaiting_approval"]).lower(),
                             "approval_state": state["governance"]["approval_state"],
                             "dual_review_required": str(state["governance"]["dual_review_required"]).lower(),
                             "secondary_approval_group": state["governance"]["secondary_approval_group"],
                             "dual_review_satisfied": str(state["governance"]["dual_review_satisfied"]).lower(),
+                            "secondary_signoff_present": str(state["governance"]["secondary_signoff_present"]).lower(),
                             "escalation_required": str(state["governance"]["escalation_required"]).lower(),
                             "escalation_status": state["governance"]["escalation_status"],
                             "escalation_owner": state["governance"]["escalation_owner"],
@@ -1213,6 +1277,7 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "provenance_assurance_level": "not-applicable",
                             "policy_status": state["policy"]["status"],
                             "binding_state": artifact_evidence["binding_state"],
+                            "evidence_support_state": state["evidence_support_state"],
                             "derived_maturity_state": state["maturity_state"],
                             "governed_maturity_state": state["governance"]["governed_maturity_state"],
                             "freshness_state": state["freshness_state"],
@@ -1246,11 +1311,14 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "next_review_due": state["governance"]["next_review_due"],
                             "review_due_status": state["governance"]["review_due_status"],
                             "approval_required": str(state["governance"]["approval_required_for_evidence_backed"]).lower(),
+                            "approval_presence_state": state["governance"]["approval_presence_state"],
+                            "approval_validity_days": str(state["governance"]["approval_validity_days"]),
                             "awaiting_approval": str(state["governance"]["awaiting_approval"]).lower(),
                             "approval_state": state["governance"]["approval_state"],
                             "dual_review_required": str(state["governance"]["dual_review_required"]).lower(),
                             "secondary_approval_group": state["governance"]["secondary_approval_group"],
                             "dual_review_satisfied": str(state["governance"]["dual_review_satisfied"]).lower(),
+                            "secondary_signoff_present": str(state["governance"]["secondary_signoff_present"]).lower(),
                             "escalation_required": str(state["governance"]["escalation_required"]).lower(),
                             "escalation_status": state["governance"]["escalation_status"],
                             "escalation_owner": state["governance"]["escalation_owner"],
@@ -1272,6 +1340,7 @@ def build_evidence_rows(subjects: list[dict]) -> list[dict[str, str]]:
                             "provenance_assurance_level": source["provenance_assurance_level"],
                             "policy_status": state["policy"]["status"],
                             "binding_state": artifact_evidence["binding_state"],
+                            "evidence_support_state": state["evidence_support_state"],
                             "derived_maturity_state": state["maturity_state"],
                             "governed_maturity_state": state["governance"]["governed_maturity_state"],
                             "freshness_state": state["freshness_state"],
@@ -1311,10 +1380,26 @@ def count_values(values: list[str]) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
+def nested_count_values(records: list[dict], group_key: str, value_key: str) -> dict[str, dict[str, int]]:
+    grouped: dict[str, list[str]] = {}
+    for record in records:
+        grouped.setdefault(record[group_key], []).append(record[value_key])
+    return {key: count_values(values) for key, values in sorted(grouped.items())}
+
+
+def count_true_by_group(records: list[dict], group_key: str, flag_key: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for record in records:
+        if record[flag_key]:
+            counts[record[group_key]] = counts.get(record[group_key], 0) + 1
+    return dict(sorted(counts.items()))
+
+
 def governance_summary(subjects: list[dict]) -> dict:
     records = []
     provenance_assurance = []
     waiver_expiry = []
+    waiver_owners = []
     for subject in subjects:
         for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
             state = subject["artifact_states"][artifact_kind]
@@ -1323,10 +1408,13 @@ def governance_summary(subjects: list[dict]) -> dict:
                     state["selected_source"]["provenance_assurance_level"] if state["selected_source"] else "not-applicable"
                 )
             waiver_expiry.append(state["governance"]["waiver_expiry_state"])
+            if state["governance"]["waiver_active"]:
+                waiver_owners.append(state["governance"]["waiver"]["waiver_owner"])
             records.append(
                 {
                     "architecture_subject": subject["mapping"]["element_name"],
                     "artifact_type": artifact_kind,
+                    "evidence_support_state": state["evidence_support_state"],
                     "raw_maturity": state["maturity_state"],
                     "governed_maturity": state["governance"]["governed_maturity_state"],
                     "freshness": state["freshness_state"],
@@ -1335,6 +1423,7 @@ def governance_summary(subjects: list[dict]) -> dict:
                     "review_due_status": state["governance"]["review_due_status"],
                     "reviewer_group": state["governance"]["reviewer_group"],
                     "awaiting_approval": state["governance"]["awaiting_approval"],
+                    "approval_presence_state": state["governance"]["approval_presence_state"],
                     "approval_state": state["governance"]["approval_state"],
                     "dual_review_required": state["governance"]["dual_review_required"],
                     "dual_review_satisfied": state["governance"]["dual_review_satisfied"],
@@ -1346,6 +1435,7 @@ def governance_summary(subjects: list[dict]) -> dict:
             )
     return {
         "artifact_total": len(records),
+        "by_artifact_type": count_values([item["artifact_type"] for item in records]),
         "by_raw_maturity": count_values([item["raw_maturity"] for item in records]),
         "by_governed_maturity": count_values([item["governed_maturity"] for item in records]),
         "by_freshness": count_values([item["freshness"] for item in records]),
@@ -1353,9 +1443,16 @@ def governance_summary(subjects: list[dict]) -> dict:
         "by_review_status": count_values([item["review_status"] for item in records]),
         "by_review_due_status": count_values([item["review_due_status"] for item in records]),
         "by_reviewer_group": count_values([item["reviewer_group"] for item in records]),
+        "by_waiver_owner": count_values(waiver_owners),
         "by_provenance_assurance_level": count_values(provenance_assurance),
+        "by_evidence_support_state": count_values([item["evidence_support_state"] for item in records]),
+        "by_approval_presence_state": count_values([item["approval_presence_state"] for item in records]),
         "by_approval_state": count_values([item["approval_state"] for item in records]),
         "by_waiver_expiry_state": count_values(waiver_expiry),
+        "by_artifact_type_governed_maturity": nested_count_values(records, "artifact_type", "governed_maturity"),
+        "by_artifact_type_approval_state": nested_count_values(records, "artifact_type", "approval_state"),
+        "by_artifact_type_evidence_support": nested_count_values(records, "artifact_type", "evidence_support_state"),
+        "by_artifact_type_review_blocking_count": count_true_by_group(records, "artifact_type", "review_blocking"),
         "awaiting_approval_count": sum(1 for item in records if item["awaiting_approval"]),
         "waived_artifact_count": sum(1 for item in records if item["waiver_active"]),
         "dual_review_pending_count": sum(1 for item in records if item["dual_review_required"] and not item["dual_review_satisfied"]),
@@ -1367,6 +1464,16 @@ def governance_summary(subjects: list[dict]) -> dict:
         "review_blocking_count": sum(1 for item in records if item["review_blocking"]),
         "overdue_review_count": sum(1 for item in records if item["review_due_status"] == "overdue"),
     }
+
+
+def append_nested_summary(lines: list[str], title: str, nested: dict[str, dict[str, int]]) -> None:
+    lines.extend(["", f"## {title}", ""])
+    for group, counts in nested.items():
+        lines.append(f"### {group}")
+        lines.append("")
+        for key, value in counts.items():
+            lines.append(f"- {key}: {value}")
+        lines.append("")
 
 
 def governance_summary_markdown(summary: dict) -> bytes:
@@ -1398,14 +1505,32 @@ def governance_summary_markdown(summary: dict) -> bytes:
     lines.extend(["", "## Counts By Review Lifecycle", ""])
     for key, value in summary["by_review_lifecycle_state"].items():
         lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Evidence Support", ""])
+    for key, value in summary["by_evidence_support_state"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Approval Presence", ""])
+    for key, value in summary["by_approval_presence_state"].items():
+        lines.append(f"- {key}: {value}")
     lines.extend(["", "## Counts By Approval State", ""])
     for key, value in summary["by_approval_state"].items():
         lines.append(f"- {key}: {value}")
     lines.extend(["", "## Counts By Waiver Expiry", ""])
     for key, value in summary["by_waiver_expiry_state"].items():
         lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Active Waivers By Owner", ""])
+    for key, value in summary["by_waiver_owner"].items():
+        lines.append(f"- {key}: {value}")
     lines.extend(["", "## Counts By Provenance Assurance", ""])
     for key, value in summary["by_provenance_assurance_level"].items():
+        lines.append(f"- {key}: {value}")
+    lines.extend(["", "## Counts By Artifact Type", ""])
+    for key, value in summary["by_artifact_type"].items():
+        lines.append(f"- {key}: {value}")
+    append_nested_summary(lines, "Artifact-Type Governed Maturity", summary["by_artifact_type_governed_maturity"])
+    append_nested_summary(lines, "Artifact-Type Approval State", summary["by_artifact_type_approval_state"])
+    append_nested_summary(lines, "Artifact-Type Evidence Support", summary["by_artifact_type_evidence_support"])
+    lines.extend(["", "## Artifact-Type Review Blocking Counts", ""])
+    for key, value in summary["by_artifact_type_review_blocking_count"].items():
         lines.append(f"- {key}: {value}")
     lines.extend(["", "## Counts By Reviewer Group", ""])
     for key, value in summary["by_reviewer_group"].items():
@@ -1422,8 +1547,10 @@ def reviewer_action_rows(subjects: list[dict]) -> list[dict[str, str]]:
             actions = []
             if state["governance"]["awaiting_approval"]:
                 actions.append("awaiting_approval")
+            if state["governance"]["awaiting_approval"] and state["governance"]["review_blocking"]:
+                actions.append("blocked_awaiting_approval")
             if state["governance"]["review_due_status"] == "overdue":
-                actions.append("overdue_review")
+                actions.append("review_overdue")
             if state["governance"]["review_blocking"]:
                 actions.append("review_blocking")
             if state["governance"]["dual_review_required"] and not state["governance"]["dual_review_satisfied"]:
@@ -1434,6 +1561,8 @@ def reviewer_action_rows(subjects: list[dict]) -> list[dict[str, str]]:
                 actions.append("approval_expired")
             if state["governance"]["waiver_expiry_state"] == "expiring_soon":
                 actions.append("waiver_expiring_soon")
+            if state["governance"]["escalation_required"]:
+                actions.append("escalation_required")
             if not actions:
                 continue
             rows.append(
@@ -1475,6 +1604,294 @@ def reviewer_actions_markdown(rows: list[dict[str, str]]) -> bytes:
         )
     lines.append("")
     return ("\n".join(lines)).encode("utf-8")
+
+
+def artifact_type_action_rows(subjects: list[dict]) -> list[dict[str, str]]:
+    rows = []
+    for subject in subjects:
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            actions = []
+            if state["governance"]["awaiting_approval"]:
+                actions.append("awaiting_approval")
+            if state["governance"]["awaiting_approval"] and state["governance"]["review_blocking"]:
+                actions.append("blocked_awaiting_approval")
+            if state["governance"]["review_due_status"] == "overdue":
+                actions.append("review_overdue")
+            if state["governance"]["dual_review_required"] and not state["governance"]["dual_review_satisfied"]:
+                actions.append("dual_review_pending")
+            if state["governance"]["approval_state"] == "expiring_soon":
+                actions.append("approval_expiring_soon")
+            if state["governance"]["approval_state"] == "expired":
+                actions.append("approval_expired")
+            if state["governance"]["waiver_expiry_state"] == "expiring_soon":
+                actions.append("waiver_expiring_soon")
+            if state["governance"]["escalation_required"]:
+                actions.append("escalation_required")
+            if not actions:
+                continue
+            rows.append(
+                {
+                    "artifact_type": artifact_kind,
+                    "architecture_subject": subject["mapping"]["element_name"],
+                    "reviewer_group": state["governance"]["reviewer_group"],
+                    "approval_group": state["governance"]["approval_group"],
+                    "actions": ", ".join(actions),
+                    "governed_maturity_state": state["governance"]["governed_maturity_state"],
+                    "approval_state": state["governance"]["approval_state"],
+                    "review_due_status": state["governance"]["review_due_status"],
+                }
+            )
+    return sorted(rows, key=lambda row: (row["artifact_type"], row["architecture_subject"]))
+
+
+def artifact_type_actions_markdown(rows: list[dict[str, str]]) -> bytes:
+    lines = [
+        "# Artifact-Type Action Summary",
+        "",
+        "This file groups current review and approval actions by artifact type.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No artifact-type actions currently derived.", ""])
+        return ("\n".join(lines)).encode("utf-8")
+    current_kind = None
+    for row in rows:
+        if row["artifact_type"] != current_kind:
+            current_kind = row["artifact_type"]
+            lines.extend([f"## {current_kind}", ""])
+        lines.append(
+            f"- {row['architecture_subject']}: {row['actions']} "
+            f"(reviewer_group={row['reviewer_group']}, approval_group={row['approval_group']}, "
+            f"governed={row['governed_maturity_state']}, approval_state={row['approval_state']}, "
+            f"review_due_status={row['review_due_status']})"
+        )
+    lines.append("")
+    return ("\n".join(lines)).encode("utf-8")
+
+
+def attention_now_rows(subjects: list[dict]) -> list[dict[str, str]]:
+    rows = []
+    for subject in subjects:
+        flags = subject["domain_flags"]
+        trust_boundary = (
+            flags.get("handles_secrets")
+            or flags.get("physical_control") == "direct"
+            or flags.get("internet_exposure") == "public"
+        )
+        ai_related = flags.get("ai_decision_role") not in {"none", "unspecified", ""}
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            governance = state["governance"]
+            selected = state["selected_source"]
+            categories = []
+            notes = []
+            if governance["approval_state"] == "expired":
+                categories.append("approval_expired_now")
+                notes.append("approval state is expired")
+            if governance["awaiting_approval"] and governance["review_blocking"]:
+                categories.append("blocked_awaiting_approval")
+                notes.append("governed posture is blocked awaiting approval")
+            if governance["dual_review_required"] and not governance["dual_review_satisfied"]:
+                categories.append("dual_review_pending")
+                notes.append("secondary approval is still missing")
+            if governance["waiver_expiry_state"] == "expiring_soon":
+                categories.append("waiver_expiring_soon")
+                notes.append("waiver is approaching expiry")
+            if governance["escalation_required"]:
+                categories.append("escalation_required")
+                notes.append(f"escalation status is {governance['escalation_status']}")
+            if trust_boundary and state["freshness_state"] == "expired":
+                categories.append("stale_trust_boundary")
+                notes.append("expired evidence on a trust-boundary or control-sensitive subject")
+            if ai_related and artifact_kind == "provenance" and selected and selected.get("provenance_assurance_level") == "reference_only":
+                categories.append("low_assurance_ai_provenance")
+                notes.append("AI provenance is still reference_only")
+            if not categories:
+                continue
+            rows.append(
+                {
+                    "architecture_subject": subject["mapping"]["element_name"],
+                    "artifact_type": artifact_kind,
+                    "reviewer_group": governance["reviewer_group"],
+                    "approval_group": governance["approval_group"],
+                    "evidence_support_state": state["evidence_support_state"],
+                    "approval_presence_state": governance["approval_presence_state"],
+                    "approval_state": governance["approval_state"],
+                    "governed_maturity_state": governance["governed_maturity_state"],
+                    "freshness_state": state["freshness_state"],
+                    "categories": ", ".join(categories),
+                    "notes": "; ".join(notes),
+                }
+            )
+    return sorted(rows, key=lambda row: (row["architecture_subject"], row["artifact_type"], row["categories"]))
+
+
+def attention_now_markdown(rows: list[dict[str, str]]) -> bytes:
+    lines = [
+        "# Attention Now",
+        "",
+        "This file highlights the current static attention points across artifact governance.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No immediate attention items were derived.", ""])
+        return ("\n".join(lines)).encode("utf-8")
+
+    grouped: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        for category in row["categories"].split(", "):
+            grouped.setdefault(category, []).append(row)
+
+    for category in sorted(grouped):
+        lines.extend([f"## {category}", ""])
+        for row in grouped[category]:
+            lines.append(
+                f"- {row['architecture_subject']} / {row['artifact_type']}: "
+                f"governed={row['governed_maturity_state']}, evidence_support={row['evidence_support_state']}, "
+                f"approval_presence={row['approval_presence_state']}, approval_state={row['approval_state']}, "
+                f"freshness={row['freshness_state']} ({row['notes']})"
+            )
+        lines.append("")
+
+    return ("\n".join(lines)).encode("utf-8")
+
+
+def count_action_categories(rows: list[dict[str, str]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        for category in row["categories"].split(", "):
+            counts[category] = counts.get(category, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def trust_boundary_rows(subjects: list[dict]) -> list[dict[str, str]]:
+    rows = []
+    for subject in subjects:
+        flags = subject["domain_flags"]
+        categories = []
+        name = subject["mapping"]["element_name"].lower()
+        if "identity" in name:
+            categories.append("identity")
+        if flags.get("handles_secrets") or "secret" in name:
+            categories.append("secrets")
+        if flags.get("physical_control") == "direct":
+            categories.append("cyber_physical_control")
+        if flags.get("ai_decision_role") not in {"none", "unspecified", ""}:
+            categories.append("ai_ml_provenance_sensitive")
+        if not categories:
+            continue
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            if (
+                state["governance"]["review_blocking"]
+                or state["governance"]["escalation_required"]
+                or state["governance"]["waiver_active"]
+                or state["freshness_state"] == "expired"
+                or (
+                    artifact_kind == "provenance"
+                    and state["selected_source"]
+                    and state["selected_source"].get("provenance_assurance_level") == "reference_only"
+                )
+            ):
+                for category in categories:
+                    rows.append(
+                        {
+                            "trust_boundary": category,
+                            "architecture_subject": subject["mapping"]["element_name"],
+                            "artifact_type": artifact_kind,
+                            "governed_maturity_state": state["governance"]["governed_maturity_state"],
+                            "freshness_state": state["freshness_state"],
+                            "approval_state": state["governance"]["approval_state"],
+                            "review_blocking": str(state["governance"]["review_blocking"]).lower(),
+                            "escalation_required": str(state["governance"]["escalation_required"]).lower(),
+                            "waiver_active": str(state["governance"]["waiver_active"]).lower(),
+                            "provenance_assurance_level": state["selected_source"]["provenance_assurance_level"] if state["selected_source"] else "not-applicable",
+                        }
+                    )
+    return sorted(rows, key=lambda row: (row["trust_boundary"], row["architecture_subject"], row["artifact_type"]))
+
+
+def trust_boundary_summary_markdown(rows: list[dict[str, str]]) -> bytes:
+    lines = [
+        "# Trust-Boundary Summary",
+        "",
+        "This file highlights governance posture around the most sensitive trust-boundary categories in the architecture model.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No trust-boundary items currently derived.", ""])
+        return ("\n".join(lines)).encode("utf-8")
+    current_boundary = None
+    for row in rows:
+        if row["trust_boundary"] != current_boundary:
+            current_boundary = row["trust_boundary"]
+            lines.extend([f"## {current_boundary}", ""])
+        lines.append(
+            f"- {row['architecture_subject']} / {row['artifact_type']}: governed={row['governed_maturity_state']}, "
+            f"freshness={row['freshness_state']}, approval_state={row['approval_state']}, "
+            f"review_blocking={row['review_blocking']}, escalation_required={row['escalation_required']}, "
+            f"waiver_active={row['waiver_active']}, provenance_assurance={row['provenance_assurance_level']}"
+        )
+    lines.append("")
+    return ("\n".join(lines)).encode("utf-8")
+
+
+def waiver_owner_rows(subjects: list[dict]) -> list[dict[str, str]]:
+    rows = []
+    for subject in subjects:
+        for artifact_kind in ALL_EVIDENCE_ARTIFACTS:
+            state = subject["artifact_states"][artifact_kind]
+            if not state["governance"]["waiver_active"]:
+                continue
+            rows.append(
+                {
+                    "waiver_owner": state["governance"]["waiver"]["waiver_owner"],
+                    "architecture_subject": subject["mapping"]["element_name"],
+                    "artifact_type": artifact_kind,
+                    "waiver_expiry": state["governance"]["waiver"]["waiver_expiry"],
+                    "waiver_expiry_state": state["governance"]["waiver_expiry_state"],
+                    "reviewer_group": state["governance"]["reviewer_group"],
+                }
+            )
+    return sorted(rows, key=lambda row: (row["waiver_owner"], row["architecture_subject"], row["artifact_type"]))
+
+
+def waiver_owner_markdown(rows: list[dict[str, str]]) -> bytes:
+    lines = [
+        "# Waiver Owner Summary",
+        "",
+        "This file groups active waiver items by waiver owner.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No active waivers.", ""])
+        return ("\n".join(lines)).encode("utf-8")
+    current_owner = None
+    for row in rows:
+        if row["waiver_owner"] != current_owner:
+            current_owner = row["waiver_owner"]
+            lines.extend([f"## {current_owner}", ""])
+        lines.append(
+            f"- {row['architecture_subject']} / {row['artifact_type']}: "
+            f"waiver_expiry={row['waiver_expiry']}, waiver_expiry_state={row['waiver_expiry_state']}, "
+            f"reviewer_group={row['reviewer_group']}"
+        )
+    lines.append("")
+    return ("\n".join(lines)).encode("utf-8")
+
+
+def artifact_type_action_summary(rows: list[dict[str, str]]) -> dict[str, dict[str, int]]:
+    summary: dict[str, dict[str, int]] = {}
+    for row in rows:
+        bucket = summary.setdefault(row["artifact_type"], {})
+        for action in row["actions"].split(", "):
+            bucket[action] = bucket.get(action, 0) + 1
+    return {key: dict(sorted(value.items())) for key, value in sorted(summary.items())}
+
+
+def trust_boundary_summary_counts(rows: list[dict[str, str]]) -> dict[str, int]:
+    return count_values([row["trust_boundary"] for row in rows])
 
 
 def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[str, bytes]:
@@ -1533,6 +1950,7 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                         "applicable": subject["artifacts"][kind]["applicable"],
                         "status": subject["artifacts"][kind]["status"],
                         "origin": subject["artifacts"][kind]["origin"],
+                        "evidence_support_state": subject["artifact_states"][kind]["evidence_support_state"],
                         "derived_maturity_state": subject["artifact_states"][kind]["maturity_state"],
                         "governed_maturity_state": subject["artifact_states"][kind]["governance"]["governed_maturity_state"],
                         "freshness_state": subject["artifact_states"][kind]["freshness_state"],
@@ -1542,11 +1960,14 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                         "reviewer_group": subject["artifact_states"][kind]["governance"]["reviewer_group"],
                         "approval_group": subject["artifact_states"][kind]["governance"]["approval_group"],
                         "approval_required": subject["artifact_states"][kind]["governance"]["approval_required_for_evidence_backed"],
+                        "approval_presence_state": subject["artifact_states"][kind]["governance"]["approval_presence_state"],
+                        "approval_validity_days": subject["artifact_states"][kind]["governance"]["approval_validity_days"],
                         "awaiting_approval": subject["artifact_states"][kind]["governance"]["awaiting_approval"],
                         "approval_state": subject["artifact_states"][kind]["governance"]["approval_state"],
                         "dual_review_required": subject["artifact_states"][kind]["governance"]["dual_review_required"],
                         "secondary_approval_group": subject["artifact_states"][kind]["governance"]["secondary_approval_group"],
                         "dual_review_satisfied": subject["artifact_states"][kind]["governance"]["dual_review_satisfied"],
+                        "secondary_signoff_present": subject["artifact_states"][kind]["governance"]["secondary_signoff_present"],
                         "escalation_group": subject["artifact_states"][kind]["governance"]["escalation_group"],
                         "next_review_due": subject["artifact_states"][kind]["governance"]["next_review_due"],
                         "review_due_status": subject["artifact_states"][kind]["governance"]["review_due_status"],
@@ -1561,6 +1982,7 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                     for kind in ARTIFACT_KINDS
                 },
                 "provenance": {
+                    "evidence_support_state": subject["artifact_states"]["provenance"]["evidence_support_state"],
                     "derived_maturity_state": subject["artifact_states"]["provenance"]["maturity_state"],
                     "governed_maturity_state": subject["artifact_states"]["provenance"]["governance"]["governed_maturity_state"],
                     "freshness_state": subject["artifact_states"]["provenance"]["freshness_state"],
@@ -1570,11 +1992,14 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
                     "reviewer_group": subject["artifact_states"]["provenance"]["governance"]["reviewer_group"],
                     "approval_group": subject["artifact_states"]["provenance"]["governance"]["approval_group"],
                     "approval_required": subject["artifact_states"]["provenance"]["governance"]["approval_required_for_evidence_backed"],
+                    "approval_presence_state": subject["artifact_states"]["provenance"]["governance"]["approval_presence_state"],
+                    "approval_validity_days": subject["artifact_states"]["provenance"]["governance"]["approval_validity_days"],
                     "awaiting_approval": subject["artifact_states"]["provenance"]["governance"]["awaiting_approval"],
                     "approval_state": subject["artifact_states"]["provenance"]["governance"]["approval_state"],
                     "dual_review_required": subject["artifact_states"]["provenance"]["governance"]["dual_review_required"],
                     "secondary_approval_group": subject["artifact_states"]["provenance"]["governance"]["secondary_approval_group"],
                     "dual_review_satisfied": subject["artifact_states"]["provenance"]["governance"]["dual_review_satisfied"],
+                    "secondary_signoff_present": subject["artifact_states"]["provenance"]["governance"]["secondary_signoff_present"],
                     "escalation_group": subject["artifact_states"]["provenance"]["governance"]["escalation_group"],
                     "next_review_due": subject["artifact_states"]["provenance"]["governance"]["next_review_due"],
                     "review_due_status": subject["artifact_states"]["provenance"]["governance"]["review_due_status"],
@@ -1609,6 +2034,10 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
     evidence_rows = build_evidence_rows(subjects)
     summary = governance_summary(subjects)
     action_rows = reviewer_action_rows(subjects)
+    artifact_action_rows = artifact_type_action_rows(subjects)
+    attention_rows = attention_now_rows(subjects)
+    trust_rows = trust_boundary_rows(subjects)
+    waiver_rows = waiver_owner_rows(subjects)
 
     files["coverage-matrix.csv"] = csv_text(coverage_rows).encode("utf-8")
     files["coverage-matrix.md"] = markdown_table(
@@ -1641,11 +2070,14 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
             "next_review_due",
             "review_due_status",
             "approval_required",
+            "approval_presence_state",
+            "approval_validity_days",
             "awaiting_approval",
             "approval_state",
             "dual_review_required",
             "secondary_approval_group",
             "dual_review_satisfied",
+            "secondary_signoff_present",
             "escalation_required",
             "escalation_status",
             "escalation_owner",
@@ -1667,16 +2099,21 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
             "policy_status",
             "derived_maturity_state",
             "governed_maturity_state",
+            "evidence_support_state",
             "freshness_state",
             "precedence_outcome",
         ],
         "A selected source is the current best admissible source for that artifact type. Supporting sources still matter, but they did not win precedence. Real local files appear with input_state=local-file. Governed maturity reflects review blocking, approval requirements, and waiver handling on top of raw evidence state.",
     ).encode("utf-8")
     files["governance-summary.md"] = governance_summary_markdown(summary)
+    files["artifact-type-actions.md"] = artifact_type_actions_markdown(artifact_action_rows)
+    files["attention-now.md"] = attention_now_markdown(attention_rows)
     files["reviewer-actions.md"] = reviewer_actions_markdown(action_rows)
+    files["trust-boundary-summary.md"] = trust_boundary_summary_markdown(trust_rows)
+    files["waiver-summary.md"] = waiver_owner_markdown(waiver_rows)
 
     manifest = {
-        "schema_version": "10.0",
+        "schema_version": "13.0",
         "source_of_truth": "model/workspace.dsl",
         "derived_from": "model/workspace.json",
         "policy_file": "model/supply-chain-mapping.yaml",
@@ -1688,7 +2125,14 @@ def generate_payloads(workspace: dict, mapping: dict, evidence: dict) -> dict[st
         "evidence_sha256": sha256_bytes(json_bytes(evidence)),
         "tracked_subject_count": len(manifest_subjects),
         "governance_summary": summary,
+        "artifact_type_action_count": len(artifact_action_rows),
+        "artifact_type_action_summary": artifact_type_action_summary(artifact_action_rows),
+        "attention_now_count": len(attention_rows),
+        "attention_now_by_category": count_action_categories(attention_rows),
         "reviewer_action_count": len(action_rows),
+        "trust_boundary_item_count": len(trust_rows),
+        "trust_boundary_summary": trust_boundary_summary_counts(trust_rows),
+        "waiver_owner_action_count": len(waiver_rows),
         "tracked_subjects": manifest_subjects,
     }
     files["manifest.json"] = json_bytes(manifest)

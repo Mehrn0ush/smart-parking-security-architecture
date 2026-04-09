@@ -15,7 +15,7 @@
           "id" : "322",
           "name" : "Entrance Camera",
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa9687d2-2342-4ea4-83e9-e03e842058f8.7bcb942c-e9fd-41bd-ae74-10fca16c3840"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.a855efc1-c60e-4de9-b2f0-5dcd639c2139.e4733348-1ef8-4d00-b6d7-c60a0c35a420"
           },
           "tags" : "Element,Infrastructure Node"
         }, {
@@ -24,7 +24,7 @@
           "id" : "323",
           "name" : "Exit Camera",
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa9687d2-2342-4ea4-83e9-e03e842058f8.87779243-3ea4-45ef-b144-8201468b4210"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.a855efc1-c60e-4de9-b2f0-5dcd639c2139.a5eff9db-f22a-4040-935a-62c0663e0de0"
           },
           "tags" : "Element,Infrastructure Node"
         }, {
@@ -33,14 +33,14 @@
           "id" : "324",
           "name" : "Parking Area Cameras",
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa9687d2-2342-4ea4-83e9-e03e842058f8.290b458b-5d0f-4c91-8fbc-178d126559f7"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.a855efc1-c60e-4de9-b2f0-5dcd639c2139.fb67d341-6ef6-4630-a8c5-664fa7f520e8"
           },
           "tags" : "Element,Infrastructure Node"
         } ],
         "instances" : "1",
         "name" : "Camera Network",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa9687d2-2342-4ea4-83e9-e03e842058f8"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.a855efc1-c60e-4de9-b2f0-5dcd639c2139"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "ONVIF"
@@ -54,7 +54,7 @@
           "id" : "326",
           "name" : "Entry Gate",
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa6b36b5-9ff9-4396-bf87-b7b2b1239b68.e04180d8-a3ee-446f-a597-0e7ee20cb318"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.f9013a79-6d7b-4cfe-98ba-1a90204c3a84.9439851e-7e35-4fbf-98a3-11c4825dafa0"
           },
           "tags" : "Element,Infrastructure Node"
         }, {
@@ -63,14 +63,14 @@
           "id" : "327",
           "name" : "Exit Gate",
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa6b36b5-9ff9-4396-bf87-b7b2b1239b68.04f2fea9-7ba0-4f79-a87b-0b02d56ed59d"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.f9013a79-6d7b-4cfe-98ba-1a90204c3a84.e69e9a50-1123-4d11-8751-24c723bb40e6"
           },
           "tags" : "Element,Infrastructure Node"
         } ],
         "instances" : "1",
         "name" : "Gate Controller",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.fa6b36b5-9ff9-4396-bf87-b7b2b1239b68"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.f9013a79-6d7b-4cfe-98ba-1a90204c3a84"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Modbus"
@@ -82,7 +82,7 @@
         "id" : "298",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.0fdd90e3-3d32-4f23-9b02-d6569f2a13c8"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.17de2637-8f62-4950-8879-12480ce1fc47"
         },
         "relationships" : [ {
           "description" : "Manages ANPR service containers",
@@ -121,7 +121,7 @@
         "id" : "299",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.2894bac2-d71a-4920-99dc-92e6822846c0"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.4ecc1add-17d1-409d-98ad-689f9ea10439"
         },
         "relationships" : [ {
           "description" : "Caches video clips locally",
@@ -153,7 +153,7 @@
         "id" : "301",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.d5ff448a-c824-41e0-bc1c-cb285dc99896"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.eb70fc3b-48e3-4bdb-9467-fec39741991f"
         },
         "relationships" : [ {
           "description" : "Stores events locally during outages",
@@ -213,7 +213,7 @@
         "id" : "303",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.bfac1e0f-06ec-45aa-b068-70d64c94b57c"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.f8a34311-8433-4d3e-92f1-75a4342f905f"
         },
         "relationships" : [ {
           "description" : "Provides real-time ANPR inference",
@@ -252,7 +252,7 @@
         "id" : "306",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.390b6eac-bedb-41ad-aa31-c2ec083b570c"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.b91c9fa0-2cdc-4638-8e2e-7a795421818e"
         },
         "relationships" : [ {
           "description" : "Enables offline operation",
@@ -277,7 +277,7 @@
         "id" : "314",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.ef631e8c-90a7-4136-a994-b8e451a28cae"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.b0acd0f5-fb8b-46eb-8b98-c0c011ee8cfc"
         },
         "relationships" : [ {
           "description" : "Secures ANPR service communications",
@@ -309,7 +309,7 @@
         "id" : "317",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39.964aff7a-7a9f-4a68-b267-6dd2e737be89"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9.c3986c9c-7645-41f5-a261-798cf440dd95"
         },
         "relationships" : [ {
           "description" : "Loads protocol adapter plugins",
@@ -348,7 +348,7 @@
       "instances" : "1",
       "name" : "Edge Cluster",
       "properties" : {
-        "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.59e3ebff-b6b2-4f2c-a85a-6b762be75a39"
+        "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.5e1e00e5-530d-4d40-aae8-f330cf4488d9"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "K3s"
@@ -360,7 +360,7 @@
         "id" : "329",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.577a872e-3965-424a-80da-169318a5a575.f66a2a8f-1021-459f-b739-a8a6f11822cd"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.7d96dfbe-2db3-44d9-b0db-bd7f2ce6aa81.cffeb1aa-19a5-4a6d-8115-44dd75069ec0"
         },
         "relationships" : [ {
           "description" : "Aggregates data from edge devices",
@@ -392,7 +392,7 @@
       "instances" : "1",
       "name" : "Fog Cluster",
       "properties" : {
-        "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.577a872e-3965-424a-80da-169318a5a575"
+        "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.7d96dfbe-2db3-44d9-b0db-bd7f2ce6aa81"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "Kubernetes"
@@ -405,7 +405,7 @@
           "id" : "333",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.c92327b8-611d-48fd-8571-36a276650a37.f3700c0c-93f0-4ce7-9310-d71129ff6b6a"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.24b53eeb-d1ba-433c-a4bb-92c4950a9499.89ef6032-9c7b-4b22-b16f-90ad8f83fab1"
           },
           "relationships" : [ {
             "description" : "Routes ANPR requests to v2 API",
@@ -458,7 +458,7 @@
         "instances" : "1",
         "name" : "API Gateway Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.c92327b8-611d-48fd-8571-36a276650a37"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.24b53eeb-d1ba-433c-a4bb-92c4950a9499"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kong/AWS API Gateway"
@@ -470,7 +470,7 @@
           "id" : "336",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.a8ed405f-a000-44cc-bd71-6c4ea254e506.a7d0d780-a025-4453-b0a9-4b87ca33791c"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.422eb705-de2d-4a8a-b792-a7f372803c43.dce70a1a-bc62-45fa-9615-bdc8ed010bb2"
           },
           "relationships" : [ {
             "description" : "Validates 'license_plate_read' schema",
@@ -523,7 +523,7 @@
           "id" : "340",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.a8ed405f-a000-44cc-bd71-6c4ea254e506.eb05f7a7-4938-4a85-af1b-730e3b6e1546"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.422eb705-de2d-4a8a-b792-a7f372803c43.692511ff-efd1-4e62-b3e7-ef596720d4c8"
           },
           "relationships" : [ {
             "description" : "Provides Vehicle entity definitions",
@@ -562,7 +562,7 @@
           "id" : "342",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.a8ed405f-a000-44cc-bd71-6c4ea254e506.61ca1db3-b03e-44a2-85db-44d9adbf4d55"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.422eb705-de2d-4a8a-b792-a7f372803c43.76306628-ca26-4dbf-89d2-bf1647faff62"
           },
           "relationships" : [ {
             "description" : "Provides training datasets",
@@ -594,7 +594,7 @@
         "instances" : "1",
         "name" : "Data Management Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.a8ed405f-a000-44cc-bd71-6c4ea254e506"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.422eb705-de2d-4a8a-b792-a7f372803c43"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker"
@@ -606,7 +606,7 @@
           "id" : "345",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f2e066b1-d2ec-4187-a664-f6a87bb414cd.06f926c1-8aa5-475b-95fc-1802781bb744"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.0a684b3c-2635-41df-aeb3-5c5423dd9dad.f780b776-44f0-4484-acd9-b1c17d44b2ba"
           },
           "relationships" : [ {
             "description" : "Consumes validated 'license_plate_read' events",
@@ -652,7 +652,7 @@
         "instances" : "1",
         "name" : "Event Bus Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f2e066b1-d2ec-4187-a664-f6a87bb414cd"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.0a684b3c-2635-41df-aeb3-5c5423dd9dad"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Apache Kafka"
@@ -664,7 +664,7 @@
           "id" : "352",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2f1c9d85-7c8f-407c-8a27-0a88285651ef.037114c3-94ca-4cb6-bf31-7675e25becef"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.1926da02-1b2e-4aee-b437-74ecccb158c6.47a4e108-74a6-4164-ad58-498df3a2bf89"
           },
           "relationships" : [ {
             "description" : "Checks permissions and rules",
@@ -682,7 +682,7 @@
           "id" : "358",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2f1c9d85-7c8f-407c-8a27-0a88285651ef.974d4767-3756-47cf-955c-45f1d67ee911"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.1926da02-1b2e-4aee-b437-74ecccb158c6.1a3ccbb1-fc69-44db-a407-e8f941a432f8"
           },
           "relationships" : [ {
             "description" : "Updates occupancy data",
@@ -700,7 +700,7 @@
           "id" : "363",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2f1c9d85-7c8f-407c-8a27-0a88285651ef.889109bf-5859-4fc0-be12-27a065a7a883"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.1926da02-1b2e-4aee-b437-74ecccb158c6.78a34099-0ed2-4ed3-9d7e-c5e9840f222f"
           },
           "relationships" : [ {
             "description" : "Updates payment records",
@@ -718,7 +718,7 @@
           "id" : "368",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2f1c9d85-7c8f-407c-8a27-0a88285651ef.a08f5f33-087e-40eb-8289-30031602054d"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.1926da02-1b2e-4aee-b437-74ecccb158c6.d5a22413-3ef6-4379-88a2-9342bee3c984"
           },
           "tags" : "Container Instance"
         } ],
@@ -728,7 +728,7 @@
         "instances" : "1",
         "name" : "Microservices Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2f1c9d85-7c8f-407c-8a27-0a88285651ef"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.1926da02-1b2e-4aee-b437-74ecccb158c6"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker"
@@ -740,7 +740,7 @@
           "id" : "371",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4.c20ad81e-d5ea-427d-a30c-ca523de0d887"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5.7e347214-ace5-44a6-b7cd-e5d08866b3db"
           },
           "relationships" : [ {
             "description" : "Validates data schemas for training",
@@ -779,7 +779,7 @@
           "id" : "373",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4.d01e72a1-9ab8-4635-92ac-09741f6b3df1"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5.2b5f11ed-8ef3-42a0-96f6-42afc610aaed"
           },
           "relationships" : [ {
             "description" : "Provides ANPR model versions",
@@ -811,7 +811,7 @@
           "id" : "378",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4.190e1c12-cf41-4486-8fff-e90808262bbf"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5.47df8d77-6141-4351-89da-30e8589b21d4"
           },
           "relationships" : [ {
             "description" : "Routes inference requests (A/B testing)",
@@ -843,7 +843,7 @@
           "id" : "383",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4.b87f9a1e-9caf-47a2-a861-0969c74dadda"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5.32a37169-e502-462e-85b8-ee62e52840e4"
           },
           "relationships" : [ {
             "description" : "Triggers retraining on drift detection",
@@ -875,7 +875,7 @@
           "id" : "387",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4.a3f3f553-7276-409c-85c6-53ea1cf252fc"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5.f1d6a730-cbaf-4ed4-9d1f-63f66647c62e"
           },
           "relationships" : [ {
             "description" : "Uses entity definitions for feature engineering",
@@ -907,7 +907,7 @@
         "instances" : "1",
         "name" : "MLOps Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.e362d952-3351-4d86-934d-7bb3a04f69b4"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.c66ff1f2-e2bc-40b3-a253-736003e544d5"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kubernetes"
@@ -919,7 +919,7 @@
           "id" : "395",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.388e6d5a-8c13-454d-93b1-40c0b86f4fb9.fa536093-a3b5-41e1-a610-3770ef665eda"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.430c7ff6-ea61-430d-8422-5e4e78aa8c14.d670897d-fc3f-4e97-8c9a-8d7fea0c44f3"
           },
           "relationships" : [ {
             "description" : "Deploys software updates",
@@ -951,7 +951,7 @@
         "instances" : "1",
         "name" : "OTA Management Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.388e6d5a-8c13-454d-93b1-40c0b86f4fb9"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.430c7ff6-ea61-430d-8422-5e4e78aa8c14"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker"
@@ -963,7 +963,7 @@
           "id" : "400",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915.3e7cd6c1-25a6-47d1-85ae-c6d7a2e57854"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c.475d8eab-3c52-4c0b-a943-76f39d9a658b"
           },
           "relationships" : [ {
             "description" : "Provides OAuth2 client credentials",
@@ -1023,7 +1023,7 @@
           "id" : "407",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915.17c22d02-f431-43db-ac71-7e53989cf564"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c.86f61d8f-ef9d-4318-a468-83c03d98bf28"
           },
           "relationships" : [ {
             "description" : "Issues X.509 certificates for K3s nodes",
@@ -1062,7 +1062,7 @@
           "id" : "412",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915.32527d84-c05d-489a-9841-a941ef45f2bc"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c.a9e25da9-18b9-4242-9b95-d207711bc2db"
           },
           "relationships" : [ {
             "description" : "Enforces ANPR-only permissions",
@@ -1108,7 +1108,7 @@
           "id" : "418",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915.3034592d-c3b1-4557-918a-da7067a82231"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c.27fc1074-3977-40a1-8464-7e91c54890c3"
           },
           "relationships" : [ {
             "description" : "Monitors ANPR service security events",
@@ -1161,7 +1161,7 @@
           "id" : "425",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915.f2601f0e-f2a7-4cd1-bafe-7a686270f9ea"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c.2dfbeb07-7a5a-4ed7-be22-ffcbda3980d4"
           },
           "relationships" : [ {
             "description" : "Provides encryption keys for edge storage",
@@ -1200,7 +1200,7 @@
         "instances" : "1",
         "name" : "Security Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.f5ab622a-2c7f-406a-8fd0-3e440ce54915"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.21dee0e6-63f3-47ab-b938-e2ef6228905c"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kubernetes"
@@ -1212,7 +1212,7 @@
           "id" : "428",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.dc87b77a-f7b4-4171-82cb-7c770dc0b098"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.fbf70d1e-cd2b-4bdb-af69-4f4e9d4d9867"
           },
           "relationships" : [ {
             "description" : "Collects ANPR accuracy % and latency metrics",
@@ -1265,7 +1265,7 @@
           "id" : "435",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.7c5374ad-2db1-4e6d-abb3-c5305dcea5f2"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.eb8d16af-b650-4219-9a90-97fd20268334"
           },
           "relationships" : [ {
             "description" : "Aggregates K3s orchestration logs",
@@ -1325,7 +1325,7 @@
           "id" : "443",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.073e1709-6a6d-4e06-b6ea-defead80c41e"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.172a32ee-6fcb-4a79-aa31-9f1828d05325"
           },
           "relationships" : [ {
             "description" : "Traces ANPR processing flows",
@@ -1385,7 +1385,7 @@
           "id" : "451",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.50141fa2-ed98-4ae2-8b90-632460b54503"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.6ee54689-1a7f-4032-b161-d03942c905f0"
           },
           "relationships" : [ {
             "description" : "Displays performance metrics",
@@ -1431,7 +1431,7 @@
           "id" : "455",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.ae73af5b-5906-452b-8c78-e430cc147895"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.3c4f0df5-582d-4d54-91c9-411c09ba47a4"
           },
           "relationships" : [ {
             "description" : "Collects ANPR model accuracy metrics",
@@ -1477,7 +1477,7 @@
           "id" : "462",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f.0025fc70-7a43-4534-9851-dc2ee38e9f95"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c.cc18bc8b-96a5-4a91-99c8-70139810f8fd"
           },
           "relationships" : [ {
             "description" : "Integrates security alerts",
@@ -1523,7 +1523,7 @@
         "instances" : "1",
         "name" : "Observability Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.567620f7-ffda-459c-8038-4b4d0918474f"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.de30df90-8be8-4d55-bdfb-b4d1a212022c"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kubernetes"
@@ -1535,7 +1535,7 @@
           "id" : "470",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.df6b0a20-9b79-48e3-9acd-80be68b016bd"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.ee768283-6e9d-4861-a0a4-2c9076f87fba"
           },
           "relationships" : [ {
             "description" : "Provisions K3s edge clusters",
@@ -1588,7 +1588,7 @@
           "id" : "477",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.f7221321-fe99-4e40-9018-fba2c3d4e651"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.e7a2c8b2-b2d5-4449-84ed-c1ecc6f4c34f"
           },
           "relationships" : [ {
             "description" : "Provides dynamic configuration",
@@ -1648,7 +1648,7 @@
           "id" : "485",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.e4fd6505-fdfe-43bb-a16d-ac58e642632d"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.6b78f50c-2e93-4aa3-8d75-9423429a2ad3"
           },
           "relationships" : [ {
             "description" : "Deploys ML models",
@@ -1701,7 +1701,7 @@
           "id" : "490",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.641aab82-d4a5-4e9b-a0a7-ee3cd711fb30"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.d7b2f480-9b59-4fa1-902c-e65f49749980"
           },
           "relationships" : [ {
             "description" : "Manages tenant-specific infrastructure",
@@ -1740,7 +1740,7 @@
           "id" : "494",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.02d81ac4-2e82-413c-a370-11b00a2abab7"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.89e0164c-8e81-40e1-ba6e-a269d117b352"
           },
           "relationships" : [ {
             "description" : "Controls ANPR feature toggles",
@@ -1793,7 +1793,7 @@
           "id" : "502",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f.74be65ae-7931-4042-b7b2-16907cbbf140"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5.399fb72d-061f-4806-ab3b-15ac322a5778"
           },
           "relationships" : [ {
             "description" : "Provides encrypted secrets",
@@ -1853,7 +1853,7 @@
         "instances" : "1",
         "name" : "Configuration Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.1779eafa-8d08-46bc-b851-543635265a8f"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.8003f31b-4c99-4e9d-b072-55a8871b54d5"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kubernetes"
@@ -1865,7 +1865,7 @@
           "id" : "513",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308.3f19fc92-4174-4a8b-bd66-410c4fe9e7ad"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246.f181f690-ef03-4bf7-9a31-a90fc8342ec7"
           },
           "relationships" : [ {
             "description" : "Provides plugin runtime for protocol adapters",
@@ -1904,7 +1904,7 @@
           "id" : "516",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308.4b291790-29f6-4cba-8efd-6ddb90f486d1"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246.f991e236-11a2-47e6-83e7-0b8e6079eddd"
           },
           "relationships" : [ {
             "description" : "Registers protocol adapter plugins",
@@ -1950,7 +1950,7 @@
           "id" : "520",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308.7710a438-f0a0-4b5f-95b6-bfc3a2d6c119"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246.36362f8a-01a8-4f3a-82e1-167c197c9dd5"
           },
           "relationships" : [ {
             "description" : "Integrates with main API gateway",
@@ -1996,7 +1996,7 @@
           "id" : "528",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308.b12eb632-4a8b-49ef-8d90-92930e19c9ca"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246.48fe7353-d70c-4d7c-8e47-f7b7fa92948b"
           },
           "relationships" : [ {
             "description" : "Integrates with existing ANPR",
@@ -2042,7 +2042,7 @@
           "id" : "535",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308.e7b3cc2e-49c9-4331-9c4d-ea5ee557ab79"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246.5f695ada-6faa-4834-8ade-0e6b931b8308"
           },
           "relationships" : [ {
             "description" : "Validates data sink schemas",
@@ -2081,7 +2081,7 @@
         "instances" : "1",
         "name" : "Platform Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.7e271606-ac38-4731-a2bd-931d1da59308"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.54c89177-9ee6-47ea-91a1-098b8383f246"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Kubernetes"
@@ -2093,7 +2093,7 @@
           "id" : "542",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2cee8904-5c1a-4abd-8106-35c7c45b7de1.04a341e7-9239-494d-adbe-afa1d754d5c7"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.716f1377-7e9f-43eb-a1de-221793217bb7.9a85513f-cf59-433e-bde6-2dcaf2ca230d"
           },
           "tags" : "Container Instance"
         } ],
@@ -2103,7 +2103,7 @@
         "instances" : "1",
         "name" : "Database Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.2cee8904-5c1a-4abd-8106-35c7c45b7de1"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.716f1377-7e9f-43eb-a1de-221793217bb7"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "PostgreSQL"
@@ -2115,7 +2115,7 @@
           "id" : "549",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.539d07d2-66f5-41ba-94b1-564c22741a58.d8375b89-c6b9-4c3b-a659-5388864ec0e9"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.162bd919-29e0-4134-869b-ba9ea4badbfa.6f4747f1-002c-4d85-a5d8-d9629564550f"
           },
           "tags" : "Container Instance"
         } ],
@@ -2125,7 +2125,7 @@
         "instances" : "1",
         "name" : "Data Lake Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.539d07d2-66f5-41ba-94b1-564c22741a58"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.162bd919-29e0-4134-869b-ba9ea4badbfa"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Apache Iceberg/S3"
@@ -2137,7 +2137,7 @@
           "id" : "559",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.c63e072f-39e7-4969-acae-3a55266bb664.8f8dfe90-2932-49bd-97d5-9c4cb216d15e"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.5ce778b4-7563-43f5-a317-bb3aee5e4f46.a652a9c2-a16c-47f9-b5bf-66a3196ce7ac"
           },
           "tags" : "Container Instance"
         } ],
@@ -2147,7 +2147,7 @@
         "instances" : "1",
         "name" : "Storage Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.c63e072f-39e7-4969-acae-3a55266bb664"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.5ce778b4-7563-43f5-a317-bb3aee5e4f46"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "S3"
@@ -2159,7 +2159,7 @@
           "id" : "563",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.b0d7f82a-3568-457f-b317-72b0196151e3.71fac88b-7374-45f6-8a40-23b4d3911e34"
+            "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.6439725b-26d4-4e5d-b3f6-51980cacd3d3.a5968f15-6a66-46fa-adca-cacd364e81a2"
           },
           "tags" : "Container Instance"
         } ],
@@ -2169,7 +2169,7 @@
         "instances" : "1",
         "name" : "Web Server",
         "properties" : {
-          "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1.b0d7f82a-3568-457f-b317-72b0196151e3"
+          "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae.6439725b-26d4-4e5d-b3f6-51980cacd3d3"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker"
@@ -2180,7 +2180,7 @@
       "instances" : "1",
       "name" : "Cloud Provider",
       "properties" : {
-        "structurizr.dsl.identifier" : "a22a0b13-33ec-477b-8a59-3f6f2aec2caa.df4b548f-2338-4139-aa2b-2b5813e6c3d1"
+        "structurizr.dsl.identifier" : "85f0e39a-ab32-4593-9646-83aa7f5e414c.e776a09a-7f78-4450-b6ca-eee2004e20ae"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "Cloud"

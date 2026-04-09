@@ -30,12 +30,20 @@
           "value": "edge-security-and-crypto-governance"
         },
         {
+          "name": "smartparking.approval_presence_state",
+          "value": "present"
+        },
+        {
           "name": "smartparking.approval_required",
           "value": "false"
         },
         {
           "name": "smartparking.approval_state",
-          "value": "current"
+          "value": "expiring_soon"
+        },
+        {
+          "name": "smartparking.approval_validity_days",
+          "value": "21"
         },
         {
           "name": "smartparking.arch_ref",
@@ -83,7 +91,7 @@
         },
         {
           "name": "smartparking.dual_review_satisfied",
-          "value": "false"
+          "value": "true"
         },
         {
           "name": "smartparking.escalation_group",
@@ -99,11 +107,11 @@
         },
         {
           "name": "smartparking.escalation_required",
-          "value": "true"
+          "value": "false"
         },
         {
           "name": "smartparking.escalation_status",
-          "value": "dual-review-pending"
+          "value": "not-required"
         },
         {
           "name": "smartparking.evidence_kinds",
@@ -116,6 +124,10 @@
         {
           "name": "smartparking.evidence_source_types",
           "value": "edge-access-policy, gateway-security-baseline"
+        },
+        {
+          "name": "smartparking.evidence_support_state",
+          "value": "verified"
         },
         {
           "name": "smartparking.freshness_state",
@@ -131,7 +143,7 @@
         },
         {
           "name": "smartparking.handoff_to",
-          "value": "platform-security-review-board"
+          "value": "none"
         },
         {
           "name": "smartparking.internet_exposure",
@@ -187,7 +199,7 @@
         },
         {
           "name": "smartparking.review_blocking",
-          "value": "true"
+          "value": "false"
         },
         {
           "name": "smartparking.review_cadence",
@@ -224,6 +236,10 @@
         {
           "name": "smartparking.secondary_approval_group",
           "value": "platform-security-review-board"
+        },
+        {
+          "name": "smartparking.secondary_signoff_present",
+          "value": "true"
         },
         {
           "name": "smartparking.selected_evidence_adapter",

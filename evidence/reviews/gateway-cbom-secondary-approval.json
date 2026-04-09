@@ -1,0 +1,9 @@
+{
+  "record_type": "architecture_secondary_approval",
+  "subject": "Gateway Service CBOM",
+  "approval_group": "platform-security-review-board",
+  "signoff_role": "secondary",
+  "approved_at": "2025-08-09",
+  "approved_by": "Platform Security Review Board",
+  "notes": "Local teaching approval record used to demonstrate dual-review satisfaction for a cyber-physical gateway boundary."
+}

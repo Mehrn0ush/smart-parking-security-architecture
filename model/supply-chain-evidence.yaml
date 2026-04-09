@@ -172,7 +172,15 @@
                   {
                     "group": "edge-security-and-crypto-governance",
                     "approved_at": "2025-08-08",
-                    "approved_by": "Platform Security Architecture"
+                    "approved_by": "Platform Security Architecture",
+                    "signoff_role": "primary"
+                  },
+                  {
+                    "group": "platform-security-review-board",
+                    "approved_at": "2025-08-09",
+                    "approved_by": "Platform Security Review Board",
+                    "signoff_role": "secondary",
+                    "record_reference": "evidence/reviews/gateway-cbom-secondary-approval.json"
                   }
                 ]
               },

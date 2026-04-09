@@ -262,6 +262,35 @@ Current milestone 10 result:
 - Identity Provider CBOM is the main expiring-waiver example
 - [`../../bom/reviewer-actions.md`](../../bom/reviewer-actions.md) now groups action items by reviewer group
 
+## Why Milestone 11 Exists
+
+Milestone 10 made approval expiry and dual review explicit, but it still needed more operational clarity for criticality, action separation, and waiver ownership.
+
+Milestone 11 adds:
+
+- criticality-aware approval validity windows
+- separated reviewer actions such as `approval_expired`, `review_overdue`, and `dual_review_pending`
+- waiver summaries grouped by waiver owner
+- explicit secondary signoff visibility
+
+## Why Milestone 12 Exists
+
+Milestone 11 made governance more operational, but some assurance semantics were still easy to conflate.
+
+Milestone 12 adds:
+
+- `evidence_support_state` to show whether the current artifact posture is still only planned, merely linked, or backed by a verified local source
+- `approval_presence_state` to separate "approval exists" from "approval is still current"
+- artifact-type-aware summary counts in [`../../bom/governance-summary.md`](../../bom/governance-summary.md)
+- a concise static attention view in [`../../bom/attention-now.md`](../../bom/attention-now.md)
+
+Current milestone 12 result:
+
+- Gateway Service SBOM remains the clearest "evidence exists but approval is stale" example
+- Gateway Service CBOM shows that dual review can be satisfied while approval still moves toward expiry
+- Edge AI model-package provenance still honestly remains `reference_only`, and the new attention view calls it out as low-assurance AI provenance
+- Secrets Manager VEX now appears both as an escalation item and as a stale trust-boundary artifact in the static attention summary
+
 ## Next Evolution Path
 
 The next steps would be:
@@ -271,3 +300,20 @@ The next steps would be:
 3. enrich CBOM generation with certificate and algorithm discovery
 4. add VEX assertions from real vulnerability analysis
 5. extend tracking to more containers once the conventions are stable
+
+## v1.0 Contract Notes
+
+For the release-hardened repository, the following are treated as stable teaching and automation terms:
+
+- `derived_maturity_state`
+- `governed_maturity_state`
+- `freshness_state`
+- `evidence_support_state`
+- `approval_presence_state`
+- `approval_state`
+- `reference_only`
+
+See:
+
+- [`../schema-contracts.md`](../schema-contracts.md)
+- [`../release-notes-v1.md`](../release-notes-v1.md)

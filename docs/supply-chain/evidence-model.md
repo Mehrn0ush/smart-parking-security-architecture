@@ -404,6 +404,12 @@ Milestone 10 adds one more set of derived interpretations:
 - dual review can be required and still unsatisfied even when one approval already exists
 - waivers can be active and also expiring soon
 
+Milestone 12 tightens the output semantics:
+
+- `evidence_support_state` now tells readers whether the current artifact posture is still only planned, merely linked, or backed by a verified local source
+- `approval_presence_state` now tells readers whether an approval actually exists, separately from whether that approval is still current
+- the static `attention-now.md` view highlights approval-expired items, low-assurance AI provenance, waiver-expiry pressure, and stale trust-boundary evidence without pretending to be a live dashboard
+
 Current milestone 10 examples:
 
 - Gateway Service SBOM has an expired approval

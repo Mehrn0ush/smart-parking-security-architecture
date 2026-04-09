@@ -4,6 +4,8 @@ Recommended repository name: `smart-parking-security-architecture`
 
 This project is a learning-focused, DSL-grounded architecture package for people who want to understand how to design, analyze, and govern a secure Smart Parking platform in the AI age.
 
+Repository release status: `v1.0-style reference release`
+
 It is built around a real Structurizr model, not a fictional whitepaper. The core source of truth is:
 
 - [`model/workspace.dsl`](model/workspace.dsl)
@@ -92,6 +94,9 @@ It combines:
 - [`bom/evidence-matrix.md`](bom/evidence-matrix.md): generated evidence-binding summary
 - [`bom/evidence-matrix.csv`](bom/evidence-matrix.csv): generated machine-readable evidence-binding summary
 - [`bom/governance-summary.md`](bom/governance-summary.md): generated static governance dashboard with maturity, freshness, review, and escalation counts
+- [`bom/artifact-type-actions.md`](bom/artifact-type-actions.md): generated action summary grouped by artifact type
+- [`bom/trust-boundary-summary.md`](bom/trust-boundary-summary.md): generated trust-boundary-focused governance summary
+- [`bom/attention-now.md`](bom/attention-now.md): concise static “what needs attention now” summary
 - [`bom/sbom/`](bom/sbom): generated CycloneDX SBOM scaffolds
 - [`bom/cbom/`](bom/cbom): generated CycloneDX CBOM scaffolds for crypto-relevant containers
 - [`bom/vex/`](bom/vex): generated CycloneDX VEX scaffolds
@@ -113,6 +118,8 @@ It combines:
 - [`docs/supply-chain/mapping-spec.md`](docs/supply-chain/mapping-spec.md): mapping rules for SBOM, CBOM, and VEX
 - [`docs/supply-chain/evidence-model.md`](docs/supply-chain/evidence-model.md): how evidence bindings work and how to interpret evidence maturity
 - [`docs/supply-chain/evidence-adapters.md`](docs/supply-chain/evidence-adapters.md): how local evidence input files are normalized and reviewed
+- [`docs/schema-contracts.md`](docs/schema-contracts.md): stable terminology and generated-output contract notes
+- [`docs/release-notes-v1.md`](docs/release-notes-v1.md): v1.0 release-facing summary
 
 ### Included ADRs
 
@@ -148,6 +155,11 @@ To reduce drift, this package includes:
 - [`docs/10-model-sync-workflow.md`](docs/10-model-sync-workflow.md)
 
 `workspace.json` is generated from the packaged DSL with `structurizr-cli`. The package no longer depends on parent-repository files to work.
+
+One important nuance for contributors:
+
+- Structurizr export is treated as semantically stable, not byte-stable
+- the sync workflow checks semantic equivalence, because byte-for-byte diffs can change without meaning the architecture changed
 
 ## Structurizr And CycloneDX
 
@@ -189,6 +201,9 @@ That means:
 - selected high-risk artifacts can now require dual review, with unmet second approvals shown explicitly
 - waiver reporting now distinguishes active waivers from waivers expiring soon
 - reviewer-group action summaries are generated as static Markdown for repository-friendly review workflows
+- milestone 11 adds criticality-aware approval validity, explicit secondary signoff visibility, and waiver-owner summaries
+- milestone 12 tightens assurance language so outputs now distinguish `evidence_support_state`, `approval_presence_state`, approval currency, governed posture, and provenance assurance
+- governance summaries now include artifact-type breakdowns and a static [`bom/attention-now.md`](bom/attention-now.md) view for immediate follow-up items
 
 Start here:
 
@@ -200,6 +215,25 @@ Start here:
 - [`model/supply-chain-evidence.yaml`](model/supply-chain-evidence.yaml)
 - [`evidence/README.md`](evidence/README.md)
 - [`bom/README.md`](bom/README.md)
+- [`bom/attention-now.md`](bom/attention-now.md)
+- [`docs/schema-contracts.md`](docs/schema-contracts.md)
+- [`docs/release-notes-v1.md`](docs/release-notes-v1.md)
+
+## Stable Contracts
+
+For this v1.0-style release, the repository treats these as stable concepts:
+
+- `derived_maturity_state`
+- `governed_maturity_state`
+- `freshness_state`
+- `evidence_support_state`
+- `approval_presence_state`
+- `approval_state`
+- `reference_only`
+
+The current contract notes are documented in:
+
+- [`docs/schema-contracts.md`](docs/schema-contracts.md)
 
 ## Should `workspace.json` Be Tracked?
 

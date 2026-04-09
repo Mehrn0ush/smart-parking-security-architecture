@@ -315,6 +315,7 @@ Milestone 8 adds governance-specific interpretation on top of those same rules:
 - reviewer groups are now assigned per artifact type in the policy layer
 - the same architecture subject can therefore route SBOM, CBOM, VEX, and provenance review to different teams
 - raw maturity and governed maturity can now diverge when review-blocking rules apply
+- milestone 12 now also keeps `evidence_support_state` separate from approval semantics so verified evidence is not misread as current approval
 - Gateway Service SBOM is the main example: imported CycloneDX evidence still satisfies the raw `evidence_backed` rule, but overdue monthly review downgrades the governed state
 - provenance sources now also distinguish `reference_only` from signed or verified attestation-backed evidence so the repository does not overclaim provenance strength
 
@@ -330,6 +331,7 @@ Milestone 10 extends policy in three more operational ways:
 - approvals can now expire or become expiring soon
 - selected high-risk artifacts can require dual review with a secondary approval group
 - waiver-expiry and reviewer-action summaries are derived from the same policy and evidence layers, rather than tracked separately in prose
+- milestone 12 also adds artifact-type-aware summary counts so `sbom`, `cbom`, `vex`, and `provenance` can be compared consistently in repository outputs
 
 ## CBOM Strategy
 
